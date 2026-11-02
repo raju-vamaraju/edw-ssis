@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="11/15/2020 10:38:25 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="NIGSA939284"
+  DTS:CreatorName="AUR\P799871"
+  DTS:DTSID="{9745122A-4922-49B9-A652-D7BF18056267}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.170"
+  DTS:LocaleID="3081"
+  DTS:ObjectName="02-Get EDW Files"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="1"
+  DTS:VersionBuild="27"
+  DTS:VersionGUID="{3FF3BE2B-EEA9-460C-881A-12D4F4A6DAAE}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Copy file from S3 to D Temp"
+      DTS:CreationName="PragmaticWorks.TaskFactory.Tasks.PowerShell"
+      DTS:Description="TF PowerShell Task"
+      DTS:DTSID="{2B2A38EA-3E2A-4105-9024-D4AEFA810A70}"
+      DTS:ExecutableType="PragmaticWorks.TaskFactory.Tasks.PowerShell"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Copy file from S3 to D Temp"
+      DTS:TaskContact="TF PowerShell Task;SQL Sentry, LLC; Task Factory (c) 2009 - 2019; https://www.sentryone.com;support@sentryone.com"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <PowerShellTask
+          Script="$env:no_proxy = &quot;169.254.169.254,localhost, s3.ap-southeast-2.amazonaws.com&quot;&#xA;&#xA;Remove-Item D:\EDW_latest_Unzipped\*.* -ErrorAction Ignore&#xA;&#xA;#Remove-Item D:\temp\EDW_Source_File\edw_latest.zip -ErrorAction Ignore&#xA;&#xA;#aws s3 cp s3://lz140nonprod-engineering-edw-inbound/edw_latest.zip D:\temp\EDW_Source_File\ -ErrorAction Ignore&#xA;&#xA;&#xA;Expand-Archive -Force D:\temp\EDW_Source_File\edw_latest.Zip D:\EDW_latest_Unzipped&#xA;&#xA;#Expand-Archive -Force 'D:\temp\EDW_Source_File\edw_latest.Zip' 'D:\EDW_latest_Unzipped\'&#xA;&#xA;&#xA;#powershell -command &quot;Expand-Archive -Force 'D:\temp\EDW_Source_File\edw_latest.Zip' 'D:\EDW_latest_Unzipped\'&quot;&#xA;&#xA;#aws s3 rm s3://lz140nonprod-engineering-edw-inbound/edw_latest.zip"
+          ResultsVariable="" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Copy file to S3"
+      DTS:CreationName="PragmaticWorks.TaskFactory.Tasks.PowerShell"
+      DTS:Description="TF PowerShell Task"
+      DTS:Disabled="True"
+      DTS:DTSID="{2BE56606-D419-40B5-9D5E-E6C3BE754153}"
+      DTS:ExecutableType="PragmaticWorks.TaskFactory.Tasks.PowerShell"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Copy file to S3"
+      DTS:TaskContact="TF PowerShell Task;SQL Sentry, LLC; Task Factory (c) 2009 - 2019; https://www.sentryone.com;support@sentryone.com"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <PowerShellTask
+          Script="$env:no_proxy = &quot;169.254.169.254,localhost, s3.ap-southeast-2.amazonaws.com&quot;&#xA;aws s3 cp D:\temp\edw_latest.zip s3://lz140nonprod-engineering-edw-inbound/edw_latest.zip --sse aws:kms --sse-kms-key-id 5311f1c8-ae3d-4e7d-acbf-86ea6186b3b8"
+          ResultsVariable="" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{08AEBA66-8FE0-4D9D-8ED2-403E5D130909}"
+      DTS:From="Package\Copy file to S3"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Copy file from S3 to D Temp" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="217,42"
+          Id="Package\Copy file from S3 to D Temp"
+          TopLeft="213,259" />
+        <NodeLayout
+          Size="150,42"
+          Id="Package\Copy file to S3"
+          TopLeft="239,90" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="317.75,132">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,127"
+              Start="0,0"
+              End="0,119.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,119.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

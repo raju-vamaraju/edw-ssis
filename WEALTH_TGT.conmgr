@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="WEALTH_TGT"
+  DTS:DTSID="{A1098A42-BD8A-44E7-ABBF-EE2C3CEC348D}"
+  DTS:CreationName="OLEDB">
+  <DTS:PropertyExpression
+    DTS:Name="InitialCatalog">@[$Project::pTGT_DatabaseName]</DTS:PropertyExpression>
+  <DTS:PropertyExpression
+    DTS:Name="Password">@[$Project::pTGT_Password]</DTS:PropertyExpression>
+  <DTS:PropertyExpression
+    DTS:Name="ServerName">@[$Project::pTGT_ServerName]</DTS:PropertyExpression>
+  <DTS:PropertyExpression
+    DTS:Name="UserName">@[$Project::pTGT_UserName]</DTS:PropertyExpression>
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectRetryCount="1"
+      DTS:ConnectRetryInterval="5"
+      DTS:ConnectionString="Data Source=casspwin0006.cass.aws.oprd.com.au;User ID=;Initial Catalog=WEALTH_TGT;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;">
+      <DTS:Password
+        DTS:Name="Password"
+        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAbg0YHnU7H0OekDmqb/ddxwAAAAACAAAAAAAQZgAAAAEAACAAAAAiRCOhMGsd2hHJt3LlxtKOynOBGVhtYAH2+nwaXCtJpwAAAAAOgAAAAAIAACAAAAArz3vB9dgb1jkBoIUvIrcdaGfsZecEeyvh8OW27bXSEXAAAACjG91FOxXum3/9XWCLBLHLMjMLHl32T7u+6dT4zKKx9bPIA5FiPEth54mo09bZj5YqZg3GOudHFC32D8XRcPHsfMxNzY3a47VHzhDX9oczHY8W8jFqIBT5/7Ot6EGhcyB5WwYtY3l031/qFXNlRPYuQAAAAPRbHmAdqoAzLUOIElJEkFsMwvMwMyMhMaSD4lS5e7LI/hJRCs4CcVE61aF7THW9buwarEl7K+YBk/kHJEE5jgM=</DTS:Password>
+    </DTS:ConnectionManager>
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="SSIS_Execution_Error_Log.txt"
+  DTS:DTSID="{D92C1FE2-D3B4-4D09-A45E-4CE77784D05A}"
+  DTS:CreationName="FILE">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:FileUsageType="1"
+      DTS:ConnectionString="D:\Wealth_SalesForce_Data_Migration\CRM_Complaints\Audit_Files\SSIS_Execution_Error_Log.txt" />
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

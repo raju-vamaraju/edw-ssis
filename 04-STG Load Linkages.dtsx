@@ -1,0 +1,1971 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="10/9/2020 9:04:57 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="WCRMWITA0006"
+  DTS:CreatorName="AURTEST\p799871t"
+  DTS:DTSID="{36F629D9-889D-4473-9EE2-C1BD3B41A63A}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5467.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="04-STG Load Linkages"
+  DTS:PackageType="5"
+  DTS:VersionBuild="116"
+  DTS:VersionGUID="{B3A1223D-F142-4D17-86DF-462EB761D091}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{21959105-DB99-4D75-ADE2-03D47EB53C5E}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[$Project::pLND_DatabaseName]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="vLND_DB">
+      <DTS:VariableValue
+        DTS:DataType="8">WEALTH_LND</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{B991224A-EA4D-47FB-86A5-D1BFC9E5039F}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="vSQL_Upd">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{2B859DA9-4A15-416B-836B-932A1573469D}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[$Project::pSTG_DatabaseName]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="vSTG_DB">
+      <DTS:VariableValue
+        DTS:DataType="8">WEALTH_STG</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{65121451-D820-48EF-A814-AF6A9ABB2281}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[$Project::pTGT_DatabaseName]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="vTGT_DB">
+      <DTS:VariableValue
+        DTS:DataType="8">WEALTH_TGT</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{39A91544-FEEF-42EC-B2E7-1A1B347F0FB9}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;SELECT   &#xA;ltrim(rtrim(A.FNAME)) as FNAME,  &#xA;ltrim(rtrim(A.EXTRACT_FG)) as EXTRACT_FG&#xA;,ltrim(rtrim(A.[EDW_AR_ID])) as EDW_AR_ID&#xA;,ltrim(rtrim(A.[EDW_IP_ID]))  as LND_EDW_IP_ID&#xA;,ltrim(rtrim(A.IP_ROLE)) as IP_ROLE&#xA;,ltrim(rtrim(REPLACE(REPLACE(PD_REF_ID, CHAR(13), ''), CHAR(10), '') )) as PD_REF_ID&#xA;--,isnull(B.[EDW_IP_ID],'Y')  as LINK_EDW_IP_ID&#xA;,case &#xA;                           when ltrim(rtrim(B.EDW_IP_ID)) =''  or ltrim(rtrim(B.EDW_IP_ID)) is null&#xA;                           then 'Y'&#xA;                           else ltrim(rtrim(B.EDW_IP_ID))&#xA;                   end as LINK_EDW_IP_ID&#xA;&#xA;--,isnull(B.EDW_AR_ID,'Y')  as LINK_EDW_AR_ID&#xA;&#xA;,case &#xA;                           when ltrim(rtrim(B.EDW_AR_ID)) =''  or ltrim(rtrim(B.EDW_AR_ID)) is null&#xA;                           then 'Y'&#xA;                           else ltrim(rtrim(B.EDW_AR_ID))&#xA;                   end as LINK_EDW_AR_ID&#xA;&#xA;&#xA;FROM &quot; &#xA;&#x9;+&#xA;&#x9;&#x9;(DT_WSTR, 20) @[User::vLND_DB]+&quot;.[dbo].[LND_EDW_LINKAGES] A&#xA;left join &quot;+&#xA; &#xA;(DT_WSTR, 20) @[User::vSTG_DB]+&quot;.[dbo].[STG_EDW_LNK_FIN_ACCT_EMP_IP_IDS] B&#xA;&#xA; on ltrim(rtrim(A.[EDW_AR_ID])) = ltrim(rtrim(B.[EDW_AR_ID]))&#xA;and ltrim(rtrim(A.[EDW_IP_ID])) = ltrim(rtrim(B.[EDW_IP_ID]))&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="v_SQL">
+      <DTS:VariableValue
+        DTS:DataType="8">SELECT   
+ltrim(rtrim(A.FNAME)) as FNAME,  
+ltrim(rtrim(A.EXTRACT_FG)) as EXTRACT_FG
+,ltrim(rtrim(A.[EDW_AR_ID])) as EDW_AR_ID
+,ltrim(rtrim(A.[EDW_IP_ID]))  as LND_EDW_IP_ID
+,ltrim(rtrim(A.IP_ROLE)) as IP_ROLE
+,ltrim(rtrim(REPLACE(REPLACE(PD_REF_ID, CHAR(13), ''), CHAR(10), '') )) as PD_REF_ID
+--,isnull(B.[EDW_IP_ID],'Y')  as LINK_EDW_IP_ID
+,case 
+                           when ltrim(rtrim(B.EDW_IP_ID)) =''  or ltrim(rtrim(B.EDW_IP_ID)) is null
+                           then 'Y'
+                           else ltrim(rtrim(B.EDW_IP_ID))
+                   end as LINK_EDW_IP_ID
+
+--,isnull(B.EDW_AR_ID,'Y')  as LINK_EDW_AR_ID
+
+,case 
+                           when ltrim(rtrim(B.EDW_AR_ID)) =''  or ltrim(rtrim(B.EDW_AR_ID)) is null
+                           then 'Y'
+                           else ltrim(rtrim(B.EDW_AR_ID))
+                   end as LINK_EDW_AR_ID
+
+
+FROM WEALTH_LND.[dbo].[LND_EDW_LINKAGES] A
+left join WEALTH_STG.[dbo].[STG_EDW_LNK_FIN_ACCT_EMP_IP_IDS] B
+
+ on ltrim(rtrim(A.[EDW_AR_ID])) = ltrim(rtrim(B.[EDW_AR_ID]))
+and ltrim(rtrim(A.[EDW_IP_ID])) = ltrim(rtrim(B.[EDW_IP_ID]))</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Load EDW_LINKAGES"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{28AAB699-56EF-4EC5-AC20-BD9C105DA15F}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load EDW_LINKAGES"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          autoAdjustBufferSize="true"
+          defaultBufferMaxRows="100000"
+          defaultBufferSize="50485760"
+          version="1">
+          <components>
+            <component
+              refId="Package\Load EDW_LINKAGES\Conditional Split"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+              name="Conditional Split"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Load EDW_LINKAGES\Conditional Split.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load EDW_LINKAGES\Conditional Split.Inputs[Conditional Split Input].Columns[LINK_EDW_IP_ID]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="LINK_EDW_IP_ID"
+                      lineageId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].Columns[LINK_EDW_IP_ID]" />
+                    <inputColumn
+                      refId="Package\Load EDW_LINKAGES\Conditional Split.Inputs[Conditional Split Input].Columns[LINK_EDW_AR_ID]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="LINK_EDW_AR_ID"
+                      lineageId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].Columns[LINK_EDW_AR_ID]" />
+                    <inputColumn
+                      refId="Package\Load EDW_LINKAGES\Conditional Split.Inputs[Conditional Split Input].Columns[EDW_AR_ID]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="EDW_AR_ID"
+                      lineageId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].Columns[EDW_AR_ID]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load EDW_LINKAGES\Conditional Split.Outputs[Insert]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Insert"
+                  synchronousInputId="Package\Load EDW_LINKAGES\Conditional Split.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">(#{Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].Columns[LINK_EDW_AR_ID]} == "Y" &amp;&amp; #{Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].Columns[LINK_EDW_IP_ID]} == "Y")</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">(LINK_EDW_AR_ID == "Y" &amp;&amp; LINK_EDW_IP_ID == "Y")</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load EDW_LINKAGES\Conditional Split.Outputs[Updates]"
+                  description="Output 2 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Updates"
+                  synchronousInputId="Package\Load EDW_LINKAGES\Conditional Split.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">(#{Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].Columns[LINK_EDW_AR_ID]} != "Y" &amp;&amp; #{Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].Columns[LINK_EDW_AR_ID]} == #{Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].Columns[EDW_AR_ID]})</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">(LINK_EDW_AR_ID != "Y" &amp;&amp; LINK_EDW_AR_ID == EDW_AR_ID)</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">1</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load EDW_LINKAGES\Conditional Split.Outputs[Rest]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="Rest"
+                  synchronousInputId="Package\Load EDW_LINKAGES\Conditional Split.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load EDW_LINKAGES\Conditional Split.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\Load EDW_LINKAGES\Conditional Split.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load EDW_LINKAGES\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load EDW_LINKAGES\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load EDW_LINKAGES\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load EDW_LINKAGES\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load EDW_LINKAGES\Conditional Split 1"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+              name="Conditional Split 1"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Load EDW_LINKAGES\Conditional Split 1.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load EDW_LINKAGES\Conditional Split 1.Inputs[Conditional Split Input].Columns[IP_ROLE]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="IP_ROLE"
+                      lineageId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].Columns[IP_ROLE]" />
+                    <inputColumn
+                      refId="Package\Load EDW_LINKAGES\Conditional Split 1.Inputs[Conditional Split Input].Columns[LINK_EDW_IP_ID]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="LINK_EDW_IP_ID"
+                      lineageId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].Columns[LINK_EDW_IP_ID]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load EDW_LINKAGES\Conditional Split 1.Outputs[New_EMP_Existing_ARG]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="New_EMP_Existing_ARG"
+                  synchronousInputId="Package\Load EDW_LINKAGES\Conditional Split 1.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">#{Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].Columns[IP_ROLE]} == "EMPLOYER" &amp;&amp; #{Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].Columns[LINK_EDW_IP_ID]} == "Y"</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">IP_ROLE == "EMPLOYER" &amp;&amp; LINK_EDW_IP_ID == "Y"</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load EDW_LINKAGES\Conditional Split 1.Outputs[Updt_PD_Existing_ARG]"
+                  description="Output 3 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Updt_PD_Existing_ARG"
+                  synchronousInputId="Package\Load EDW_LINKAGES\Conditional Split 1.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">#{Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].Columns[IP_ROLE]} != "EMPLOYER" &amp;&amp; #{Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].Columns[LINK_EDW_IP_ID]} != "Y"</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">IP_ROLE != "EMPLOYER" &amp;&amp; LINK_EDW_IP_ID != "Y"</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">1</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load EDW_LINKAGES\Conditional Split 1.Outputs[Conditional Split Default Output]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="Conditional Split Default Output"
+                  synchronousInputId="Package\Load EDW_LINKAGES\Conditional Split 1.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load EDW_LINKAGES\Conditional Split 1.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\Load EDW_LINKAGES\Conditional Split 1.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load EDW_LINKAGES\Conditional Split 1.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load EDW_LINKAGES\Conditional Split 1.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load EDW_LINKAGES\Conditional Split 1.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load EDW_LINKAGES\Conditional Split 1.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load EDW_LINKAGES\Insert New STG EDW Linkages"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Insert New STG EDW Linkages"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[STG_EDW_LINKAGES]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load EDW_LINKAGES\Insert New STG EDW Linkages.Connections[OleDbConnection]"
+                  connectionManagerID="{B2B95508-7BC4-4DC8-87F1-D0A643F1B195}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[WEALTH_STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load EDW_LINKAGES\Insert New STG EDW Linkages.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load EDW_LINKAGES\Insert New STG EDW Linkages.Inputs[OLE DB Destination Input].Columns[EDW_AR_ID]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="EDW_AR_ID"
+                      externalMetadataColumnId="Package\Load EDW_LINKAGES\Insert New STG EDW Linkages.Inputs[OLE DB Destination Input].ExternalColumns[EDW_AR_ID]"
+                      lineageId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].Columns[EDW_AR_ID]" />
+                    <inputColumn
+                      refId="Package\Load EDW_LINKAGES\Insert New STG EDW Linkages.Inputs[OLE DB Destination Input].Columns[EXTRACT_FG]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="EXTRACT_FG"
+                      externalMetadataColumnId="Package\Load EDW_LINKAGES\Insert New STG EDW Linkages.Inputs[OLE DB Destination Input].ExternalColumns[EXTRACT_FG]"
+                      lineageId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].Columns[EXTRACT_FG]" />
+                    <inputColumn
+                      refId="Package\Load EDW_LINKAGES\Insert New STG EDW Linkages.Inputs[OLE DB Destination Input].Columns[LND_EDW_IP_ID]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="LND_EDW_IP_ID"
+                      externalMetadataColumnId="Package\Load EDW_LINKAGES\Insert New STG EDW Linkages.Inputs[OLE DB Destination Input].ExternalColumns[EDW_IP_ID]"
+                      lineageId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].Columns[LND_EDW_IP_ID]" />
+                    <inputColumn
+                      refId="Package\Load EDW_LINKAGES\Insert New STG EDW Linkages.Inputs[OLE DB Destination Input].Columns[IP_ROLE]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="IP_ROLE"
+                      externalMetadataColumnId="Package\Load EDW_LINKAGES\Insert New STG EDW Linkages.Inputs[OLE DB Destination Input].ExternalColumns[IP_ROLE]"
+                      lineageId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].Columns[IP_ROLE]" />
+                    <inputColumn
+                      refId="Package\Load EDW_LINKAGES\Insert New STG EDW Linkages.Inputs[OLE DB Destination Input].Columns[PD_REF_ID]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="PD_REF_ID"
+                      externalMetadataColumnId="Package\Load EDW_LINKAGES\Insert New STG EDW Linkages.Inputs[OLE DB Destination Input].ExternalColumns[PD_REF_ID]"
+                      lineageId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].Columns[PD_REF_ID]" />
+                    <inputColumn
+                      refId="Package\Load EDW_LINKAGES\Insert New STG EDW Linkages.Inputs[OLE DB Destination Input].Columns[FNAME]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="FNAME"
+                      externalMetadataColumnId="Package\Load EDW_LINKAGES\Insert New STG EDW Linkages.Inputs[OLE DB Destination Input].ExternalColumns[FNAME]"
+                      lineageId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].Columns[FNAME]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load EDW_LINKAGES\Insert New STG EDW Linkages.Inputs[OLE DB Destination Input].ExternalColumns[EXTRACT_FG]"
+                      dataType="wstr"
+                      length="300"
+                      name="EXTRACT_FG" />
+                    <externalMetadataColumn
+                      refId="Package\Load EDW_LINKAGES\Insert New STG EDW Linkages.Inputs[OLE DB Destination Input].ExternalColumns[EDW_IP_ID]"
+                      dataType="wstr"
+                      length="300"
+                      name="EDW_IP_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Load EDW_LINKAGES\Insert New STG EDW Linkages.Inputs[OLE DB Destination Input].ExternalColumns[EDW_AR_ID]"
+                      dataType="wstr"
+                      length="300"
+                      name="EDW_AR_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Load EDW_LINKAGES\Insert New STG EDW Linkages.Inputs[OLE DB Destination Input].ExternalColumns[IP_ROLE]"
+                      dataType="wstr"
+                      length="300"
+                      name="IP_ROLE" />
+                    <externalMetadataColumn
+                      refId="Package\Load EDW_LINKAGES\Insert New STG EDW Linkages.Inputs[OLE DB Destination Input].ExternalColumns[PD_REF_ID]"
+                      dataType="wstr"
+                      length="300"
+                      name="PD_REF_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Load EDW_LINKAGES\Insert New STG EDW Linkages.Inputs[OLE DB Destination Input].ExternalColumns[ETL_INSERT_TIMESTAMP]"
+                      dataType="dbTimeStamp"
+                      name="ETL_INSERT_TIMESTAMP" />
+                    <externalMetadataColumn
+                      refId="Package\Load EDW_LINKAGES\Insert New STG EDW Linkages.Inputs[OLE DB Destination Input].ExternalColumns[ETL_UPDATE_TIMESTAMP]"
+                      dataType="dbTimeStamp"
+                      name="ETL_UPDATE_TIMESTAMP" />
+                    <externalMetadataColumn
+                      refId="Package\Load EDW_LINKAGES\Insert New STG EDW Linkages.Inputs[OLE DB Destination Input].ExternalColumns[FNAME]"
+                      dataType="wstr"
+                      length="300"
+                      name="FNAME" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load EDW_LINKAGES\Insert New STG EDW Linkages.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load EDW_LINKAGES\Insert New STG EDW Linkages.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load EDW_LINKAGES\Insert New STG EDW Linkages.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load EDW_LINKAGES\Insert New STG EDW Linkages.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load EDW_LINKAGES\Insert New STG EDW Linkages.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load EDW_LINKAGES\Insert New STG EDW Linkages.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load EDW_LINKAGES\Insert New STG LNK FIN ACCT EMP IP IDs"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Insert New STG LNK FIN ACCT EMP IP IDs"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[STG_EDW_LNK_FIN_ACCT_EMP_IP_IDS]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load EDW_LINKAGES\Insert New STG LNK FIN ACCT EMP IP IDs.Connections[OleDbConnection]"
+                  connectionManagerID="{B2B95508-7BC4-4DC8-87F1-D0A643F1B195}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[WEALTH_STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load EDW_LINKAGES\Insert New STG LNK FIN ACCT EMP IP IDs.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load EDW_LINKAGES\Insert New STG LNK FIN ACCT EMP IP IDs.Inputs[OLE DB Destination Input].Columns[EDW_AR_ID]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="EDW_AR_ID"
+                      externalMetadataColumnId="Package\Load EDW_LINKAGES\Insert New STG LNK FIN ACCT EMP IP IDs.Inputs[OLE DB Destination Input].ExternalColumns[EDW_AR_ID]"
+                      lineageId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].Columns[EDW_AR_ID]" />
+                    <inputColumn
+                      refId="Package\Load EDW_LINKAGES\Insert New STG LNK FIN ACCT EMP IP IDs.Inputs[OLE DB Destination Input].Columns[LND_EDW_IP_ID]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="LND_EDW_IP_ID"
+                      externalMetadataColumnId="Package\Load EDW_LINKAGES\Insert New STG LNK FIN ACCT EMP IP IDs.Inputs[OLE DB Destination Input].ExternalColumns[EDW_IP_ID]"
+                      lineageId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].Columns[LND_EDW_IP_ID]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load EDW_LINKAGES\Insert New STG LNK FIN ACCT EMP IP IDs.Inputs[OLE DB Destination Input].ExternalColumns[EDW_IP_ID]"
+                      dataType="wstr"
+                      length="300"
+                      name="EDW_IP_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Load EDW_LINKAGES\Insert New STG LNK FIN ACCT EMP IP IDs.Inputs[OLE DB Destination Input].ExternalColumns[EDW_AR_ID]"
+                      dataType="wstr"
+                      length="300"
+                      name="EDW_AR_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Load EDW_LINKAGES\Insert New STG LNK FIN ACCT EMP IP IDs.Inputs[OLE DB Destination Input].ExternalColumns[ETL_INSERT_TIMESTAMP]"
+                      dataType="dbTimeStamp"
+                      name="ETL_INSERT_TIMESTAMP" />
+                    <externalMetadataColumn
+                      refId="Package\Load EDW_LINKAGES\Insert New STG LNK FIN ACCT EMP IP IDs.Inputs[OLE DB Destination Input].ExternalColumns[ETL_UPDATE_TIMESTAMP]"
+                      dataType="dbTimeStamp"
+                      name="ETL_UPDATE_TIMESTAMP" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load EDW_LINKAGES\Insert New STG LNK FIN ACCT EMP IP IDs.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load EDW_LINKAGES\Insert New STG LNK FIN ACCT EMP IP IDs.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load EDW_LINKAGES\Insert New STG LNK FIN ACCT EMP IP IDs.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load EDW_LINKAGES\Insert New STG LNK FIN ACCT EMP IP IDs.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load EDW_LINKAGES\Insert New STG LNK FIN ACCT EMP IP IDs.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load EDW_LINKAGES\Insert New STG LNK FIN ACCT EMP IP IDs.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load EDW_LINKAGES\LND EDW Linkages"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="LND EDW Linkages"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[LND_EDW_LINKAGES]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT 
+ltrim(rtrim(A.EXTRACT_FG)) as EXTRACT_FG
+,ltrim(rtrim(A.[EDW_AR_ID])) as EDW_AR_ID
+,ltrim(rtrim(A.[EDW_IP_ID]))  as LND_EDW_IP_ID
+,ltrim(rtrim(A.IP_ROLE)) as IP_ROLE
+,ltrim(rtrim(REPLACE(REPLACE(PD_REF_ID, CHAR(13), ''), CHAR(10), '') )) as PD_REF_ID
+,isnull(B.[EDW_IP_ID],'Y')  as LINK_EDW_IP_ID
+,isnull(B.EDW_AR_ID,'Y')  as LINK_EDW_AR_ID
+
+
+FROM     
+	[WEALTH_LND].[dbo].[LND_EDW_LINKAGES] A
+left join
+ 
+[WEALTH_STG].[dbo].[STG_EDW_LNK_FIN_ACCT_EMP_IP_IDS] B
+
+on A.[EDW_AR_ID] = B.[EDW_AR_ID]
+and A.[EDW_IP_ID] = B.[EDW_IP_ID]</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable">User::v_SQL</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load EDW_LINKAGES\LND EDW Linkages.Connections[OleDbConnection]"
+                  connectionManagerID="{3D75E02A-5A20-4F13-9B9F-D88AF647B6D7}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[WEALTH_LND]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].Columns[EDW_AR_ID]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].ExternalColumns[EDW_AR_ID]"
+                      length="300"
+                      lineageId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].Columns[EDW_AR_ID]"
+                      name="EDW_AR_ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].Columns[EXTRACT_FG]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].ExternalColumns[EXTRACT_FG]"
+                      length="300"
+                      lineageId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].Columns[EXTRACT_FG]"
+                      name="EXTRACT_FG"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].Columns[IP_ROLE]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].ExternalColumns[IP_ROLE]"
+                      length="300"
+                      lineageId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].Columns[IP_ROLE]"
+                      name="IP_ROLE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].Columns[PD_REF_ID]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].ExternalColumns[PD_REF_ID]"
+                      length="300"
+                      lineageId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].Columns[PD_REF_ID]"
+                      name="PD_REF_ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].Columns[LND_EDW_IP_ID]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].ExternalColumns[LND_EDW_IP_ID]"
+                      length="300"
+                      lineageId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].Columns[LND_EDW_IP_ID]"
+                      name="LND_EDW_IP_ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].Columns[LINK_EDW_IP_ID]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].ExternalColumns[LINK_EDW_IP_ID]"
+                      length="300"
+                      lineageId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].Columns[LINK_EDW_IP_ID]"
+                      name="LINK_EDW_IP_ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].Columns[LINK_EDW_AR_ID]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].ExternalColumns[LINK_EDW_AR_ID]"
+                      length="300"
+                      lineageId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].Columns[LINK_EDW_AR_ID]"
+                      name="LINK_EDW_AR_ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].Columns[FNAME]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].ExternalColumns[FNAME]"
+                      length="300"
+                      lineageId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].Columns[FNAME]"
+                      name="FNAME"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].ExternalColumns[EDW_AR_ID]"
+                      dataType="wstr"
+                      length="300"
+                      name="EDW_AR_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].ExternalColumns[EXTRACT_FG]"
+                      dataType="wstr"
+                      length="300"
+                      name="EXTRACT_FG" />
+                    <externalMetadataColumn
+                      refId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].ExternalColumns[IP_ROLE]"
+                      dataType="wstr"
+                      length="300"
+                      name="IP_ROLE" />
+                    <externalMetadataColumn
+                      refId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].ExternalColumns[PD_REF_ID]"
+                      dataType="wstr"
+                      length="4000"
+                      name="PD_REF_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].ExternalColumns[LND_EDW_IP_ID]"
+                      dataType="wstr"
+                      length="300"
+                      name="LND_EDW_IP_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].ExternalColumns[LINK_EDW_IP_ID]"
+                      dataType="wstr"
+                      length="300"
+                      name="LINK_EDW_IP_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].ExternalColumns[LINK_EDW_AR_ID]"
+                      dataType="wstr"
+                      length="300"
+                      name="LINK_EDW_AR_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].ExternalColumns[FNAME]"
+                      dataType="wstr"
+                      length="300"
+                      name="FNAME" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Error Output].Columns[FNAME]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Error Output].Columns[FNAME]"
+                      name="FNAME" />
+                    <outputColumn
+                      refId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Error Output].Columns[EXTRACT_FG]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Error Output].Columns[EXTRACT_FG]"
+                      name="EXTRACT_FG" />
+                    <outputColumn
+                      refId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Error Output].Columns[EDW_AR_ID]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Error Output].Columns[EDW_AR_ID]"
+                      name="EDW_AR_ID" />
+                    <outputColumn
+                      refId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Error Output].Columns[LND_EDW_IP_ID]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Error Output].Columns[LND_EDW_IP_ID]"
+                      name="LND_EDW_IP_ID" />
+                    <outputColumn
+                      refId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Error Output].Columns[IP_ROLE]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Error Output].Columns[IP_ROLE]"
+                      name="IP_ROLE" />
+                    <outputColumn
+                      refId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Error Output].Columns[PD_REF_ID]"
+                      dataType="wstr"
+                      length="4000"
+                      lineageId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Error Output].Columns[PD_REF_ID]"
+                      name="PD_REF_ID" />
+                    <outputColumn
+                      refId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Error Output].Columns[LINK_EDW_IP_ID]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Error Output].Columns[LINK_EDW_IP_ID]"
+                      name="LINK_EDW_IP_ID" />
+                    <outputColumn
+                      refId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Error Output].Columns[LINK_EDW_AR_ID]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Error Output].Columns[LINK_EDW_AR_ID]"
+                      name="LINK_EDW_AR_ID" />
+                    <outputColumn
+                      refId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load EDW_LINKAGES\Multicast"
+              componentClassID="Microsoft.Multicast"
+              contactInfo="Multicast;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Distributes every input row to every row in one or more outputs. For example, branch your data flow to make a copy of data so that some values can be masked before sharing with external partners."
+              name="Multicast">
+              <inputs>
+                <input
+                  refId="Package\Load EDW_LINKAGES\Multicast.Inputs[Multicast Input 1]"
+                  name="Multicast Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load EDW_LINKAGES\Multicast.Outputs[Multicast Output 3]"
+                  deleteOutputOnPathDetached="true"
+                  name="Multicast Output 3"
+                  synchronousInputId="Package\Load EDW_LINKAGES\Multicast.Inputs[Multicast Input 1]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load EDW_LINKAGES\Multicast.Outputs[Multicast Output 1]"
+                  deleteOutputOnPathDetached="true"
+                  name="Multicast Output 1"
+                  synchronousInputId="Package\Load EDW_LINKAGES\Multicast.Inputs[Multicast Input 1]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load EDW_LINKAGES\Multicast.Outputs[Multicast Output 2]"
+                  dangling="true"
+                  deleteOutputOnPathDetached="true"
+                  name="Multicast Output 2"
+                  synchronousInputId="Package\Load EDW_LINKAGES\Multicast.Inputs[Multicast Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load EDW_LINKAGES\Multicast 1"
+              componentClassID="Microsoft.Multicast"
+              contactInfo="Multicast;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Distributes every input row to every row in one or more outputs. For example, branch your data flow to make a copy of data so that some values can be masked before sharing with external partners."
+              name="Multicast 1">
+              <inputs>
+                <input
+                  refId="Package\Load EDW_LINKAGES\Multicast 1.Inputs[Multicast Input 1]"
+                  name="Multicast Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load EDW_LINKAGES\Multicast 1.Outputs[Multicast Output 1]"
+                  deleteOutputOnPathDetached="true"
+                  name="Multicast Output 1"
+                  synchronousInputId="Package\Load EDW_LINKAGES\Multicast 1.Inputs[Multicast Input 1]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load EDW_LINKAGES\Multicast 1.Outputs[Multicast Output 2]"
+                  deleteOutputOnPathDetached="true"
+                  name="Multicast Output 2"
+                  synchronousInputId="Package\Load EDW_LINKAGES\Multicast 1.Inputs[Multicast Input 1]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load EDW_LINKAGES\Multicast 1.Outputs[Multicast Output 3]"
+                  dangling="true"
+                  deleteOutputOnPathDetached="true"
+                  name="Multicast Output 3"
+                  synchronousInputId="Package\Load EDW_LINKAGES\Multicast 1.Inputs[Multicast Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load EDW_LINKAGES\Update EMP EDW IP ID in STG Linkages"
+              componentClassID="Microsoft.OLEDBCommand"
+              contactInfo="OLE DB Command;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Runs an SQL statement for each row in a data flow. For example, call a 'new employee setup' stored procedure for each row in the 'new employees' table. Note: running an SQL statement for each row of a large data flow may take a long time."
+              name="Update EMP EDW IP ID in STG Linkages"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">update  [dbo].[STG_EDW_LINKAGES]
+set EDW_IP_ID = ? , [ETL_UPDATE_TIMESTAMP] = getdate()
+where
+EDW_AR_ID = ?
+and
+IP_ROLE = 'EMPLOYER'</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load EDW_LINKAGES\Update EMP EDW IP ID in STG Linkages.Connections[OleDbConnection]"
+                  connectionManagerID="{B2B95508-7BC4-4DC8-87F1-D0A643F1B195}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[WEALTH_STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load EDW_LINKAGES\Update EMP EDW IP ID in STG Linkages.Inputs[OLE DB Command Input]"
+                  errorOrTruncationOperation="Command Execution"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Command Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load EDW_LINKAGES\Update EMP EDW IP ID in STG Linkages.Inputs[OLE DB Command Input].Columns[EDW_AR_ID]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="EDW_AR_ID"
+                      externalMetadataColumnId="Package\Load EDW_LINKAGES\Update EMP EDW IP ID in STG Linkages.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      lineageId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].Columns[EDW_AR_ID]" />
+                    <inputColumn
+                      refId="Package\Load EDW_LINKAGES\Update EMP EDW IP ID in STG Linkages.Inputs[OLE DB Command Input].Columns[LND_EDW_IP_ID]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="LND_EDW_IP_ID"
+                      externalMetadataColumnId="Package\Load EDW_LINKAGES\Update EMP EDW IP ID in STG Linkages.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      lineageId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].Columns[LND_EDW_IP_ID]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load EDW_LINKAGES\Update EMP EDW IP ID in STG Linkages.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      dataType="wstr"
+                      length="300"
+                      name="Param_0">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Load EDW_LINKAGES\Update EMP EDW IP ID in STG Linkages.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      dataType="wstr"
+                      length="300"
+                      name="Param_1">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load EDW_LINKAGES\Update EMP EDW IP ID in STG Linkages.Outputs[OLE DB Command Output]"
+                  exclusionGroup="1"
+                  name="OLE DB Command Output"
+                  synchronousInputId="Package\Load EDW_LINKAGES\Update EMP EDW IP ID in STG Linkages.Inputs[OLE DB Command Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load EDW_LINKAGES\Update EMP EDW IP ID in STG Linkages.Outputs[OLE DB Command Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Command Error Output"
+                  synchronousInputId="Package\Load EDW_LINKAGES\Update EMP EDW IP ID in STG Linkages.Inputs[OLE DB Command Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load EDW_LINKAGES\Update EMP EDW IP ID in STG Linkages.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load EDW_LINKAGES\Update EMP EDW IP ID in STG Linkages.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load EDW_LINKAGES\Update EMP EDW IP ID in STG Linkages.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load EDW_LINKAGES\Update EMP EDW IP ID in STG Linkages.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load EDW_LINKAGES\Update EMP Ref Ids STG_EDW_LNK_FIN_ACCT_EMP_IP_IDS"
+              componentClassID="Microsoft.OLEDBCommand"
+              contactInfo="OLE DB Command;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Runs an SQL statement for each row in a data flow. For example, call a 'new employee setup' stored procedure for each row in the 'new employees' table. Note: running an SQL statement for each row of a large data flow may take a long time."
+              name="Update EMP Ref Ids STG_EDW_LNK_FIN_ACCT_EMP_IP_IDS"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">update  [dbo].[STG_EDW_LNK_FIN_ACCT_EMP_IP_IDS]
+set EDW_IP_ID = ? , [ETL_UPDATE_TIMESTAMP] = getdate()
+where
+EDW_AR_ID = ?
+</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load EDW_LINKAGES\Update EMP Ref Ids STG_EDW_LNK_FIN_ACCT_EMP_IP_IDS.Connections[OleDbConnection]"
+                  connectionManagerID="{B2B95508-7BC4-4DC8-87F1-D0A643F1B195}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[WEALTH_STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load EDW_LINKAGES\Update EMP Ref Ids STG_EDW_LNK_FIN_ACCT_EMP_IP_IDS.Inputs[OLE DB Command Input]"
+                  errorOrTruncationOperation="Command Execution"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Command Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load EDW_LINKAGES\Update EMP Ref Ids STG_EDW_LNK_FIN_ACCT_EMP_IP_IDS.Inputs[OLE DB Command Input].Columns[EDW_AR_ID]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="EDW_AR_ID"
+                      externalMetadataColumnId="Package\Load EDW_LINKAGES\Update EMP Ref Ids STG_EDW_LNK_FIN_ACCT_EMP_IP_IDS.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      lineageId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].Columns[EDW_AR_ID]" />
+                    <inputColumn
+                      refId="Package\Load EDW_LINKAGES\Update EMP Ref Ids STG_EDW_LNK_FIN_ACCT_EMP_IP_IDS.Inputs[OLE DB Command Input].Columns[LND_EDW_IP_ID]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="LND_EDW_IP_ID"
+                      externalMetadataColumnId="Package\Load EDW_LINKAGES\Update EMP Ref Ids STG_EDW_LNK_FIN_ACCT_EMP_IP_IDS.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      lineageId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].Columns[LND_EDW_IP_ID]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load EDW_LINKAGES\Update EMP Ref Ids STG_EDW_LNK_FIN_ACCT_EMP_IP_IDS.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      dataType="wstr"
+                      length="300"
+                      name="Param_0">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Load EDW_LINKAGES\Update EMP Ref Ids STG_EDW_LNK_FIN_ACCT_EMP_IP_IDS.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      dataType="wstr"
+                      length="300"
+                      name="Param_1">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load EDW_LINKAGES\Update EMP Ref Ids STG_EDW_LNK_FIN_ACCT_EMP_IP_IDS.Outputs[OLE DB Command Output]"
+                  exclusionGroup="1"
+                  name="OLE DB Command Output"
+                  synchronousInputId="Package\Load EDW_LINKAGES\Update EMP Ref Ids STG_EDW_LNK_FIN_ACCT_EMP_IP_IDS.Inputs[OLE DB Command Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load EDW_LINKAGES\Update EMP Ref Ids STG_EDW_LNK_FIN_ACCT_EMP_IP_IDS.Outputs[OLE DB Command Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Command Error Output"
+                  synchronousInputId="Package\Load EDW_LINKAGES\Update EMP Ref Ids STG_EDW_LNK_FIN_ACCT_EMP_IP_IDS.Inputs[OLE DB Command Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load EDW_LINKAGES\Update EMP Ref Ids STG_EDW_LNK_FIN_ACCT_EMP_IP_IDS.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load EDW_LINKAGES\Update EMP Ref Ids STG_EDW_LNK_FIN_ACCT_EMP_IP_IDS.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load EDW_LINKAGES\Update EMP Ref Ids STG_EDW_LNK_FIN_ACCT_EMP_IP_IDS.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load EDW_LINKAGES\Update EMP Ref Ids STG_EDW_LNK_FIN_ACCT_EMP_IP_IDS.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load EDW_LINKAGES\Update Product Reference Id in STG Linkages"
+              componentClassID="Microsoft.OLEDBCommand"
+              contactInfo="OLE DB Command;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Runs an SQL statement for each row in a data flow. For example, call a 'new employee setup' stored procedure for each row in the 'new employees' table. Note: running an SQL statement for each row of a large data flow may take a long time."
+              name="Update Product Reference Id in STG Linkages"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">update  [dbo].[STG_EDW_LINKAGES]
+set PD_REF_ID = ? , [ETL_UPDATE_TIMESTAMP] = getdate()
+where
+EDW_AR_ID = ?
+and
+EDW_IP_ID = ?
+and
+IP_ROLE = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load EDW_LINKAGES\Update Product Reference Id in STG Linkages.Connections[OleDbConnection]"
+                  connectionManagerID="{B2B95508-7BC4-4DC8-87F1-D0A643F1B195}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[WEALTH_STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load EDW_LINKAGES\Update Product Reference Id in STG Linkages.Inputs[OLE DB Command Input]"
+                  errorOrTruncationOperation="Command Execution"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Command Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load EDW_LINKAGES\Update Product Reference Id in STG Linkages.Inputs[OLE DB Command Input].Columns[EDW_AR_ID]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="EDW_AR_ID"
+                      externalMetadataColumnId="Package\Load EDW_LINKAGES\Update Product Reference Id in STG Linkages.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      lineageId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].Columns[EDW_AR_ID]" />
+                    <inputColumn
+                      refId="Package\Load EDW_LINKAGES\Update Product Reference Id in STG Linkages.Inputs[OLE DB Command Input].Columns[PD_REF_ID]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="PD_REF_ID"
+                      externalMetadataColumnId="Package\Load EDW_LINKAGES\Update Product Reference Id in STG Linkages.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      lineageId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].Columns[PD_REF_ID]" />
+                    <inputColumn
+                      refId="Package\Load EDW_LINKAGES\Update Product Reference Id in STG Linkages.Inputs[OLE DB Command Input].Columns[LND_EDW_IP_ID]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="LND_EDW_IP_ID"
+                      externalMetadataColumnId="Package\Load EDW_LINKAGES\Update Product Reference Id in STG Linkages.Inputs[OLE DB Command Input].ExternalColumns[Param_2]"
+                      lineageId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].Columns[LND_EDW_IP_ID]" />
+                    <inputColumn
+                      refId="Package\Load EDW_LINKAGES\Update Product Reference Id in STG Linkages.Inputs[OLE DB Command Input].Columns[IP_ROLE]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="IP_ROLE"
+                      externalMetadataColumnId="Package\Load EDW_LINKAGES\Update Product Reference Id in STG Linkages.Inputs[OLE DB Command Input].ExternalColumns[Param_3]"
+                      lineageId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output].Columns[IP_ROLE]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load EDW_LINKAGES\Update Product Reference Id in STG Linkages.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      dataType="wstr"
+                      length="300"
+                      name="Param_0">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Load EDW_LINKAGES\Update Product Reference Id in STG Linkages.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      dataType="wstr"
+                      length="300"
+                      name="Param_1">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Load EDW_LINKAGES\Update Product Reference Id in STG Linkages.Inputs[OLE DB Command Input].ExternalColumns[Param_2]"
+                      dataType="wstr"
+                      length="300"
+                      name="Param_2">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Load EDW_LINKAGES\Update Product Reference Id in STG Linkages.Inputs[OLE DB Command Input].ExternalColumns[Param_3]"
+                      dataType="wstr"
+                      length="300"
+                      name="Param_3">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load EDW_LINKAGES\Update Product Reference Id in STG Linkages.Outputs[OLE DB Command Output]"
+                  exclusionGroup="1"
+                  name="OLE DB Command Output"
+                  synchronousInputId="Package\Load EDW_LINKAGES\Update Product Reference Id in STG Linkages.Inputs[OLE DB Command Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load EDW_LINKAGES\Update Product Reference Id in STG Linkages.Outputs[OLE DB Command Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Command Error Output"
+                  synchronousInputId="Package\Load EDW_LINKAGES\Update Product Reference Id in STG Linkages.Inputs[OLE DB Command Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load EDW_LINKAGES\Update Product Reference Id in STG Linkages.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load EDW_LINKAGES\Update Product Reference Id in STG Linkages.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load EDW_LINKAGES\Update Product Reference Id in STG Linkages.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load EDW_LINKAGES\Update Product Reference Id in STG Linkages.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load EDW_LINKAGES.Paths[Existing_EMP_Existing_ARG]"
+              endId="Package\Load EDW_LINKAGES\Update Product Reference Id in STG Linkages.Inputs[OLE DB Command Input]"
+              name="Existing_EMP_Existing_ARG"
+              startId="Package\Load EDW_LINKAGES\Conditional Split 1.Outputs[Updt_PD_Existing_ARG]" />
+            <path
+              refId="Package\Load EDW_LINKAGES.Paths[Insert]"
+              endId="Package\Load EDW_LINKAGES\Multicast 1.Inputs[Multicast Input 1]"
+              name="Insert"
+              startId="Package\Load EDW_LINKAGES\Conditional Split.Outputs[Insert]" />
+            <path
+              refId="Package\Load EDW_LINKAGES.Paths[Multicast Output 1]"
+              endId="Package\Load EDW_LINKAGES\Update EMP EDW IP ID in STG Linkages.Inputs[OLE DB Command Input]"
+              name="Multicast Output 1"
+              startId="Package\Load EDW_LINKAGES\Multicast.Outputs[Multicast Output 1]" />
+            <path
+              refId="Package\Load EDW_LINKAGES.Paths[Multicast Output 11]"
+              endId="Package\Load EDW_LINKAGES\Insert New STG EDW Linkages.Inputs[OLE DB Destination Input]"
+              name="Multicast Output 1"
+              startId="Package\Load EDW_LINKAGES\Multicast 1.Outputs[Multicast Output 1]" />
+            <path
+              refId="Package\Load EDW_LINKAGES.Paths[Multicast Output 2]"
+              endId="Package\Load EDW_LINKAGES\Insert New STG LNK FIN ACCT EMP IP IDs.Inputs[OLE DB Destination Input]"
+              name="Multicast Output 2"
+              startId="Package\Load EDW_LINKAGES\Multicast 1.Outputs[Multicast Output 2]" />
+            <path
+              refId="Package\Load EDW_LINKAGES.Paths[Multicast Output 3]"
+              endId="Package\Load EDW_LINKAGES\Update EMP Ref Ids STG_EDW_LNK_FIN_ACCT_EMP_IP_IDS.Inputs[OLE DB Command Input]"
+              name="Multicast Output 3"
+              startId="Package\Load EDW_LINKAGES\Multicast.Outputs[Multicast Output 3]" />
+            <path
+              refId="Package\Load EDW_LINKAGES.Paths[New_EMP_Existing_ARG]"
+              endId="Package\Load EDW_LINKAGES\Multicast.Inputs[Multicast Input 1]"
+              name="New_EMP_Existing_ARG"
+              startId="Package\Load EDW_LINKAGES\Conditional Split 1.Outputs[New_EMP_Existing_ARG]" />
+            <path
+              refId="Package\Load EDW_LINKAGES.Paths[OLE DB Source Output]"
+              endId="Package\Load EDW_LINKAGES\Conditional Split.Inputs[Conditional Split Input]"
+              name="OLE DB Source Output"
+              startId="Package\Load EDW_LINKAGES\LND EDW Linkages.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Load EDW_LINKAGES.Paths[Updates]"
+              endId="Package\Load EDW_LINKAGES\Conditional Split 1.Inputs[Conditional Split Input]"
+              name="Updates"
+              startId="Package\Load EDW_LINKAGES\Conditional Split.Outputs[Updates]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:EventHandlers>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnError]"
+      DTS:CreationName="OnError"
+      DTS:DTSID="{2FE32162-D3AE-4C77-982A-99EEF54BC256}"
+      DTS:EventID="819940784"
+      DTS:EventName="OnError"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{4BB888A6-EF00-4936-BD59-571467AAF36F}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnError]\OnError"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{8d69642a-f289-43eb-b8fd-b50873516849}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="OnError"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:PropertyExpression
+            DTS:Name="SqlStatementSource">"insert into etl_batch_package_event values ('" + @[System::PackageID] + "','" + @[System::MachineName] + "','" + @[System::PackageName] + "','" + @[System::TaskName] +  "','" + (DT_WSTR,12)@[System::ErrorCode] + "','" + @[System::ErrorDescription] + "','" + (DT_STR,4,1252) datepart("yyyy", getdate()) + Right ("0" + (DT_STR,2,1252) datepart("mm", getdate()),2) + Right ("0" + (DT_STR,2,1252) datepart("dd", getdate()),2) +" "+ Right("0" + (DT_STR,2,1252) DatePart("hh",getdate()),2) +":" + Right("0" + (DT_STR,2,1252) DatePart("mi",getdate()),2) +":" + Right("0" + (DT_STR,4,1252) DatePart("ss",getdate()),2)  + ".000" + "')"</DTS:PropertyExpression>
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{CAEB46AA-F33A-4C72-8C4E-AC3027F4426E}"
+              SQLTask:SqlStatementSource="insert into etl_batch_package_event values ('{36F629D9-889D-4473-9EE2-C1BD3B41A63A}','CLT11983','04-STG Load Linkages','OnError','0','','20261030 14:35:12.000')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:EventHandler>
+  </DTS:EventHandlers>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="193,42"
+          Id="Package\Load EDW_LINKAGES"
+          TopLeft="160.000000596046,143.333332747883" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <DtsEventHandler
+    design-time-name="Package.EventHandlers[OnError]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="118.4,41.6"
+          Id="Package.EventHandlers[OnError]\OnError"
+          TopLeft="320,101" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <TaskHost
+    design-time-name="Package\Load EDW_LINKAGES">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph" xmlns:mssge="clr-namespace:Microsoft.SqlServer.Graph.Extended;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:s="clr-namespace:System;assembly=mscorlib">
+        <NodeLayout
+          Size="128,42"
+          Id="Package\Load EDW_LINKAGES\Multicast 1"
+          TopLeft="224.999991059304,320.666669215096" />
+        <NodeLayout
+          Size="177,42"
+          Id="Package\Load EDW_LINKAGES\LND EDW Linkages"
+          TopLeft="200.666658454472,62.266667169465" />
+        <NodeLayout
+          Size="130,65"
+          Id="Package\Load EDW_LINKAGES\Insert New STG EDW Linkages"
+          TopLeft="120.833328531849,469.733337066438" />
+        <NodeLayout
+          Size="154,42"
+          Id="Package\Load EDW_LINKAGES\Conditional Split"
+          TopLeft="211.66665825579,193.266668202612" />
+        <NodeLayout
+          Size="154,63"
+          Id="Package\Load EDW_LINKAGES\Insert New STG LNK FIN ACCT EMP IP IDs"
+          TopLeft="301.666654679511,470.266668553882" />
+        <EdgeLayout
+          Id="Package\Load EDW_LINKAGES.Paths[Updates]"
+          TopLeft="365.66665825579,215.133334101306">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="542.33334174421,0"
+              Start="0,0"
+              End="534.83334174421,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="534.83334174421,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="248.870147434605,5,37.093046875,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load EDW_LINKAGES.Paths[OLE DB Source Output]"
+          TopLeft="288.766658355131,103.866667169465">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,89.400001033147"
+              Start="0,0"
+              End="0,81.900001033147">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,81.900001033147" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load EDW_LINKAGES.Paths[Multicast Output 2]"
+          TopLeft="308.999991059304,362.266669215096">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="69.4666636202078,107.999999338786"
+              Start="0,0"
+              End="69.4666636202078,100.499999338786">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,39.9999997306166" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,39.9999997306166"
+                    Point2="0,43.9999997306166"
+                    Point3="4,43.9999997306166" />
+                  <mssgle:LineSegment
+                    End="65.4666636202078,43.9999997306166" />
+                  <mssgle:CubicBezierSegment
+                    Point1="65.4666636202078,43.9999997306166"
+                    Point2="69.4666636202078,43.9999997306166"
+                    Point3="69.4666636202078,47.9999997306166" />
+                  <mssgle:LineSegment
+                    End="69.4666636202078,100.499999338786" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load EDW_LINKAGES.Paths[Multicast Output 11]"
+          TopLeft="268.999991059304,362.266669215096">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-83.3666625274548,107.466667851341"
+              Start="0,0"
+              End="-83.3666625274548,99.9666678513414">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,39.782716532028" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,39.782716532028"
+                    Point2="0,43.782716532028"
+                    Point3="-4,43.782716532028" />
+                  <mssgle:LineSegment
+                    End="-79.3666625274548,43.782716532028" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-79.3666625274548,43.782716532028"
+                    Point2="-83.3666625274548,43.782716532028"
+                    Point3="-83.3666625274548,47.782716532028" />
+                  <mssgle:LineSegment
+                    End="-83.3666625274548,99.9666678513414" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load EDW_LINKAGES.Paths[Insert]"
+          TopLeft="288.733324657547,234.866668202612">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,85.8000010124842"
+              Start="0,0"
+              End="0,78.3000010124842">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,78.3000010124842" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-13.75298828125,34.4488286312421,27.5059765625,9.40234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <AnnotationLayout
+          Text="This package handles following: the insertion of new Linkage records and update of product reference id&#xA;existing arrangement for an existing customer (both Individual and Organisation). &#xA;Note - Select SQL in LND EDW Linkages captures the comparison for special scenario with MK Products.&#xA;Refer to technical support and Business requirement confluence page "
+          ParentId="Package\Load EDW_LINKAGES"
+          Size="778,102"
+          Id="5dde66bf-ac73-4eea-b8bf-87f04acfb467"
+          TopLeft="684.166642659242,46.800000371933">
+          <AnnotationLayout.FontInfo>
+            <mssge:FontInfo
+              Family="Tahoma"
+              Size="16.200000762939453"
+              Color="#FFFFFF00">
+              <mssge:FontInfo.TextDecorations>
+                <av:TextDecorationCollection />
+              </mssge:FontInfo.TextDecorations>
+            </mssge:FontInfo>
+          </AnnotationLayout.FontInfo>
+        </AnnotationLayout>
+        <EdgeLayout
+          Id="Package\Load EDW_LINKAGES.Paths[Existing_EMP_Existing_ARG]"
+          TopLeft="472.599986059139,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="309.666657494177,230.133335496054"
+              Start="0,0"
+              End="309.666657494177,222.633335496054">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,89.4037498590341" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,89.4037498590341"
+                    Point2="0,93.4037498590341"
+                    Point3="4,93.4037498590341" />
+                  <mssgle:LineSegment
+                    End="305.666657494177,93.4037498590341" />
+                  <mssgle:CubicBezierSegment
+                    Point1="305.666657494177,93.4037498590341"
+                    Point2="309.666657494177,93.4037498590341"
+                    Point3="309.666657494177,97.4037498590341" />
+                  <mssgle:LineSegment
+                    End="309.666657494177,222.633335496054" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="103.114891247089,98.4037498590341,103.436875,11.6630859375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load EDW_LINKAGES.Paths[Multicast Output 1]"
+          TopLeft="235.766660838658,165.366667603385">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-89.766660838658,125.466667933995"
+              Start="0,0"
+              End="-89.766660838658,117.966667933995">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,47.1854068188437" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,47.1854068188437"
+                    Point2="0,51.1854068188437"
+                    Point3="-4,51.1854068188437" />
+                  <mssgle:LineSegment
+                    End="-85.766660838658,51.1854068188437" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-85.766660838658,51.1854068188437"
+                    Point2="-89.766660838658,51.1854068188437"
+                    Point3="-89.766660838658,55.1854068188437" />
+                  <mssgle:LineSegment
+                    End="-89.766660838658,117.966667933995" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load EDW_LINKAGES.Paths[Multicast Output 3]"
+          TopLeft="272.766660838658,165.366667603385">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="174.999996423721,122.600000371933"
+              Start="0,0"
+              End="174.999996423721,115.100000371933">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,46.0159205497438" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,46.0159205497438"
+                    Point2="0,50.0159205497438"
+                    Point3="4,50.0159205497438" />
+                  <mssgle:LineSegment
+                    End="170.999996423721,50.0159205497438" />
+                  <mssgle:CubicBezierSegment
+                    Point1="170.999996423721,50.0159205497438"
+                    Point2="174.999996423721,50.0159205497438"
+                    Point3="174.999996423721,54.0159205497438" />
+                  <mssgle:LineSegment
+                    End="174.999996423721,115.100000371933" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load EDW_LINKAGES.Paths[New_EMP_Existing_ARG]"
+          TopLeft="421.266652725805,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-166.999991887147,75.866667603385"
+              Start="0,0"
+              End="-166.999991887147,68.366667603385">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.7918504209338" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,26.7918504209338"
+                    Point2="0,30.7918504209338"
+                    Point3="-4,30.7918504209338" />
+                  <mssgle:LineSegment
+                    End="-162.999991887147,30.7918504209338" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-162.999991887147,30.7918504209338"
+                    Point2="-166.999991887147,30.7918504209338"
+                    Point3="-166.999991887147,34.7918504209338" />
+                  <mssgle:LineSegment
+                    End="-166.999991887147,68.366667603385" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-137.639488131074,35.7918504209338,108.278984375,11.4677734375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="119,42"
+          Id="Package\Load EDW_LINKAGES\Multicast"
+          TopLeft="194.766660838658,123.366667603385" />
+        <NodeLayout
+          Size="162,42"
+          Id="Package\Load EDW_LINKAGES\Conditional Split 1"
+          TopLeft="365.933319392472,5.5" />
+        <NodeLayout
+          Size="182,52"
+          Id="Package\Load EDW_LINKAGES\Update EMP Ref Ids STG_EDW_LNK_FIN_ACCT_EMP_IP_IDS"
+          TopLeft="356.766657262379,287.966667975318" />
+        <NodeLayout
+          Size="305,42"
+          Id="Package\Load EDW_LINKAGES\Update Product Reference Id in STG Linkages"
+          TopLeft="629.766643553316,277.633335496054" />
+        <NodeLayout
+          Size="281,42"
+          Id="Package\Load EDW_LINKAGES\Update EMP EDW IP ID in STG Linkages"
+          TopLeft="5.5,290.83333553738" />
+        <GroupLayout
+          Text="Group "
+          ParentId="Package\Load EDW_LINKAGES"
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="940,395"
+          Size="940,438"
+          Id="4425d0e8-6f6b-41e4-90b4-e71a1af1e496"
+          TopLeft="542.233310551114,145.833334917494">
+          <GroupLayout.ChildrenIds>
+            <s:String>Package\Load EDW_LINKAGES.Paths[Existing_EMP_Existing_ARG]</s:String>
+            <s:String>Package\Load EDW_LINKAGES.Paths[Multicast Output 1]</s:String>
+            <s:String>Package\Load EDW_LINKAGES.Paths[Multicast Output 3]</s:String>
+            <s:String>Package\Load EDW_LINKAGES.Paths[New_EMP_Existing_ARG]</s:String>
+            <s:String>Package\Load EDW_LINKAGES\Multicast</s:String>
+            <s:String>Package\Load EDW_LINKAGES\Conditional Split 1</s:String>
+            <s:String>Package\Load EDW_LINKAGES\Update EMP Ref Ids STG_EDW_LNK_FIN_ACCT_EMP_IP_IDS</s:String>
+            <s:String>Package\Load EDW_LINKAGES\Update Product Reference Id in STG Linkages</s:String>
+            <s:String>Package\Load EDW_LINKAGES\Update EMP EDW IP ID in STG Linkages</s:String>
+          </GroupLayout.ChildrenIds>
+        </GroupLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load EDW_LINKAGES\LND EDW Linkages">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load EDW_LINKAGES\Insert New STG EDW Linkages">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load EDW_LINKAGES\Insert New STG LNK FIN ACCT EMP IP IDs">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

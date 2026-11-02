@@ -1,0 +1,2867 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="10/16/2020 11:18:07 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="NIGSA939284"
+  DTS:CreatorName="AUR\P799871"
+  DTS:DTSID="{9296E093-A0C8-49D5-8719-4F90620EEB67}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.170"
+  DTS:LocaleID="3081"
+  DTS:ObjectName="99-Delete SF Keys"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="1"
+  DTS:VersionBuild="196"
+  DTS:VersionGUID="{BE55ADA9-EC95-447C-9969-CB673A20BB7F}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{157E919B-A071-4DF3-926A-1C639B5BE7A1}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="pRecTypeId_Bus_Del">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{D114AF23-7330-492A-A8EC-4C42DBBBF82C}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="pRecTypeId_FinAcct_Del">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{3F4720A1-7C34-4A0F-B114-F6491DB39C5B}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="pRecTypeId_Product_Del">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{0531F2A9-B39A-4A7D-8056-B8497C9CC689}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="recordtypeid_del">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Delete Financial Acct Records in SF"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:Disabled="True"
+      DTS:DTSID="{2D0BDE5C-6EC4-4661-96DE-6885244CCFDE}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Delete Financial Acct Records in SF">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{6006489D-AA5B-42E6-8851-CCC0192E9E8D}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Delete SF Fin Acct in SF"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              autoAdjustBufferSize="true"
+              defaultBufferMaxRows="100000"
+              defaultBufferSize="50485760"
+              version="1">
+              <components>
+                <component
+                  refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Delete SF Financial Account Records"
+                  componentClassID="Microsoft.ManagedComponentHost"
+                  contactInfo="SalesForce.com Destination;SentryOne; Task Factory © 2019 SQL Sentry, LLC; http://www.sentryone.com;support@sentryone.com"
+                  description="The SalesForce Destination will insert data into the selected SalesForce.com table."
+                  name="Delete SF Financial Account Records"
+                  usesDispositions="true"
+                  version="14">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="The name of the SalesForce.com object where the data will be inserted."
+                      expressionType="Notify"
+                      name="DestinationObjectName">FinServ__FinancialAccount__c</property>
+                    <property
+                      dataType="System.String"
+                      description="The number of records that will be inserted in each batch"
+                      expressionType="Notify"
+                      name="BatchSize">10000</property>
+                    <property
+                      dataType="System.Int32"
+                      description="The action performed against the selected destination object"
+                      expressionType="Notify"
+                      name="Action"
+                      typeConverter="PW.TaskFactory.Enums+SalesForceActionTypesEnum">3</property>
+                    <property
+                      dataType="System.String"
+                      description="The externalid column from the selected salesforce object used in the upsert process"
+                      expressionType="Notify"
+                      name="UpsertExternalID"></property>
+                    <property
+                      dataType="System.String"
+                      description="The assignment rule for lead, case and account objects"
+                      expressionType="Notify"
+                      name="AssignmentRule"></property>
+                    <property
+                      dataType="System.String"
+                      description="The assignment rule id for lead, case and account objects"
+                      expressionType="Notify"
+                      name="AssignmentRuleId"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Choose if data should be sent normally or with bulk insert"
+                      expressionType="Notify"
+                      name="DestinationMode"
+                      typeConverter="PW.TaskFactory.Enums+SalesForceDestinationMode">1</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Use multiple outputs and separate success results from error output"
+                      expressionType="Notify"
+                      name="UseLegacyOutputMode">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Ignore Null values in SalesForce Table"
+                      expressionType="Notify"
+                      name="IgnoreNullValues">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Set this option to true to store the temporary zip file created to send to SalesForce on disk instead of in memory"
+                      expressionType="Notify"
+                      name="Use File Based Buffer In Bulk Zip Mode">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="This sets the processing mode of the salesforce bulk api job. Parallel is the default and should be left as parallel unless you have a reason to select Serial"
+                      expressionType="Notify"
+                      name="Bulk Mode Job Concurrency Mode (Parallel or Serial)"
+                      typeConverter="PW.TaskFactory.SalesForceBulkJob+ConcurrencyModeEnum">1</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Use this setting if you want to monitor each batch for the results of the rows being transferred. If this option is not selected, the ID outputted to the success output is the batch id."
+                      expressionType="Notify"
+                      name="Monitor the bulk batch and wait for results">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Set this property to override the temporary directory (default of the current users personal folder) of where the zip files are created in bulkzip mode"
+                      expressionType="Notify"
+                      name="Bulk Mode Temporary Directory"></property>
+                    <property
+                      dataType="System.Boolean"
+                      expressionType="Notify"
+                      name="DebugMode">false</property>
+                    <property
+                      dataType="System.String"
+                      name="UserComponentTypeName">PW.TaskFactory.SalesForceDestination</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Delete SF Financial Account Records.Connections[SALESFORCE]"
+                      connectionManagerID="{3638ED21-ED0C-4917-B39A-7D4C22E40258}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[SalesForce]"
+                      description="Connection to the SalesForce.com account"
+                      name="SALESFORCE" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Delete SF Financial Account Records.Inputs[SalesForce Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="SalesForce Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Delete SF Financial Account Records.Inputs[SalesForce Destination Input].Columns[Id]"
+                          cachedDataType="wstr"
+                          cachedLength="18"
+                          cachedName="Id"
+                          externalMetadataColumnId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Delete SF Financial Account Records.Inputs[SalesForce Destination Input].ExternalColumns[Id]"
+                          lineageId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Extract SF Financial Account Keys.Outputs[SalesForce Data].Columns[Id]" />
+                        <inputColumn
+                          refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Delete SF Financial Account Records.Inputs[SalesForce Destination Input].Columns[Name]"
+                          cachedDataType="wstr"
+                          cachedLength="80"
+                          cachedName="Name"
+                          lineageId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Extract SF Financial Account Keys.Outputs[SalesForce Data].Columns[Name]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Delete SF Financial Account Records.Inputs[SalesForce Destination Input].ExternalColumns[Id]"
+                          dataType="wstr"
+                          length="18"
+                          name="Id">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              name="ExternalID"></property>
+                          </properties>
+                        </externalMetadataColumn>
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Delete SF Financial Account Records.Outputs[Salesforce Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Salesforce Destination Error Output"
+                      synchronousInputId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Delete SF Financial Account Records.Inputs[SalesForce Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Delete SF Financial Account Records.Outputs[Salesforce Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Delete SF Financial Account Records.Outputs[Salesforce Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Delete SF Financial Account Records.Outputs[Salesforce Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Delete SF Financial Account Records.Outputs[Salesforce Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                        <outputColumn
+                          refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Delete SF Financial Account Records.Outputs[Salesforce Destination Error Output].Columns[Id]"
+                          dataType="wstr"
+                          length="18"
+                          lineageId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Delete SF Financial Account Records.Outputs[Salesforce Destination Error Output].Columns[Id]"
+                          name="Id" />
+                        <outputColumn
+                          refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Delete SF Financial Account Records.Outputs[Salesforce Destination Error Output].Columns[ErrorDescription]"
+                          dataType="wstr"
+                          length="1024"
+                          lineageId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Delete SF Financial Account Records.Outputs[Salesforce Destination Error Output].Columns[ErrorDescription]"
+                          name="ErrorDescription" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Delete SF Financial Account Records.Outputs[SalesForce Destination Success Output]"
+                      exclusionGroup="1"
+                      name="SalesForce Destination Success Output"
+                      synchronousInputId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Delete SF Financial Account Records.Inputs[SalesForce Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Delete SF Financial Account Records.Outputs[SalesForce Destination Success Output].Columns[SalesForceId]"
+                          dataType="wstr"
+                          length="18"
+                          lineageId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Delete SF Financial Account Records.Outputs[SalesForce Destination Success Output].Columns[SalesForceId]"
+                          name="SalesForceId" />
+                        <outputColumn
+                          refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Delete SF Financial Account Records.Outputs[SalesForce Destination Success Output].Columns[RowResult]"
+                          dataType="wstr"
+                          length="10"
+                          lineageId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Delete SF Financial Account Records.Outputs[SalesForce Destination Success Output].Columns[RowResult]"
+                          name="RowResult" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Extract SF Financial Account Keys"
+                  componentClassID="Microsoft.ManagedComponentHost"
+                  contactInfo="SalesForce.com Source;SentryOne; Task Factory © 2019 SQL Sentry, LLC; http://www.sentryone.com;support@sentryone.com"
+                  description="Retrieves data from SalesForce.com objects"
+                  name="Extract SF Financial Account Keys"
+                  usesDispositions="true"
+                  version="11">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of rows returned in each batch from SalesForce.com"
+                      name="BatchSize">500</property>
+                    <property
+                      dataType="System.String"
+                      description="The statement used to query data from SalesForce.com"
+                      expressionType="Notify"
+                      name="QueryStatement">SELECT 
+ 	Id
+ FROM 
+	FinServ__FinancialAccount__c
+	where createdby.name like '%SSIS%'
+
+
+
+
+</property>
+                    <property
+                      dataType="System.String"
+                      description="The name of the SalesForce.com object"
+                      expressionType="Notify"
+                      name="SalesForceObjectName">FinServ__FinancialAccount__c</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Include deleted records in source data"
+                      expressionType="Notify"
+                      name="IncludeDeleted">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Set to true if a custom query is being used"
+                      expressionType="Notify"
+                      name="UseQuery">true</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Set to true if the local dates should be converted to UTC before being used in a where statement"
+                      expressionType="Notify"
+                      name="ConvertDatesToUTC">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="The type of query to execute (Normal or Bulk Query)"
+                      expressionType="Notify"
+                      name="Query Mode"
+                      typeConverter="PW.TaskFactory.SalesForceSource+QueryMode">1</property>
+                    <property
+                      dataType="System.Int32"
+                      description="The format in which the dates will be outputted"
+                      expressionType="Notify"
+                      name="Output Date Timezone"
+                      typeConverter="PW.TaskFactory.SalesForceBulkJob+OutputDateTimezone">1</property>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds of to wait between polling checks for job status"
+                      name="Bulk Query Polling Interval">2</property>
+                    <property
+                      dataType="System.Int32"
+                      description="The concurrency mode for the bulk query job"
+                      expressionType="Notify"
+                      name="Bulk Query Concurrency Mode"
+                      typeConverter="PW.TaskFactory.SalesForceBulkJob+ConcurrencyModeEnum">1</property>
+                    <property
+                      dataType="System.Boolean"
+                      expressionType="Notify"
+                      name="DebugMode">false</property>
+                    <property
+                      dataType="System.String"
+                      name="UserComponentTypeName">PW.TaskFactory.SalesForceSource</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Set to true if xml results in columns should be wrapped with a &lt;root&gt; element. This makes it easier to parse in the down flow."
+                      expressionType="Notify"
+                      name="Wrap Xml With Root Element">false</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Extract SF Financial Account Keys.Connections[SALESFORCE]"
+                      connectionManagerID="{3638ED21-ED0C-4917-B39A-7D4C22E40258}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[SalesForce]"
+                      description="Connection to the SalesForce.com account"
+                      name="SALESFORCE" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Extract SF Financial Account Keys.Outputs[SalesForce Data]"
+                      name="SalesForce Data">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Extract SF Financial Account Keys.Outputs[SalesForce Data].Columns[Id]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="SalesForce"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Extract SF Financial Account Keys.Outputs[SalesForce Data].ExternalColumns[Id]"
+                          length="18"
+                          lineageId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Extract SF Financial Account Keys.Outputs[SalesForce Data].Columns[Id]"
+                          name="Id"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Extract SF Financial Account Keys.Outputs[SalesForce Data].Columns[Name]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="SalesForce"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Extract SF Financial Account Keys.Outputs[SalesForce Data].ExternalColumns[Name]"
+                          length="80"
+                          lineageId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Extract SF Financial Account Keys.Outputs[SalesForce Data].Columns[Name]"
+                          name="Name"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Extract SF Financial Account Keys.Outputs[SalesForce Data].ExternalColumns[Id]"
+                          dataType="wstr"
+                          length="18"
+                          name="Id" />
+                        <externalMetadataColumn
+                          refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Extract SF Financial Account Keys.Outputs[SalesForce Data].ExternalColumns[Name]"
+                          dataType="wstr"
+                          length="80"
+                          name="Name" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Extract SF Financial Account Keys.Outputs[SalesForce Error Output]"
+                      isErrorOut="true"
+                      name="SalesForce Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Extract SF Financial Account Keys.Outputs[SalesForce Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Extract SF Financial Account Keys.Outputs[SalesForce Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Extract SF Financial Account Keys.Outputs[SalesForce Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Extract SF Financial Account Keys.Outputs[SalesForce Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                        <outputColumn
+                          refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Extract SF Financial Account Keys.Outputs[SalesForce Error Output].Columns[ErrorDescription]"
+                          dataType="wstr"
+                          length="1024"
+                          lineageId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Extract SF Financial Account Keys.Outputs[SalesForce Error Output].Columns[ErrorDescription]"
+                          name="ErrorDescription" />
+                        <outputColumn
+                          refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Extract SF Financial Account Keys.Outputs[SalesForce Error Output].Columns[Id]"
+                          dataType="wstr"
+                          length="18"
+                          lineageId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Extract SF Financial Account Keys.Outputs[SalesForce Error Output].Columns[Id]"
+                          name="Id" />
+                        <outputColumn
+                          refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Extract SF Financial Account Keys.Outputs[SalesForce Error Output].Columns[Name]"
+                          dataType="wstr"
+                          length="80"
+                          lineageId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Extract SF Financial Account Keys.Outputs[SalesForce Error Output].Columns[Name]"
+                          name="Name" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\TF Terminator Destination"
+                  componentClassID="Microsoft.ManagedComponentHost"
+                  contactInfo="Terminator Destination;SentryOne; Task Factory © 2019 SQL Sentry, LLC; http://www.sentryone.com;support@sentryone.com"
+                  description="The terminator destination is used to terminate a data flow path without any setup"
+                  name="TF Terminator Destination"
+                  version="2">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      description="Set this property to True if you want to save buffer data to text file"
+                      expressionType="Notify"
+                      name="EnableDataDump">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Output file path for data dump"
+                      expressionType="Notify"
+                      name="DumpFilePath"></property>
+                    <property
+                      dataType="System.String"
+                      description="Output file column separator"
+                      expressionType="Notify"
+                      name="ColumnSeparator">,</property>
+                    <property
+                      dataType="System.String"
+                      description="Output file row separator"
+                      expressionType="Notify"
+                      name="RowSeparator">\r\n</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Unicode character support"
+                      expressionType="Notify"
+                      name="SupportUnicode">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Output column names in the first row"
+                      expressionType="Notify"
+                      name="ColumnNamesInFirstRow">true</property>
+                    <property
+                      dataType="System.String"
+                      name="UserComponentTypeName">PW.TaskFactory.TerminatorDestination</property>
+                  </properties>
+                  <inputs>
+                    <input
+                      refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\TF Terminator Destination.Inputs[TerminatorInput]"
+                      hasSideEffects="true"
+                      name="TerminatorInput">
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF.Paths[SalesForce Data]"
+                  endId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Delete SF Financial Account Records.Inputs[SalesForce Destination Input]"
+                  name="SalesForce Data"
+                  startId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Extract SF Financial Account Keys.Outputs[SalesForce Data]" />
+                <path
+                  refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF.Paths[Salesforce Destination Error Output]"
+                  endId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\TF Terminator Destination.Inputs[TerminatorInput]"
+                  name="Salesforce Destination Error Output"
+                  startId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Delete SF Financial Account Records.Outputs[Salesforce Destination Error Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{f66dea8a-5482-408f-8d20-a5abc05d9546}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Delete SF Fin Acct Roles in SF"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              autoAdjustBufferSize="true"
+              defaultBufferMaxRows="100000"
+              defaultBufferSize="50485760"
+              version="1">
+              <components>
+                <component
+                  refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Delete SF Financial Account Roles Records"
+                  componentClassID="Microsoft.ManagedComponentHost"
+                  contactInfo="SalesForce.com Destination;SentryOne; Task Factory © 2019 SQL Sentry, LLC; http://www.sentryone.com;support@sentryone.com"
+                  description="The SalesForce Destination will insert data into the selected SalesForce.com table."
+                  name="Delete SF Financial Account Roles Records"
+                  usesDispositions="true"
+                  version="14">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="The name of the SalesForce.com object where the data will be inserted."
+                      expressionType="Notify"
+                      name="DestinationObjectName">FinServ__FinancialAccountRole__c</property>
+                    <property
+                      dataType="System.String"
+                      description="The number of records that will be inserted in each batch"
+                      expressionType="Notify"
+                      name="BatchSize">10000</property>
+                    <property
+                      dataType="System.Int32"
+                      description="The action performed against the selected destination object"
+                      expressionType="Notify"
+                      name="Action"
+                      typeConverter="PW.TaskFactory.Enums+SalesForceActionTypesEnum">3</property>
+                    <property
+                      dataType="System.String"
+                      description="The externalid column from the selected salesforce object used in the upsert process"
+                      expressionType="Notify"
+                      name="UpsertExternalID"></property>
+                    <property
+                      dataType="System.String"
+                      description="The assignment rule for lead, case and account objects"
+                      expressionType="Notify"
+                      name="AssignmentRule"></property>
+                    <property
+                      dataType="System.String"
+                      description="The assignment rule id for lead, case and account objects"
+                      expressionType="Notify"
+                      name="AssignmentRuleId"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Choose if data should be sent normally or with bulk insert"
+                      expressionType="Notify"
+                      name="DestinationMode"
+                      typeConverter="PW.TaskFactory.Enums+SalesForceDestinationMode">1</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Use multiple outputs and separate success results from error output"
+                      expressionType="Notify"
+                      name="UseLegacyOutputMode">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Ignore Null values in SalesForce Table"
+                      expressionType="Notify"
+                      name="IgnoreNullValues">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Set this option to true to store the temporary zip file created to send to SalesForce on disk instead of in memory"
+                      expressionType="Notify"
+                      name="Use File Based Buffer In Bulk Zip Mode">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="This sets the processing mode of the salesforce bulk api job. Parallel is the default and should be left as parallel unless you have a reason to select Serial"
+                      expressionType="Notify"
+                      name="Bulk Mode Job Concurrency Mode (Parallel or Serial)"
+                      typeConverter="PW.TaskFactory.SalesForceBulkJob+ConcurrencyModeEnum">1</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Use this setting if you want to monitor each batch for the results of the rows being transferred. If this option is not selected, the ID outputted to the success output is the batch id."
+                      expressionType="Notify"
+                      name="Monitor the bulk batch and wait for results">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Set this property to override the temporary directory (default of the current users personal folder) of where the zip files are created in bulkzip mode"
+                      expressionType="Notify"
+                      name="Bulk Mode Temporary Directory"></property>
+                    <property
+                      dataType="System.Boolean"
+                      expressionType="Notify"
+                      name="DebugMode">false</property>
+                    <property
+                      dataType="System.String"
+                      name="UserComponentTypeName">PW.TaskFactory.SalesForceDestination</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Delete SF Financial Account Roles Records.Connections[SALESFORCE]"
+                      connectionManagerID="{3638ED21-ED0C-4917-B39A-7D4C22E40258}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[SalesForce]"
+                      description="Connection to the SalesForce.com account"
+                      name="SALESFORCE" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Delete SF Financial Account Roles Records.Inputs[SalesForce Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="SalesForce Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Delete SF Financial Account Roles Records.Inputs[SalesForce Destination Input].Columns[Id]"
+                          cachedDataType="wstr"
+                          cachedLength="18"
+                          cachedName="Id"
+                          externalMetadataColumnId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Delete SF Financial Account Roles Records.Inputs[SalesForce Destination Input].ExternalColumns[Id]"
+                          lineageId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Extract SF Financial Account Roles Keys.Outputs[SalesForce Data].Columns[Id]" />
+                        <inputColumn
+                          refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Delete SF Financial Account Roles Records.Inputs[SalesForce Destination Input].Columns[Name]"
+                          cachedDataType="wstr"
+                          cachedLength="80"
+                          cachedName="Name"
+                          lineageId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Extract SF Financial Account Roles Keys.Outputs[SalesForce Data].Columns[Name]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Delete SF Financial Account Roles Records.Inputs[SalesForce Destination Input].ExternalColumns[Id]"
+                          dataType="wstr"
+                          length="18"
+                          name="Id">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              name="ExternalID"></property>
+                          </properties>
+                        </externalMetadataColumn>
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Delete SF Financial Account Roles Records.Outputs[Salesforce Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Salesforce Destination Error Output"
+                      synchronousInputId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Delete SF Financial Account Roles Records.Inputs[SalesForce Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Delete SF Financial Account Roles Records.Outputs[Salesforce Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Delete SF Financial Account Roles Records.Outputs[Salesforce Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Delete SF Financial Account Roles Records.Outputs[Salesforce Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Delete SF Financial Account Roles Records.Outputs[Salesforce Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                        <outputColumn
+                          refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Delete SF Financial Account Roles Records.Outputs[Salesforce Destination Error Output].Columns[Id]"
+                          dataType="wstr"
+                          length="18"
+                          lineageId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Delete SF Financial Account Roles Records.Outputs[Salesforce Destination Error Output].Columns[Id]"
+                          name="Id" />
+                        <outputColumn
+                          refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Delete SF Financial Account Roles Records.Outputs[Salesforce Destination Error Output].Columns[ErrorDescription]"
+                          dataType="wstr"
+                          length="1024"
+                          lineageId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Delete SF Financial Account Roles Records.Outputs[Salesforce Destination Error Output].Columns[ErrorDescription]"
+                          name="ErrorDescription" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Delete SF Financial Account Roles Records.Outputs[SalesForce Destination Success Output]"
+                      exclusionGroup="1"
+                      name="SalesForce Destination Success Output"
+                      synchronousInputId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Delete SF Financial Account Roles Records.Inputs[SalesForce Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Delete SF Financial Account Roles Records.Outputs[SalesForce Destination Success Output].Columns[SalesForceId]"
+                          dataType="wstr"
+                          length="18"
+                          lineageId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Delete SF Financial Account Roles Records.Outputs[SalesForce Destination Success Output].Columns[SalesForceId]"
+                          name="SalesForceId" />
+                        <outputColumn
+                          refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Delete SF Financial Account Roles Records.Outputs[SalesForce Destination Success Output].Columns[RowResult]"
+                          dataType="wstr"
+                          length="10"
+                          lineageId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Delete SF Financial Account Roles Records.Outputs[SalesForce Destination Success Output].Columns[RowResult]"
+                          name="RowResult" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Extract SF Financial Account Roles Keys"
+                  componentClassID="Microsoft.ManagedComponentHost"
+                  contactInfo="SalesForce.com Source;SentryOne; Task Factory © 2019 SQL Sentry, LLC; http://www.sentryone.com;support@sentryone.com"
+                  description="Retrieves data from SalesForce.com objects"
+                  name="Extract SF Financial Account Roles Keys"
+                  usesDispositions="true"
+                  version="11">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of rows returned in each batch from SalesForce.com"
+                      name="BatchSize">500</property>
+                    <property
+                      dataType="System.String"
+                      description="The statement used to query data from SalesForce.com"
+                      expressionType="Notify"
+                      name="QueryStatement">SELECT 
+ 	Id
+ FROM 
+	FinServ__FinancialAccountRole__c
+where createdby.name like '%SSIS%'</property>
+                    <property
+                      dataType="System.String"
+                      description="The name of the SalesForce.com object"
+                      expressionType="Notify"
+                      name="SalesForceObjectName">FinServ__FinancialAccountRole__c</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Include deleted records in source data"
+                      expressionType="Notify"
+                      name="IncludeDeleted">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Set to true if a custom query is being used"
+                      expressionType="Notify"
+                      name="UseQuery">true</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Set to true if the local dates should be converted to UTC before being used in a where statement"
+                      expressionType="Notify"
+                      name="ConvertDatesToUTC">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="The type of query to execute (Normal or Bulk Query)"
+                      expressionType="Notify"
+                      name="Query Mode"
+                      typeConverter="PW.TaskFactory.SalesForceSource+QueryMode">1</property>
+                    <property
+                      dataType="System.Int32"
+                      description="The format in which the dates will be outputted"
+                      expressionType="Notify"
+                      name="Output Date Timezone"
+                      typeConverter="PW.TaskFactory.SalesForceBulkJob+OutputDateTimezone">1</property>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds of to wait between polling checks for job status"
+                      name="Bulk Query Polling Interval">2</property>
+                    <property
+                      dataType="System.Int32"
+                      description="The concurrency mode for the bulk query job"
+                      expressionType="Notify"
+                      name="Bulk Query Concurrency Mode"
+                      typeConverter="PW.TaskFactory.SalesForceBulkJob+ConcurrencyModeEnum">1</property>
+                    <property
+                      dataType="System.Boolean"
+                      expressionType="Notify"
+                      name="DebugMode">false</property>
+                    <property
+                      dataType="System.String"
+                      name="UserComponentTypeName">PW.TaskFactory.SalesForceSource</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Set to true if xml results in columns should be wrapped with a &lt;root&gt; element. This makes it easier to parse in the down flow."
+                      expressionType="Notify"
+                      name="Wrap Xml With Root Element">false</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Extract SF Financial Account Roles Keys.Connections[SALESFORCE]"
+                      connectionManagerID="{3638ED21-ED0C-4917-B39A-7D4C22E40258}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[SalesForce]"
+                      description="Connection to the SalesForce.com account"
+                      name="SALESFORCE" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Extract SF Financial Account Roles Keys.Outputs[SalesForce Data]"
+                      name="SalesForce Data">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Extract SF Financial Account Roles Keys.Outputs[SalesForce Data].Columns[Id]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="SalesForce"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Extract SF Financial Account Roles Keys.Outputs[SalesForce Data].ExternalColumns[Id]"
+                          length="18"
+                          lineageId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Extract SF Financial Account Roles Keys.Outputs[SalesForce Data].Columns[Id]"
+                          name="Id"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Extract SF Financial Account Roles Keys.Outputs[SalesForce Data].Columns[Name]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="SalesForce"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Extract SF Financial Account Roles Keys.Outputs[SalesForce Data].ExternalColumns[Name]"
+                          length="80"
+                          lineageId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Extract SF Financial Account Roles Keys.Outputs[SalesForce Data].Columns[Name]"
+                          name="Name"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Extract SF Financial Account Roles Keys.Outputs[SalesForce Data].ExternalColumns[Id]"
+                          dataType="wstr"
+                          length="18"
+                          name="Id" />
+                        <externalMetadataColumn
+                          refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Extract SF Financial Account Roles Keys.Outputs[SalesForce Data].ExternalColumns[Name]"
+                          dataType="wstr"
+                          length="80"
+                          name="Name" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Extract SF Financial Account Roles Keys.Outputs[SalesForce Error Output]"
+                      isErrorOut="true"
+                      name="SalesForce Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Extract SF Financial Account Roles Keys.Outputs[SalesForce Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Extract SF Financial Account Roles Keys.Outputs[SalesForce Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Extract SF Financial Account Roles Keys.Outputs[SalesForce Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Extract SF Financial Account Roles Keys.Outputs[SalesForce Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                        <outputColumn
+                          refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Extract SF Financial Account Roles Keys.Outputs[SalesForce Error Output].Columns[ErrorDescription]"
+                          dataType="wstr"
+                          length="1024"
+                          lineageId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Extract SF Financial Account Roles Keys.Outputs[SalesForce Error Output].Columns[ErrorDescription]"
+                          name="ErrorDescription" />
+                        <outputColumn
+                          refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Extract SF Financial Account Roles Keys.Outputs[SalesForce Error Output].Columns[Id]"
+                          dataType="wstr"
+                          length="18"
+                          lineageId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Extract SF Financial Account Roles Keys.Outputs[SalesForce Error Output].Columns[Id]"
+                          name="Id" />
+                        <outputColumn
+                          refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Extract SF Financial Account Roles Keys.Outputs[SalesForce Error Output].Columns[Name]"
+                          dataType="wstr"
+                          length="80"
+                          lineageId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Extract SF Financial Account Roles Keys.Outputs[SalesForce Error Output].Columns[Name]"
+                          name="Name" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\TF Terminator Destination"
+                  componentClassID="Microsoft.ManagedComponentHost"
+                  contactInfo="Terminator Destination;SentryOne; Task Factory © 2019 SQL Sentry, LLC; http://www.sentryone.com;support@sentryone.com"
+                  description="The terminator destination is used to terminate a data flow path without any setup"
+                  name="TF Terminator Destination"
+                  version="2">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      description="Set this property to True if you want to save buffer data to text file"
+                      expressionType="Notify"
+                      name="EnableDataDump">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Output file path for data dump"
+                      expressionType="Notify"
+                      name="DumpFilePath"></property>
+                    <property
+                      dataType="System.String"
+                      description="Output file column separator"
+                      expressionType="Notify"
+                      name="ColumnSeparator">,</property>
+                    <property
+                      dataType="System.String"
+                      description="Output file row separator"
+                      expressionType="Notify"
+                      name="RowSeparator">\r\n</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Unicode character support"
+                      expressionType="Notify"
+                      name="SupportUnicode">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Output column names in the first row"
+                      expressionType="Notify"
+                      name="ColumnNamesInFirstRow">true</property>
+                    <property
+                      dataType="System.String"
+                      name="UserComponentTypeName">PW.TaskFactory.TerminatorDestination</property>
+                  </properties>
+                  <inputs>
+                    <input
+                      refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\TF Terminator Destination.Inputs[TerminatorInput]"
+                      hasSideEffects="true"
+                      name="TerminatorInput">
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF.Paths[SalesForce Data]"
+                  endId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Delete SF Financial Account Roles Records.Inputs[SalesForce Destination Input]"
+                  name="SalesForce Data"
+                  startId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Extract SF Financial Account Roles Keys.Outputs[SalesForce Data]" />
+                <path
+                  refId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF.Paths[Salesforce Destination Error Output]"
+                  endId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\TF Terminator Destination.Inputs[TerminatorInput]"
+                  name="Salesforce Destination Error Output"
+                  startId="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Delete SF Financial Account Roles Records.Outputs[Salesforce Destination Error Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Delete Financial Acct Records in SF.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{0BD98898-D050-4CCF-B82D-7EFD80A94B04}"
+          DTS:From="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{2C605ADA-A176-4E61-99C9-1659F317D42D}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Delete Products, Person Acct and Busienss Acct Records in SF">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{F4946C75-312C-425C-AE20-357B835FD9FB}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Delete Business Accounts in SF"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\Delete SF Person Account Records"
+                  componentClassID="Microsoft.ManagedComponentHost"
+                  contactInfo="SalesForce.com Destination;SentryOne; Task Factory © 2019 SQL Sentry, LLC; http://www.sentryone.com;support@sentryone.com"
+                  description="The SalesForce Destination will insert data into the selected SalesForce.com table."
+                  name="Delete SF Person Account Records"
+                  usesDispositions="true"
+                  version="14">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="The name of the SalesForce.com object where the data will be inserted."
+                      expressionType="Notify"
+                      name="DestinationObjectName">Account</property>
+                    <property
+                      dataType="System.String"
+                      description="The number of records that will be inserted in each batch"
+                      expressionType="Notify"
+                      name="BatchSize">10000</property>
+                    <property
+                      dataType="System.Int32"
+                      description="The action performed against the selected destination object"
+                      expressionType="Notify"
+                      name="Action"
+                      typeConverter="PW.TaskFactory.Enums+SalesForceActionTypesEnum">3</property>
+                    <property
+                      dataType="System.String"
+                      description="The externalid column from the selected salesforce object used in the upsert process"
+                      expressionType="Notify"
+                      name="UpsertExternalID"></property>
+                    <property
+                      dataType="System.String"
+                      description="The assignment rule for lead, case and account objects"
+                      expressionType="Notify"
+                      name="AssignmentRule"></property>
+                    <property
+                      dataType="System.String"
+                      description="The assignment rule id for lead, case and account objects"
+                      expressionType="Notify"
+                      name="AssignmentRuleId"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Choose if data should be sent normally or with bulk insert"
+                      expressionType="Notify"
+                      name="DestinationMode"
+                      typeConverter="PW.TaskFactory.Enums+SalesForceDestinationMode">1</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Use multiple outputs and separate success results from error output"
+                      expressionType="Notify"
+                      name="UseLegacyOutputMode">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Ignore Null values in SalesForce Table"
+                      expressionType="Notify"
+                      name="IgnoreNullValues">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Set this option to true to store the temporary zip file created to send to SalesForce on disk instead of in memory"
+                      expressionType="Notify"
+                      name="Use File Based Buffer In Bulk Zip Mode">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="This sets the processing mode of the salesforce bulk api job. Parallel is the default and should be left as parallel unless you have a reason to select Serial"
+                      expressionType="Notify"
+                      name="Bulk Mode Job Concurrency Mode (Parallel or Serial)"
+                      typeConverter="PW.TaskFactory.SalesForceBulkJob+ConcurrencyModeEnum">1</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Use this setting if you want to monitor each batch for the results of the rows being transferred. If this option is not selected, the ID outputted to the success output is the batch id."
+                      expressionType="Notify"
+                      name="Monitor the bulk batch and wait for results">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Set this property to override the temporary directory (default of the current users personal folder) of where the zip files are created in bulkzip mode"
+                      expressionType="Notify"
+                      name="Bulk Mode Temporary Directory"></property>
+                    <property
+                      dataType="System.Boolean"
+                      expressionType="Notify"
+                      name="DebugMode">false</property>
+                    <property
+                      dataType="System.String"
+                      name="UserComponentTypeName">PW.TaskFactory.SalesForceDestination</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\Delete SF Person Account Records.Connections[SALESFORCE]"
+                      connectionManagerID="{3638ED21-ED0C-4917-B39A-7D4C22E40258}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[SalesForce]"
+                      description="Connection to the SalesForce.com account"
+                      name="SALESFORCE" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\Delete SF Person Account Records.Inputs[SalesForce Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="RedirectRow"
+                      hasSideEffects="true"
+                      name="SalesForce Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\Delete SF Person Account Records.Inputs[SalesForce Destination Input].Columns[Id]"
+                          cachedDataType="wstr"
+                          cachedLength="18"
+                          cachedName="Id"
+                          externalMetadataColumnId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\Delete SF Person Account Records.Inputs[SalesForce Destination Input].ExternalColumns[Id]"
+                          lineageId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\Extract SF Person Account Keys.Outputs[SalesForce Data].Columns[Id]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\Delete SF Person Account Records.Inputs[SalesForce Destination Input].ExternalColumns[Id]"
+                          dataType="wstr"
+                          length="18"
+                          name="Id">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              name="ExternalID"></property>
+                          </properties>
+                        </externalMetadataColumn>
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\Delete SF Person Account Records.Outputs[Salesforce Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Salesforce Destination Error Output"
+                      synchronousInputId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\Delete SF Person Account Records.Inputs[SalesForce Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\Delete SF Person Account Records.Outputs[Salesforce Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\Delete SF Person Account Records.Outputs[Salesforce Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\Delete SF Person Account Records.Outputs[Salesforce Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\Delete SF Person Account Records.Outputs[Salesforce Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                        <outputColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\Delete SF Person Account Records.Outputs[Salesforce Destination Error Output].Columns[Id]"
+                          dataType="wstr"
+                          length="18"
+                          lineageId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\Delete SF Person Account Records.Outputs[Salesforce Destination Error Output].Columns[Id]"
+                          name="Id" />
+                        <outputColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\Delete SF Person Account Records.Outputs[Salesforce Destination Error Output].Columns[ErrorDescription]"
+                          dataType="wstr"
+                          length="1024"
+                          lineageId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\Delete SF Person Account Records.Outputs[Salesforce Destination Error Output].Columns[ErrorDescription]"
+                          name="ErrorDescription" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\Delete SF Person Account Records.Outputs[SalesForce Destination Success Output]"
+                      exclusionGroup="1"
+                      name="SalesForce Destination Success Output"
+                      synchronousInputId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\Delete SF Person Account Records.Inputs[SalesForce Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\Delete SF Person Account Records.Outputs[SalesForce Destination Success Output].Columns[SalesForceId]"
+                          dataType="wstr"
+                          length="18"
+                          lineageId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\Delete SF Person Account Records.Outputs[SalesForce Destination Success Output].Columns[SalesForceId]"
+                          name="SalesForceId" />
+                        <outputColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\Delete SF Person Account Records.Outputs[SalesForce Destination Success Output].Columns[RowResult]"
+                          dataType="wstr"
+                          length="10"
+                          lineageId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\Delete SF Person Account Records.Outputs[SalesForce Destination Success Output].Columns[RowResult]"
+                          name="RowResult" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\Extract SF Person Account Keys"
+                  componentClassID="Microsoft.ManagedComponentHost"
+                  contactInfo="SalesForce.com Source;SentryOne; Task Factory © 2019 SQL Sentry, LLC; http://www.sentryone.com;support@sentryone.com"
+                  description="Retrieves data from SalesForce.com objects"
+                  name="Extract SF Person Account Keys"
+                  usesDispositions="true"
+                  version="11">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of rows returned in each batch from SalesForce.com"
+                      name="BatchSize">500</property>
+                    <property
+                      dataType="System.String"
+                      description="The statement used to query data from SalesForce.com"
+                      expressionType="Notify"
+                      name="QueryStatement">SELECT 
+ 	Id
+ FROM 
+	Account
+	
+	where RecordType.Name like 'MLC%Wealth%EDW%Business%'
+	
+	
+</property>
+                    <property
+                      dataType="System.String"
+                      description="The name of the SalesForce.com object"
+                      expressionType="Notify"
+                      name="SalesForceObjectName">Account</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Include deleted records in source data"
+                      expressionType="Notify"
+                      name="IncludeDeleted">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Set to true if a custom query is being used"
+                      expressionType="Notify"
+                      name="UseQuery">true</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Set to true if the local dates should be converted to UTC before being used in a where statement"
+                      expressionType="Notify"
+                      name="ConvertDatesToUTC">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="The type of query to execute (Normal or Bulk Query)"
+                      expressionType="Notify"
+                      name="Query Mode"
+                      typeConverter="PW.TaskFactory.SalesForceSource+QueryMode">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="The format in which the dates will be outputted"
+                      expressionType="Notify"
+                      name="Output Date Timezone"
+                      typeConverter="PW.TaskFactory.SalesForceBulkJob+OutputDateTimezone">1</property>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds of to wait between polling checks for job status"
+                      name="Bulk Query Polling Interval">2</property>
+                    <property
+                      dataType="System.Int32"
+                      description="The concurrency mode for the bulk query job"
+                      expressionType="Notify"
+                      name="Bulk Query Concurrency Mode"
+                      typeConverter="PW.TaskFactory.SalesForceBulkJob+ConcurrencyModeEnum">1</property>
+                    <property
+                      dataType="System.Boolean"
+                      expressionType="Notify"
+                      name="DebugMode">false</property>
+                    <property
+                      dataType="System.String"
+                      name="UserComponentTypeName">PW.TaskFactory.SalesForceSource</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Set to true if xml results in columns should be wrapped with a &lt;root&gt; element. This makes it easier to parse in the down flow."
+                      expressionType="Notify"
+                      name="Wrap Xml With Root Element">false</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\Extract SF Person Account Keys.Connections[SALESFORCE]"
+                      connectionManagerID="{3638ED21-ED0C-4917-B39A-7D4C22E40258}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[SalesForce]"
+                      description="Connection to the SalesForce.com account"
+                      name="SALESFORCE" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\Extract SF Person Account Keys.Outputs[SalesForce Data]"
+                      name="SalesForce Data">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\Extract SF Person Account Keys.Outputs[SalesForce Data].Columns[Id]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="SalesForce"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\Extract SF Person Account Keys.Outputs[SalesForce Data].ExternalColumns[Id]"
+                          length="18"
+                          lineageId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\Extract SF Person Account Keys.Outputs[SalesForce Data].Columns[Id]"
+                          name="Id"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\Extract SF Person Account Keys.Outputs[SalesForce Data].ExternalColumns[Id]"
+                          dataType="wstr"
+                          length="18"
+                          name="Id" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\Extract SF Person Account Keys.Outputs[SalesForce Error Output]"
+                      isErrorOut="true"
+                      name="SalesForce Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\Extract SF Person Account Keys.Outputs[SalesForce Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\Extract SF Person Account Keys.Outputs[SalesForce Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\Extract SF Person Account Keys.Outputs[SalesForce Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\Extract SF Person Account Keys.Outputs[SalesForce Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                        <outputColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\Extract SF Person Account Keys.Outputs[SalesForce Error Output].Columns[ErrorDescription]"
+                          dataType="wstr"
+                          length="1024"
+                          lineageId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\Extract SF Person Account Keys.Outputs[SalesForce Error Output].Columns[ErrorDescription]"
+                          name="ErrorDescription" />
+                        <outputColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\Extract SF Person Account Keys.Outputs[SalesForce Error Output].Columns[Id]"
+                          dataType="wstr"
+                          length="18"
+                          lineageId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\Extract SF Person Account Keys.Outputs[SalesForce Error Output].Columns[Id]"
+                          name="Id" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\TF Terminator Destination"
+                  componentClassID="Microsoft.ManagedComponentHost"
+                  contactInfo="Terminator Destination;SentryOne; Task Factory © 2019 SQL Sentry, LLC; http://www.sentryone.com;support@sentryone.com"
+                  description="The terminator destination is used to terminate a data flow path without any setup"
+                  name="TF Terminator Destination"
+                  version="2">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      description="Set this property to True if you want to save buffer data to text file"
+                      expressionType="Notify"
+                      name="EnableDataDump">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Output file path for data dump"
+                      expressionType="Notify"
+                      name="DumpFilePath"></property>
+                    <property
+                      dataType="System.String"
+                      description="Output file column separator"
+                      expressionType="Notify"
+                      name="ColumnSeparator">,</property>
+                    <property
+                      dataType="System.String"
+                      description="Output file row separator"
+                      expressionType="Notify"
+                      name="RowSeparator">\r\n</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Unicode character support"
+                      expressionType="Notify"
+                      name="SupportUnicode">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Output column names in the first row"
+                      expressionType="Notify"
+                      name="ColumnNamesInFirstRow">true</property>
+                    <property
+                      dataType="System.String"
+                      name="UserComponentTypeName">PW.TaskFactory.TerminatorDestination</property>
+                  </properties>
+                  <inputs>
+                    <input
+                      refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\TF Terminator Destination.Inputs[TerminatorInput]"
+                      hasSideEffects="true"
+                      name="TerminatorInput">
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF.Paths[SalesForce Data]"
+                  endId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\Delete SF Person Account Records.Inputs[SalesForce Destination Input]"
+                  name="SalesForce Data"
+                  startId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\Extract SF Person Account Keys.Outputs[SalesForce Data]" />
+                <path
+                  refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF.Paths[Salesforce Destination Error Output]"
+                  endId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\TF Terminator Destination.Inputs[TerminatorInput]"
+                  name="Salesforce Destination Error Output"
+                  startId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\Delete SF Person Account Records.Outputs[Salesforce Destination Error Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:Disabled="True"
+          DTS:DTSID="{34b6acae-0d35-460c-a295-ecf85f188dd1}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Delete Person Accounts in SF"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\Delete SF Person Account Records"
+                  componentClassID="Microsoft.ManagedComponentHost"
+                  contactInfo="SalesForce.com Destination;SentryOne; Task Factory © 2019 SQL Sentry, LLC; http://www.sentryone.com;support@sentryone.com"
+                  description="The SalesForce Destination will insert data into the selected SalesForce.com table."
+                  name="Delete SF Person Account Records"
+                  usesDispositions="true"
+                  version="14">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="The name of the SalesForce.com object where the data will be inserted."
+                      expressionType="Notify"
+                      name="DestinationObjectName">Account</property>
+                    <property
+                      dataType="System.String"
+                      description="The number of records that will be inserted in each batch"
+                      expressionType="Notify"
+                      name="BatchSize">10000</property>
+                    <property
+                      dataType="System.Int32"
+                      description="The action performed against the selected destination object"
+                      expressionType="Notify"
+                      name="Action"
+                      typeConverter="PW.TaskFactory.Enums+SalesForceActionTypesEnum">3</property>
+                    <property
+                      dataType="System.String"
+                      description="The externalid column from the selected salesforce object used in the upsert process"
+                      expressionType="Notify"
+                      name="UpsertExternalID"></property>
+                    <property
+                      dataType="System.String"
+                      description="The assignment rule for lead, case and account objects"
+                      expressionType="Notify"
+                      name="AssignmentRule"></property>
+                    <property
+                      dataType="System.String"
+                      description="The assignment rule id for lead, case and account objects"
+                      expressionType="Notify"
+                      name="AssignmentRuleId"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Choose if data should be sent normally or with bulk insert"
+                      expressionType="Notify"
+                      name="DestinationMode"
+                      typeConverter="PW.TaskFactory.Enums+SalesForceDestinationMode">1</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Use multiple outputs and separate success results from error output"
+                      expressionType="Notify"
+                      name="UseLegacyOutputMode">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Ignore Null values in SalesForce Table"
+                      expressionType="Notify"
+                      name="IgnoreNullValues">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Set this option to true to store the temporary zip file created to send to SalesForce on disk instead of in memory"
+                      expressionType="Notify"
+                      name="Use File Based Buffer In Bulk Zip Mode">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="This sets the processing mode of the salesforce bulk api job. Parallel is the default and should be left as parallel unless you have a reason to select Serial"
+                      expressionType="Notify"
+                      name="Bulk Mode Job Concurrency Mode (Parallel or Serial)"
+                      typeConverter="PW.TaskFactory.SalesForceBulkJob+ConcurrencyModeEnum">1</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Use this setting if you want to monitor each batch for the results of the rows being transferred. If this option is not selected, the ID outputted to the success output is the batch id."
+                      expressionType="Notify"
+                      name="Monitor the bulk batch and wait for results">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Set this property to override the temporary directory (default of the current users personal folder) of where the zip files are created in bulkzip mode"
+                      expressionType="Notify"
+                      name="Bulk Mode Temporary Directory"></property>
+                    <property
+                      dataType="System.Boolean"
+                      expressionType="Notify"
+                      name="DebugMode">false</property>
+                    <property
+                      dataType="System.String"
+                      name="UserComponentTypeName">PW.TaskFactory.SalesForceDestination</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\Delete SF Person Account Records.Connections[SALESFORCE]"
+                      connectionManagerID="{3638ED21-ED0C-4917-B39A-7D4C22E40258}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[SalesForce]"
+                      description="Connection to the SalesForce.com account"
+                      name="SALESFORCE" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\Delete SF Person Account Records.Inputs[SalesForce Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="RedirectRow"
+                      hasSideEffects="true"
+                      name="SalesForce Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\Delete SF Person Account Records.Inputs[SalesForce Destination Input].Columns[Id]"
+                          cachedDataType="wstr"
+                          cachedLength="18"
+                          cachedName="Id"
+                          externalMetadataColumnId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\Delete SF Person Account Records.Inputs[SalesForce Destination Input].ExternalColumns[Id]"
+                          lineageId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\Extract SF Person Account Keys.Outputs[SalesForce Data].Columns[Id]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\Delete SF Person Account Records.Inputs[SalesForce Destination Input].ExternalColumns[Id]"
+                          dataType="wstr"
+                          length="18"
+                          name="Id">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              name="ExternalID"></property>
+                          </properties>
+                        </externalMetadataColumn>
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\Delete SF Person Account Records.Outputs[Salesforce Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Salesforce Destination Error Output"
+                      synchronousInputId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\Delete SF Person Account Records.Inputs[SalesForce Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\Delete SF Person Account Records.Outputs[Salesforce Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\Delete SF Person Account Records.Outputs[Salesforce Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\Delete SF Person Account Records.Outputs[Salesforce Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\Delete SF Person Account Records.Outputs[Salesforce Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                        <outputColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\Delete SF Person Account Records.Outputs[Salesforce Destination Error Output].Columns[Id]"
+                          dataType="wstr"
+                          length="18"
+                          lineageId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\Delete SF Person Account Records.Outputs[Salesforce Destination Error Output].Columns[Id]"
+                          name="Id" />
+                        <outputColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\Delete SF Person Account Records.Outputs[Salesforce Destination Error Output].Columns[ErrorDescription]"
+                          dataType="wstr"
+                          length="1024"
+                          lineageId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\Delete SF Person Account Records.Outputs[Salesforce Destination Error Output].Columns[ErrorDescription]"
+                          name="ErrorDescription" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\Delete SF Person Account Records.Outputs[SalesForce Destination Success Output]"
+                      exclusionGroup="1"
+                      name="SalesForce Destination Success Output"
+                      synchronousInputId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\Delete SF Person Account Records.Inputs[SalesForce Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\Delete SF Person Account Records.Outputs[SalesForce Destination Success Output].Columns[SalesForceId]"
+                          dataType="wstr"
+                          length="18"
+                          lineageId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\Delete SF Person Account Records.Outputs[SalesForce Destination Success Output].Columns[SalesForceId]"
+                          name="SalesForceId" />
+                        <outputColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\Delete SF Person Account Records.Outputs[SalesForce Destination Success Output].Columns[RowResult]"
+                          dataType="wstr"
+                          length="10"
+                          lineageId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\Delete SF Person Account Records.Outputs[SalesForce Destination Success Output].Columns[RowResult]"
+                          name="RowResult" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\Extract SF Person Account Keys"
+                  componentClassID="Microsoft.ManagedComponentHost"
+                  contactInfo="SalesForce.com Source;SentryOne; Task Factory © 2019 SQL Sentry, LLC; http://www.sentryone.com;support@sentryone.com"
+                  description="Retrieves data from SalesForce.com objects"
+                  name="Extract SF Person Account Keys"
+                  usesDispositions="true"
+                  version="11">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of rows returned in each batch from SalesForce.com"
+                      name="BatchSize">500</property>
+                    <property
+                      dataType="System.String"
+                      description="The statement used to query data from SalesForce.com"
+                      expressionType="Notify"
+                      name="QueryStatement">SELECT 
+ id
+ FROM 
+	Account
+
+	
+</property>
+                    <property
+                      dataType="System.String"
+                      description="The name of the SalesForce.com object"
+                      expressionType="Notify"
+                      name="SalesForceObjectName">Account</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Include deleted records in source data"
+                      expressionType="Notify"
+                      name="IncludeDeleted">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Set to true if a custom query is being used"
+                      expressionType="Notify"
+                      name="UseQuery">true</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Set to true if the local dates should be converted to UTC before being used in a where statement"
+                      expressionType="Notify"
+                      name="ConvertDatesToUTC">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="The type of query to execute (Normal or Bulk Query)"
+                      expressionType="Notify"
+                      name="Query Mode"
+                      typeConverter="PW.TaskFactory.SalesForceSource+QueryMode">1</property>
+                    <property
+                      dataType="System.Int32"
+                      description="The format in which the dates will be outputted"
+                      expressionType="Notify"
+                      name="Output Date Timezone"
+                      typeConverter="PW.TaskFactory.SalesForceBulkJob+OutputDateTimezone">1</property>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds of to wait between polling checks for job status"
+                      name="Bulk Query Polling Interval">2</property>
+                    <property
+                      dataType="System.Int32"
+                      description="The concurrency mode for the bulk query job"
+                      expressionType="Notify"
+                      name="Bulk Query Concurrency Mode"
+                      typeConverter="PW.TaskFactory.SalesForceBulkJob+ConcurrencyModeEnum">1</property>
+                    <property
+                      dataType="System.Boolean"
+                      expressionType="Notify"
+                      name="DebugMode">false</property>
+                    <property
+                      dataType="System.String"
+                      name="UserComponentTypeName">PW.TaskFactory.SalesForceSource</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Set to true if xml results in columns should be wrapped with a &lt;root&gt; element. This makes it easier to parse in the down flow."
+                      expressionType="Notify"
+                      name="Wrap Xml With Root Element">false</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\Extract SF Person Account Keys.Connections[SALESFORCE]"
+                      connectionManagerID="{3638ED21-ED0C-4917-B39A-7D4C22E40258}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[SalesForce]"
+                      description="Connection to the SalesForce.com account"
+                      name="SALESFORCE" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\Extract SF Person Account Keys.Outputs[SalesForce Data]"
+                      name="SalesForce Data">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\Extract SF Person Account Keys.Outputs[SalesForce Data].Columns[Id]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="SalesForce"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\Extract SF Person Account Keys.Outputs[SalesForce Data].ExternalColumns[Id]"
+                          length="18"
+                          lineageId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\Extract SF Person Account Keys.Outputs[SalesForce Data].Columns[Id]"
+                          name="Id"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\Extract SF Person Account Keys.Outputs[SalesForce Data].ExternalColumns[Id]"
+                          dataType="wstr"
+                          length="18"
+                          name="Id" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\Extract SF Person Account Keys.Outputs[SalesForce Error Output]"
+                      isErrorOut="true"
+                      name="SalesForce Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\Extract SF Person Account Keys.Outputs[SalesForce Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\Extract SF Person Account Keys.Outputs[SalesForce Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\Extract SF Person Account Keys.Outputs[SalesForce Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\Extract SF Person Account Keys.Outputs[SalesForce Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                        <outputColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\Extract SF Person Account Keys.Outputs[SalesForce Error Output].Columns[ErrorDescription]"
+                          dataType="wstr"
+                          length="1024"
+                          lineageId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\Extract SF Person Account Keys.Outputs[SalesForce Error Output].Columns[ErrorDescription]"
+                          name="ErrorDescription" />
+                        <outputColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\Extract SF Person Account Keys.Outputs[SalesForce Error Output].Columns[Id]"
+                          dataType="wstr"
+                          length="18"
+                          lineageId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\Extract SF Person Account Keys.Outputs[SalesForce Error Output].Columns[Id]"
+                          name="Id" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\TF Terminator Destination"
+                  componentClassID="Microsoft.ManagedComponentHost"
+                  contactInfo="Terminator Destination;SentryOne; Task Factory © 2019 SQL Sentry, LLC; http://www.sentryone.com;support@sentryone.com"
+                  description="The terminator destination is used to terminate a data flow path without any setup"
+                  name="TF Terminator Destination"
+                  version="2">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      description="Set this property to True if you want to save buffer data to text file"
+                      expressionType="Notify"
+                      name="EnableDataDump">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Output file path for data dump"
+                      expressionType="Notify"
+                      name="DumpFilePath"></property>
+                    <property
+                      dataType="System.String"
+                      description="Output file column separator"
+                      expressionType="Notify"
+                      name="ColumnSeparator">,</property>
+                    <property
+                      dataType="System.String"
+                      description="Output file row separator"
+                      expressionType="Notify"
+                      name="RowSeparator">\r\n</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Unicode character support"
+                      expressionType="Notify"
+                      name="SupportUnicode">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Output column names in the first row"
+                      expressionType="Notify"
+                      name="ColumnNamesInFirstRow">true</property>
+                    <property
+                      dataType="System.String"
+                      name="UserComponentTypeName">PW.TaskFactory.TerminatorDestination</property>
+                  </properties>
+                  <inputs>
+                    <input
+                      refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\TF Terminator Destination.Inputs[TerminatorInput]"
+                      hasSideEffects="true"
+                      name="TerminatorInput">
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF.Paths[SalesForce Data]"
+                  endId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\Delete SF Person Account Records.Inputs[SalesForce Destination Input]"
+                  name="SalesForce Data"
+                  startId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\Extract SF Person Account Keys.Outputs[SalesForce Data]" />
+                <path
+                  refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF.Paths[Salesforce Destination Error Output]"
+                  endId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\TF Terminator Destination.Inputs[TerminatorInput]"
+                  name="Salesforce Destination Error Output"
+                  startId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\Delete SF Person Account Records.Outputs[Salesforce Destination Error Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:Disabled="True"
+          DTS:DTSID="{8EE7526B-B70C-4D3B-9785-DB42500F94C1}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Delete Products in SF"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Delete Products created by SSIS user"
+                  componentClassID="Microsoft.ManagedComponentHost"
+                  contactInfo="SalesForce.com Destination;SentryOne; Task Factory © 2019 SQL Sentry, LLC; http://www.sentryone.com;support@sentryone.com"
+                  description="The SalesForce Destination will insert data into the selected SalesForce.com table."
+                  name="Delete Products created by SSIS user"
+                  usesDispositions="true"
+                  version="14">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="The name of the SalesForce.com object where the data will be inserted."
+                      expressionType="Notify"
+                      name="DestinationObjectName">Product2</property>
+                    <property
+                      dataType="System.String"
+                      description="The number of records that will be inserted in each batch"
+                      expressionType="Notify"
+                      name="BatchSize">200</property>
+                    <property
+                      dataType="System.Int32"
+                      description="The action performed against the selected destination object"
+                      expressionType="Notify"
+                      name="Action"
+                      typeConverter="PW.TaskFactory.Enums+SalesForceActionTypesEnum">3</property>
+                    <property
+                      dataType="System.String"
+                      description="The externalid column from the selected salesforce object used in the upsert process"
+                      expressionType="Notify"
+                      name="UpsertExternalID"></property>
+                    <property
+                      dataType="System.String"
+                      description="The assignment rule for lead, case and account objects"
+                      expressionType="Notify"
+                      name="AssignmentRule"></property>
+                    <property
+                      dataType="System.String"
+                      description="The assignment rule id for lead, case and account objects"
+                      expressionType="Notify"
+                      name="AssignmentRuleId"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Choose if data should be sent normally or with bulk insert"
+                      expressionType="Notify"
+                      name="DestinationMode"
+                      typeConverter="PW.TaskFactory.Enums+SalesForceDestinationMode">0</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Use multiple outputs and separate success results from error output"
+                      expressionType="Notify"
+                      name="UseLegacyOutputMode">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Ignore Null values in SalesForce Table"
+                      expressionType="Notify"
+                      name="IgnoreNullValues">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Set this option to true to store the temporary zip file created to send to SalesForce on disk instead of in memory"
+                      expressionType="Notify"
+                      name="Use File Based Buffer In Bulk Zip Mode">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="This sets the processing mode of the salesforce bulk api job. Parallel is the default and should be left as parallel unless you have a reason to select Serial"
+                      expressionType="Notify"
+                      name="Bulk Mode Job Concurrency Mode (Parallel or Serial)"
+                      typeConverter="PW.TaskFactory.SalesForceBulkJob+ConcurrencyModeEnum">1</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Use this setting if you want to monitor each batch for the results of the rows being transferred. If this option is not selected, the ID outputted to the success output is the batch id."
+                      expressionType="Notify"
+                      name="Monitor the bulk batch and wait for results">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Set this property to override the temporary directory (default of the current users personal folder) of where the zip files are created in bulkzip mode"
+                      expressionType="Notify"
+                      name="Bulk Mode Temporary Directory"></property>
+                    <property
+                      dataType="System.Boolean"
+                      expressionType="Notify"
+                      name="DebugMode">false</property>
+                    <property
+                      dataType="System.String"
+                      name="UserComponentTypeName">PW.TaskFactory.SalesForceDestination</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Delete Products created by SSIS user.Connections[SALESFORCE]"
+                      connectionManagerID="{3638ED21-ED0C-4917-B39A-7D4C22E40258}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[SalesForce]"
+                      description="Connection to the SalesForce.com account"
+                      name="SALESFORCE" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Delete Products created by SSIS user.Inputs[SalesForce Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="RedirectRow"
+                      hasSideEffects="true"
+                      name="SalesForce Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Delete Products created by SSIS user.Inputs[SalesForce Destination Input].Columns[Id]"
+                          cachedDataType="wstr"
+                          cachedLength="18"
+                          cachedName="Id"
+                          externalMetadataColumnId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Delete Products created by SSIS user.Inputs[SalesForce Destination Input].ExternalColumns[Id]"
+                          lineageId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Select Products created by SSIS User.Outputs[SalesForce Data].Columns[Id]" />
+                        <inputColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Delete Products created by SSIS user.Inputs[SalesForce Destination Input].Columns[RecordTypeId]"
+                          cachedDataType="wstr"
+                          cachedLength="18"
+                          cachedName="RecordTypeId"
+                          lineageId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Select Products created by SSIS User.Outputs[SalesForce Data].Columns[RecordTypeId]" />
+                        <inputColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Delete Products created by SSIS user.Inputs[SalesForce Destination Input].Columns[CreatedBy.Name]"
+                          cachedDataType="wstr"
+                          cachedLength="121"
+                          cachedName="CreatedBy.Name"
+                          lineageId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Select Products created by SSIS User.Outputs[SalesForce Data].Columns[CreatedBy.Name]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Delete Products created by SSIS user.Inputs[SalesForce Destination Input].ExternalColumns[Id]"
+                          dataType="wstr"
+                          length="18"
+                          name="Id">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              name="ExternalID"></property>
+                          </properties>
+                        </externalMetadataColumn>
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Delete Products created by SSIS user.Outputs[Salesforce Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Salesforce Destination Error Output"
+                      synchronousInputId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Delete Products created by SSIS user.Inputs[SalesForce Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Delete Products created by SSIS user.Outputs[Salesforce Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Delete Products created by SSIS user.Outputs[Salesforce Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Delete Products created by SSIS user.Outputs[Salesforce Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Delete Products created by SSIS user.Outputs[Salesforce Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                        <outputColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Delete Products created by SSIS user.Outputs[Salesforce Destination Error Output].Columns[Id]"
+                          dataType="wstr"
+                          length="18"
+                          lineageId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Delete Products created by SSIS user.Outputs[Salesforce Destination Error Output].Columns[Id]"
+                          name="Id" />
+                        <outputColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Delete Products created by SSIS user.Outputs[Salesforce Destination Error Output].Columns[ErrorDescription]"
+                          dataType="wstr"
+                          length="1024"
+                          lineageId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Delete Products created by SSIS user.Outputs[Salesforce Destination Error Output].Columns[ErrorDescription]"
+                          name="ErrorDescription" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Delete Products created by SSIS user.Outputs[SalesForce Destination Success Output]"
+                      exclusionGroup="1"
+                      name="SalesForce Destination Success Output"
+                      synchronousInputId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Delete Products created by SSIS user.Inputs[SalesForce Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Delete Products created by SSIS user.Outputs[SalesForce Destination Success Output].Columns[SalesForceId]"
+                          dataType="wstr"
+                          length="18"
+                          lineageId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Delete Products created by SSIS user.Outputs[SalesForce Destination Success Output].Columns[SalesForceId]"
+                          name="SalesForceId" />
+                        <outputColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Delete Products created by SSIS user.Outputs[SalesForce Destination Success Output].Columns[RowResult]"
+                          dataType="wstr"
+                          length="10"
+                          lineageId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Delete Products created by SSIS user.Outputs[SalesForce Destination Success Output].Columns[RowResult]"
+                          name="RowResult" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Select Products created by SSIS User"
+                  componentClassID="Microsoft.ManagedComponentHost"
+                  contactInfo="SalesForce.com Source;SentryOne; Task Factory © 2019 SQL Sentry, LLC; http://www.sentryone.com;support@sentryone.com"
+                  description="Retrieves data from SalesForce.com objects"
+                  name="Select Products created by SSIS User"
+                  usesDispositions="true"
+                  version="11">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of rows returned in each batch from SalesForce.com"
+                      name="BatchSize">500</property>
+                    <property
+                      dataType="System.String"
+                      description="The statement used to query data from SalesForce.com"
+                      expressionType="Notify"
+                      name="QueryStatement">SELECT 
+ 	Id, 
+	RecordTypeId,
+	createdby.name
+ FROM 
+	Product2
+	where createdby.Name like '%SSIS%'
+	
+</property>
+                    <property
+                      dataType="System.String"
+                      description="The name of the SalesForce.com object"
+                      expressionType="Notify"
+                      name="SalesForceObjectName">Product2</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Include deleted records in source data"
+                      expressionType="Notify"
+                      name="IncludeDeleted">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Set to true if a custom query is being used"
+                      expressionType="Notify"
+                      name="UseQuery">true</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Set to true if the local dates should be converted to UTC before being used in a where statement"
+                      expressionType="Notify"
+                      name="ConvertDatesToUTC">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="The type of query to execute (Normal or Bulk Query)"
+                      expressionType="Notify"
+                      name="Query Mode"
+                      typeConverter="PW.TaskFactory.SalesForceSource+QueryMode">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="The format in which the dates will be outputted"
+                      expressionType="Notify"
+                      name="Output Date Timezone"
+                      typeConverter="PW.TaskFactory.SalesForceBulkJob+OutputDateTimezone">1</property>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds of to wait between polling checks for job status"
+                      name="Bulk Query Polling Interval">2</property>
+                    <property
+                      dataType="System.Int32"
+                      description="The concurrency mode for the bulk query job"
+                      expressionType="Notify"
+                      name="Bulk Query Concurrency Mode"
+                      typeConverter="PW.TaskFactory.SalesForceBulkJob+ConcurrencyModeEnum">1</property>
+                    <property
+                      dataType="System.Boolean"
+                      expressionType="Notify"
+                      name="DebugMode">false</property>
+                    <property
+                      dataType="System.String"
+                      name="UserComponentTypeName">PW.TaskFactory.SalesForceSource</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Set to true if xml results in columns should be wrapped with a &lt;root&gt; element. This makes it easier to parse in the down flow."
+                      expressionType="Notify"
+                      name="Wrap Xml With Root Element">false</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Select Products created by SSIS User.Connections[SALESFORCE]"
+                      connectionManagerID="{3638ED21-ED0C-4917-B39A-7D4C22E40258}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[SalesForce]"
+                      description="Connection to the SalesForce.com account"
+                      name="SALESFORCE" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Select Products created by SSIS User.Outputs[SalesForce Data]"
+                      name="SalesForce Data">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Select Products created by SSIS User.Outputs[SalesForce Data].Columns[Id]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="SalesForce"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Select Products created by SSIS User.Outputs[SalesForce Data].ExternalColumns[Id]"
+                          length="18"
+                          lineageId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Select Products created by SSIS User.Outputs[SalesForce Data].Columns[Id]"
+                          name="Id"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Select Products created by SSIS User.Outputs[SalesForce Data].Columns[RecordTypeId]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="SalesForce"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Select Products created by SSIS User.Outputs[SalesForce Data].ExternalColumns[RecordTypeId]"
+                          length="18"
+                          lineageId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Select Products created by SSIS User.Outputs[SalesForce Data].Columns[RecordTypeId]"
+                          name="RecordTypeId"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Select Products created by SSIS User.Outputs[SalesForce Data].Columns[CreatedBy.Name]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="SalesForce"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Select Products created by SSIS User.Outputs[SalesForce Data].ExternalColumns[CreatedBy.Name]"
+                          length="121"
+                          lineageId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Select Products created by SSIS User.Outputs[SalesForce Data].Columns[CreatedBy.Name]"
+                          name="CreatedBy.Name"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Select Products created by SSIS User.Outputs[SalesForce Data].ExternalColumns[Id]"
+                          dataType="wstr"
+                          length="18"
+                          name="Id" />
+                        <externalMetadataColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Select Products created by SSIS User.Outputs[SalesForce Data].ExternalColumns[RecordTypeId]"
+                          dataType="wstr"
+                          length="18"
+                          name="RecordTypeId" />
+                        <externalMetadataColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Select Products created by SSIS User.Outputs[SalesForce Data].ExternalColumns[CreatedBy.Name]"
+                          dataType="wstr"
+                          length="121"
+                          name="CreatedBy.Name" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Select Products created by SSIS User.Outputs[SalesForce Error Output]"
+                      isErrorOut="true"
+                      name="SalesForce Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Select Products created by SSIS User.Outputs[SalesForce Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Select Products created by SSIS User.Outputs[SalesForce Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Select Products created by SSIS User.Outputs[SalesForce Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Select Products created by SSIS User.Outputs[SalesForce Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                        <outputColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Select Products created by SSIS User.Outputs[SalesForce Error Output].Columns[ErrorDescription]"
+                          dataType="wstr"
+                          length="1024"
+                          lineageId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Select Products created by SSIS User.Outputs[SalesForce Error Output].Columns[ErrorDescription]"
+                          name="ErrorDescription" />
+                        <outputColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Select Products created by SSIS User.Outputs[SalesForce Error Output].Columns[Id]"
+                          dataType="wstr"
+                          length="18"
+                          lineageId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Select Products created by SSIS User.Outputs[SalesForce Error Output].Columns[Id]"
+                          name="Id" />
+                        <outputColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Select Products created by SSIS User.Outputs[SalesForce Error Output].Columns[RecordTypeId]"
+                          dataType="wstr"
+                          length="18"
+                          lineageId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Select Products created by SSIS User.Outputs[SalesForce Error Output].Columns[RecordTypeId]"
+                          name="RecordTypeId" />
+                        <outputColumn
+                          refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Select Products created by SSIS User.Outputs[SalesForce Error Output].Columns[CreatedBy.Name]"
+                          dataType="wstr"
+                          length="121"
+                          lineageId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Select Products created by SSIS User.Outputs[SalesForce Error Output].Columns[CreatedBy.Name]"
+                          name="CreatedBy.Name" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\TF Terminator Destination"
+                  componentClassID="Microsoft.ManagedComponentHost"
+                  contactInfo="Terminator Destination;SentryOne; Task Factory © 2019 SQL Sentry, LLC; http://www.sentryone.com;support@sentryone.com"
+                  description="The terminator destination is used to terminate a data flow path without any setup"
+                  name="TF Terminator Destination"
+                  version="2">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      description="Set this property to True if you want to save buffer data to text file"
+                      expressionType="Notify"
+                      name="EnableDataDump">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Output file path for data dump"
+                      expressionType="Notify"
+                      name="DumpFilePath"></property>
+                    <property
+                      dataType="System.String"
+                      description="Output file column separator"
+                      expressionType="Notify"
+                      name="ColumnSeparator">,</property>
+                    <property
+                      dataType="System.String"
+                      description="Output file row separator"
+                      expressionType="Notify"
+                      name="RowSeparator">\r\n</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Unicode character support"
+                      expressionType="Notify"
+                      name="SupportUnicode">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Output column names in the first row"
+                      expressionType="Notify"
+                      name="ColumnNamesInFirstRow">true</property>
+                    <property
+                      dataType="System.String"
+                      name="UserComponentTypeName">PW.TaskFactory.TerminatorDestination</property>
+                  </properties>
+                  <inputs>
+                    <input
+                      refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\TF Terminator Destination.Inputs[TerminatorInput]"
+                      hasSideEffects="true"
+                      name="TerminatorInput">
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF.Paths[SalesForce Data]"
+                  endId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Delete Products created by SSIS user.Inputs[SalesForce Destination Input]"
+                  name="SalesForce Data"
+                  startId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Select Products created by SSIS User.Outputs[SalesForce Data]" />
+                <path
+                  refId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF.Paths[Salesforce Destination Error Output]"
+                  endId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\TF Terminator Destination.Inputs[TerminatorInput]"
+                  name="Salesforce Destination Error Output"
+                  startId="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Delete Products created by SSIS user.Outputs[Salesforce Destination Error Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Delete STG SF keys from MK Products and LNK_EMP_ARG"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:Disabled="True"
+      DTS:DTSID="{62AFDEE5-DAB0-4E71-92A8-CB0C478AFB7D}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Delete STG SF keys from MK Products and LNK_EMP_ARG">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Delete STG SF keys from MK Products and LNK_EMP_ARG\Truncate STG_EDW_LNK_FIN_ACCT_EMP_IP_IDS"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{45423B05-3E4D-4D2E-878E-84525592B152}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Truncate STG_EDW_LNK_FIN_ACCT_EMP_IP_IDS"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{B2B95508-7BC4-4DC8-87F1-D0A643F1B195}"
+              SQLTask:SqlStatementSource="truncate table [dbo].[STG_EDW_LNK_FIN_ACCT_EMP_IP_IDS]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Delete STG SF keys from MK Products and LNK_EMP_ARG\Truncate STG_EDW_MK_PROD_BUS_IP_IDS"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{40F6E0F5-5078-4F4E-87EC-1778162E8973}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Truncate STG_EDW_MK_PROD_BUS_IP_IDS"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{B2B95508-7BC4-4DC8-87F1-D0A643F1B195}"
+              SQLTask:SqlStatementSource="truncate table [dbo].[STG_EDW_MK_PROD_BUS_IP_IDS]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{AE42F599-54B1-4B7F-A580-B911B7FCFDA0}"
+      DTS:From="Package\Delete Financial Acct Records in SF"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Delete Products, Person Acct and Busienss Acct Records in SF" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{A1B5C62F-FA28-47F6-B593-E73CC250D9B1}"
+      DTS:From="Package\Delete Products, Person Acct and Busienss Acct Records in SF"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Delete STG SF keys from MK Products and LNK_EMP_ARG" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="199.2,41.6"
+          Id="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF"
+          TopLeft="34.499995927016,153.133333429761" />
+        <NodeLayout
+          Size="230.4,41.6"
+          Id="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF"
+          TopLeft="28,48" />
+        <EdgeLayout
+          Id="Package\Delete Financial Acct Records in SF.PrecedenceConstraints[Constraint]"
+          TopLeft="143,90">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-9.00000407298398,63.133333429761"
+              Start="0,0"
+              End="-9.00000407298398,55.633333429761">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27.5666667148805" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,27.5666667148805"
+                    Point2="0,31.5666667148805"
+                    Point3="-4,31.5666667148805" />
+                  <mssgle:LineSegment
+                    End="-5.00000407298398,31.5666667148805" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-5.00000407298398,31.5666667148805"
+                    Point2="-9.00000407298398,31.5666667148805"
+                    Point3="-9.00000407298398,35.5666667148805" />
+                  <mssgle:LineSegment
+                    End="-9.00000407298398,55.633333429761" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="278.4,249.6"
+          Size="278.4,292.8"
+          Id="Package\Delete Financial Acct Records in SF"
+          TopLeft="488.999999403954,9.13333322313096" />
+        <NodeLayout
+          Size="203.2,41.6"
+          Id="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF"
+          TopLeft="471.833326247003,157.966666590903" />
+        <NodeLayout
+          Size="195.2,41.6"
+          Id="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF"
+          TopLeft="406.833333300219,58.8666666735543" />
+        <NodeLayout
+          Size="179.2,41.6"
+          Id="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF"
+          TopLeft="93.9999939401948,69.8333320246801" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="876,255.2"
+          Size="876,298.4"
+          Id="Package\Delete Products, Person Acct and Busienss Acct Records in SF"
+          TopLeft="192.666666203075,347.799999958674" />
+        <NodeLayout
+          Size="323.2,41.6"
+          Id="Package\Delete STG SF keys from MK Products and LNK_EMP_ARG\Truncate STG_EDW_LNK_FIN_ACCT_EMP_IP_IDS"
+          TopLeft="490.699972681205,87.4000051450728" />
+        <NodeLayout
+          Size="296.8,41.6"
+          Id="Package\Delete STG SF keys from MK Products and LNK_EMP_ARG\Truncate STG_EDW_MK_PROD_BUS_IP_IDS"
+          TopLeft="71.5333226707252,76.133338636822" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="888.8,232"
+          Size="888.8,275.2"
+          Id="Package\Delete STG SF keys from MK Products and LNK_EMP_ARG"
+          TopLeft="182.499992748102,668.933336735831" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="629.433332803515,301.933333223131">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,45.866666735543"
+              Start="0,0"
+              End="0,38.366666735543">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,38.366666735543" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="628.783329475589,646.199999958674">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,22.733336777157"
+              Start="0,0"
+              End="0,15.233336777157">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,15.233336777157" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="247.2,41.6"
+          Id="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Extract SF Financial Account Keys"
+          TopLeft="147.333327041732,45.533335268762" />
+        <NodeLayout
+          Size="207.2,41.6"
+          Id="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\TF Terminator Destination"
+          TopLeft="167,305" />
+        <NodeLayout
+          Size="262.4,41.6"
+          Id="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF\Delete SF Financial Account Records"
+          TopLeft="141.333327041732,171.533335268762" />
+        <EdgeLayout
+          Id="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF.Paths[Salesforce Destination Error Output]"
+          TopLeft="271.416663520866,213.533335268762">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,91.466664731238"
+              Start="0,0"
+              End="0,83.966664731238">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,83.966664731238" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-87.5900390625,33.983332365619,175.180078125,16"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct in SF.Paths[SalesForce Data]"
+          TopLeft="271.583327041732,87.533335268762">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,84"
+              Start="0,0"
+              End="0,76.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,76.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <TaskHost
+    design-time-name="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="237.6,41.6"
+          Id="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Extract SF Financial Account Roles Keys"
+          TopLeft="131.333327041732,42.533335268762" />
+        <NodeLayout
+          Size="249.6,41.6"
+          Id="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\Delete SF Financial Account Roles Records"
+          TopLeft="129.333327041732,171.533335268762" />
+        <NodeLayout
+          Size="207.2,41.6"
+          Id="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF\TF Terminator Destination"
+          TopLeft="167,305" />
+        <EdgeLayout
+          Id="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF.Paths[Salesforce Destination Error Output]"
+          TopLeft="254.133327041732,213.133335268762">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="16.466672958268,91.866664731238"
+              Start="0,0"
+              End="16.466672958268,84.366664731238">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,41.933332365619" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,41.933332365619"
+                    Point2="0,45.933332365619"
+                    Point3="4,45.933332365619" />
+                  <mssgle:LineSegment
+                    End="12.466672958268,45.933332365619" />
+                  <mssgle:CubicBezierSegment
+                    Point1="12.466672958268,45.933332365619"
+                    Point2="16.466672958268,45.933332365619"
+                    Point3="16.466672958268,49.933332365619" />
+                  <mssgle:LineSegment
+                    End="16.466672958268,84.366664731238" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-79.356702583366,50.933332365619,175.180078125,16"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Delete Financial Acct Records in SF\Delete SF Fin Acct Roles in SF.Paths[SalesForce Data]"
+          TopLeft="252.133327041732,84.133335268762">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,87.4"
+              Start="0,0"
+              End="0,79.9">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,79.9" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <TaskHost
+    design-time-name="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="199.2,41.6"
+          Id="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\TF Terminator Destination"
+          TopLeft="181,408" />
+        <NodeLayout
+          Size="205.6,41.6"
+          Id="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\Extract SF Person Account Keys"
+          TopLeft="197.166660341952,89.1333352894249" />
+        <NodeLayout
+          Size="241.6,41.6"
+          Id="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF\Delete SF Person Account Records"
+          TopLeft="158.333327041732,243.533335268762" />
+        <EdgeLayout
+          Id="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF.Paths[SalesForce Data]"
+          TopLeft="299.966660341952,130.733335289425">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-20.83333330022,112.799999979337"
+              Start="0,0"
+              End="-20.83333330022,105.299999979337">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.3999999896685" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,52.3999999896685"
+                    Point2="0,56.3999999896685"
+                    Point3="-4,56.3999999896685" />
+                  <mssgle:LineSegment
+                    End="-16.83333330022,56.3999999896685" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-16.83333330022,56.3999999896685"
+                    Point2="-20.83333330022,56.3999999896685"
+                    Point3="-20.83333330022,60.3999999896685" />
+                  <mssgle:LineSegment
+                    End="-20.83333330022,105.299999979337" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Business Accounts in SF.Paths[Salesforce Destination Error Output]"
+          TopLeft="279.916663520866,285.533335268762">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,122.466664731238"
+              Start="0,0"
+              End="0,114.966664731238">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,114.966664731238" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-78.90205078125,51.654230803119,157.8041015625,11.658203125"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <TaskHost
+    design-time-name="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="199.2,41.6"
+          Id="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\TF Terminator Destination"
+          TopLeft="181,408" />
+        <NodeLayout
+          Size="238.4,41.6"
+          Id="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\Extract SF Person Account Keys"
+          TopLeft="155.166660341952,95.1333352894249" />
+        <NodeLayout
+          Size="216.8,41.6"
+          Id="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF\Delete SF Person Account Records"
+          TopLeft="158.333327041732,243.533335268762" />
+        <EdgeLayout
+          Id="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF.Paths[SalesForce Data]"
+          TopLeft="270.549993691842,136.733335289425">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,106.799999979337"
+              Start="0,0"
+              End="0,99.2999999793371">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,99.2999999793371" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Person Accounts in SF.Paths[Salesforce Destination Error Output]"
+          TopLeft="266.733327041732,285.133335268762">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="13.8666729582681,122.866664731238"
+              Start="0,0"
+              End="13.8666729582681,115.366664731238">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,57.433332365619" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,57.433332365619"
+                    Point2="0,61.433332365619"
+                    Point3="4,61.433332365619" />
+                  <mssgle:LineSegment
+                    End="9.86667295826805,61.433332365619" />
+                  <mssgle:CubicBezierSegment
+                    Point1="9.86667295826805,61.433332365619"
+                    Point2="13.8666729582681,61.433332365619"
+                    Point3="13.8666729582681,65.433332365619" />
+                  <mssgle:LineSegment
+                    End="13.8666729582681,115.366664731238" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-71.968714302116,66.433332365619,157.8041015625,11.658203125"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <TaskHost
+    design-time-name="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="264,41.6"
+          Id="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Select Products created by SSIS User"
+          TopLeft="160.333327041732,21.533335268762" />
+        <NodeLayout
+          Size="199.2,41.6"
+          Id="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\TF Terminator Destination"
+          TopLeft="201.83332495557,416.666669834985" />
+        <NodeLayout
+          Size="226.4,41.6"
+          Id="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF\Delete Products created by SSIS user"
+          TopLeft="158.333327041732,243.533335268762" />
+        <EdgeLayout
+          Id="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF.Paths[Salesforce Destination Error Output]"
+          TopLeft="271.533327041732,285.133335268762">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="29.899997913838,131.533334566223"
+              Start="0,0"
+              End="29.899997913838,124.033334566223">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,61.7666672831115" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,61.7666672831115"
+                    Point2="0,65.7666672831115"
+                    Point3="4,65.7666672831115" />
+                  <mssgle:LineSegment
+                    End="25.899997913838,65.7666672831115" />
+                  <mssgle:CubicBezierSegment
+                    Point1="25.899997913838,65.7666672831115"
+                    Point2="29.899997913838,65.7666672831115"
+                    Point3="29.899997913838,69.7666672831115" />
+                  <mssgle:LineSegment
+                    End="29.899997913838,124.033334566223" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-72.640040105581,70.7666672831115,175.180078125,16"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Delete Products, Person Acct and Busienss Acct Records in SF\Delete Products in SF.Paths[SalesForce Data]"
+          TopLeft="292.333327041732,63.133335268762">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-20.8,180.4"
+              Start="0,0"
+              End="-20.8,172.9">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,86.2" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,86.2"
+                    Point2="0,90.2"
+                    Point3="-4,90.2" />
+                  <mssgle:LineSegment
+                    End="-16.8,90.2" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-16.8,90.2"
+                    Point2="-20.8,90.2"
+                    Point3="-20.8,94.2" />
+                  <mssgle:LineSegment
+                    End="-20.8,172.9" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

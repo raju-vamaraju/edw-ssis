@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="NIGSA939284.SSISDB"
+  DTS:DTSID="{F45CB442-CE93-4FD3-AC57-E3A7D04F3C7C}"
+  DTS:CreationName="OLEDB">
+  <DTS:PropertyExpression
+    DTS:Name="InitialCatalog">@[$Project::pSSISDB_DatabaseName]</DTS:PropertyExpression>
+  <DTS:PropertyExpression
+    DTS:Name="Password">@[$Project::pSSISDB_Password]</DTS:PropertyExpression>
+  <DTS:PropertyExpression
+    DTS:Name="ServerName">@[$Project::pSSISDB_ServerName]</DTS:PropertyExpression>
+  <DTS:PropertyExpression
+    DTS:Name="UserName">@[$Project::pSSISDB_UserName]</DTS:PropertyExpression>
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectRetryCount="1"
+      DTS:ConnectRetryInterval="5"
+      DTS:ConnectionString="Data Source=casspwin0006.cass.aws.oprd.com.au;User ID=;Initial Catalog=SSISDB;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;">
+      <DTS:Password
+        DTS:Name="Password"
+        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAbg0YHnU7H0OekDmqb/ddxwAAAAACAAAAAAAQZgAAAAEAACAAAADH9+cU62ULArEW/i0KIcpRPxlcU2KW3OAxJHTLCDVxmwAAAAAOgAAAAAIAACAAAACxVctClRUL+6Uc44f+1Jh3G3cTiElG+7dUappicpezTXAAAADH0NUWWdpelsk1DieYslynb2DLLH0FXkoBQpQxOxO4HxcOlH15AapOhOGlyyc33I9QOWrHMYSFa9iRNBNf5+jEnJrko/U3ofHZHRhv2q3BVCDkUj+EGWuuzgFIulUOsqGJfTuDp1NfCBIugtXZQITpQAAAADLYp1pnpAvaS43qe9DDsLl4txVK/Q+YHhrzKo5JN4nVaJrTSaociqkHlX/if/P688skAWtGuTc/wLEiBK8ipAQ=</DTS:Password>
+    </DTS:ConnectionManager>
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

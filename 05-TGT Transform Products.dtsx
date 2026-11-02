@@ -1,0 +1,2185 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="11/22/2017 1:55:41 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="LGNPVDV010"
+  DTS:CreatorName="APAC\Bhallsi"
+  DTS:DTSID="{628D469C-8C92-4219-B53C-36F47FAF6C9E}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.170"
+  DTS:LocaleID="3081"
+  DTS:ObjectName="05-TGT Transform Products"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="1"
+  DTS:VersionBuild="385"
+  DTS:VersionGUID="{B6C144EA-C9B2-45A1-8315-1D346CF0E479}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:PackageParameters>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="3"
+      DTS:DTSID="{54B82002-EEB1-4945-8543-2B80BF6A24EA}"
+      DTS:ObjectName="pRunId">
+      <DTS:Property
+        DTS:DataType="3"
+        DTS:Name="ParameterValue">1</DTS:Property>
+    </DTS:PackageParameter>
+  </DTS:PackageParameters>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{4BEB7292-44FD-4B48-BF46-19A5EEFB52CF}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="pRecTypeId_Product">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{23CC1D45-F325-4D88-82E4-2FCDA8A5E94C}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;select &#xA;FNAME,&#xA;PD_REF_ID,&#xA;EDW_AR_SRC_STM,&#xA;AR_SRC_PD_CD,&#xA;AR_SRC_PD_NAME,&#xA;AR_TGT_PD_CD,&#xA;AR_TGT_PD_NAME,&#xA;PROD_ISR,&#xA;PROD_FMLY,&#xA;ENTITY,&#xA;PROD_AREA,&#xA;OP_RESP,&#xA;FUND,&#xA;B.ID&#xA;from &quot;+ (DT_WSTR, 20) @[User::vSTG_DB]&#xA;+&quot;.[dbo].[STG_EDW_PRODUCTS]  A&#xA;left join &quot;+&#xA;&#xA;(DT_WSTR, 20) @[User::vTGT_DB]+&quot;.dbo.TGT_EDW_PRODUCTS_KEY B&#xA;&#xA;on A.PD_REF_ID = B.ETL_RecordKey&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="vSQL">
+      <DTS:VariableValue
+        DTS:DataType="8">select 
+FNAME,
+PD_REF_ID,
+EDW_AR_SRC_STM,
+AR_SRC_PD_CD,
+AR_SRC_PD_NAME,
+AR_TGT_PD_CD,
+AR_TGT_PD_NAME,
+PROD_ISR,
+PROD_FMLY,
+ENTITY,
+PROD_AREA,
+OP_RESP,
+FUND,
+B.ID
+from WEALTH_STG.[dbo].[STG_EDW_PRODUCTS]  A
+left join WEALTH_TGT.dbo.TGT_EDW_PRODUCTS_KEY B
+
+on A.PD_REF_ID = B.ETL_RecordKey</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{F9D5D183-6FC9-4F7E-A1CF-504083034220}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[$Project::pSTG_DatabaseName]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="vSTG_DB">
+      <DTS:VariableValue
+        DTS:DataType="8">WEALTH_STG</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{89C797FC-3AE0-4447-98E8-AE08147A1270}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[$Project::pTGT_DatabaseName]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="vTGT_DB">
+      <DTS:VariableValue
+        DTS:DataType="8">WEALTH_TGT</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Delete 7 days Audit"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{58C16E2D-9EDF-46AE-961B-550FA235A723}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Delete 7 days Audit"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{A1098A42-BD8A-44E7-ABBF-EE2C3CEC348D}"
+          SQLTask:SqlStatementSource="delete from dbo.TGT_EDW_PRODUCTS_AUDIT WHERE [ETL_Datetime] &lt; DATEADD(d, -7, getdate());" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Empty the Target table"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{39F504AC-8391-4855-AAA8-7B615973B519}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Empty the Target table"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{A1098A42-BD8A-44E7-ABBF-EE2C3CEC348D}"
+          SQLTask:SqlStatementSource="Truncate table TGT_EDW_PRODUCTS;&#xA;Truncate table TGT_EDW_PRODUCTS_KEY" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load Products Keys from SF"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{6985433f-7148-47d3-a275-a0aa2bd0e6b2}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load Products Keys from SF"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load Products Keys from SF\Load Products SF Keys"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Load Products SF Keys"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[TGT_EDW_PRODUCTS_KEY]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Products Keys from SF\Load Products SF Keys.Connections[OleDbConnection]"
+                  connectionManagerID="{A1098A42-BD8A-44E7-ABBF-EE2C3CEC348D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[WEALTH_TGT]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Products Keys from SF\Load Products SF Keys.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Products Keys from SF\Load Products SF Keys.Inputs[OLE DB Destination Input].Columns[Id]"
+                      cachedDataType="wstr"
+                      cachedLength="18"
+                      cachedName="Id"
+                      externalMetadataColumnId="Package\Load Products Keys from SF\Load Products SF Keys.Inputs[OLE DB Destination Input].ExternalColumns[ID]"
+                      lineageId="Package\Load Products Keys from SF\TF SalesForce Source.Outputs[SalesForce Data].Columns[Id]" />
+                    <inputColumn
+                      refId="Package\Load Products Keys from SF\Load Products SF Keys.Inputs[OLE DB Destination Input].Columns[RecordTypeId]"
+                      cachedDataType="wstr"
+                      cachedLength="18"
+                      cachedName="RecordTypeId"
+                      externalMetadataColumnId="Package\Load Products Keys from SF\Load Products SF Keys.Inputs[OLE DB Destination Input].ExternalColumns[RecordTypeId]"
+                      lineageId="Package\Load Products Keys from SF\TF SalesForce Source.Outputs[SalesForce Data].Columns[RecordTypeId]" />
+                    <inputColumn
+                      refId="Package\Load Products Keys from SF\Load Products SF Keys.Inputs[OLE DB Destination Input].Columns[Product_External_ID__c]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Product_External_ID__c"
+                      externalMetadataColumnId="Package\Load Products Keys from SF\Load Products SF Keys.Inputs[OLE DB Destination Input].ExternalColumns[ETL_RecordKey]"
+                      lineageId="Package\Load Products Keys from SF\TF SalesForce Source.Outputs[SalesForce Data].Columns[Product_External_ID__c]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Products Keys from SF\Load Products SF Keys.Inputs[OLE DB Destination Input].ExternalColumns[ID]"
+                      dataType="wstr"
+                      length="300"
+                      name="ID" />
+                    <externalMetadataColumn
+                      refId="Package\Load Products Keys from SF\Load Products SF Keys.Inputs[OLE DB Destination Input].ExternalColumns[ETL_RecordKey]"
+                      dataType="wstr"
+                      length="300"
+                      name="ETL_RecordKey" />
+                    <externalMetadataColumn
+                      refId="Package\Load Products Keys from SF\Load Products SF Keys.Inputs[OLE DB Destination Input].ExternalColumns[RecordTypeId]"
+                      dataType="wstr"
+                      length="18"
+                      name="RecordTypeId" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Products Keys from SF\Load Products SF Keys.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load Products Keys from SF\Load Products SF Keys.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Products Keys from SF\Load Products SF Keys.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Products Keys from SF\Load Products SF Keys.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Products Keys from SF\Load Products SF Keys.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Products Keys from SF\Load Products SF Keys.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Products Keys from SF\TF SalesForce Source"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="SalesForce.com Source;SentryOne; Task Factory © 2019 SQL Sentry, LLC; http://www.sentryone.com;support@sentryone.com"
+              description="Retrieves data from SalesForce.com objects"
+              name="TF SalesForce Source"
+              usesDispositions="true"
+              version="11">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of rows returned in each batch from SalesForce.com"
+                  name="BatchSize">500</property>
+                <property
+                  dataType="System.String"
+                  description="The statement used to query data from SalesForce.com"
+                  expressionType="Notify"
+                  name="QueryStatement">SELECT 
+ 	Id, 
+	RecordTypeId, 
+	Product_External_ID__c,
+	RecordType.Name
+ FROM 
+	Product2
+		where RecordType.Name like 'MLC%Wealth%EDW%Product%'
+	</property>
+                <property
+                  dataType="System.String"
+                  description="The name of the SalesForce.com object"
+                  expressionType="Notify"
+                  name="SalesForceObjectName">Product2</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Include deleted records in source data"
+                  expressionType="Notify"
+                  name="IncludeDeleted">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Set to true if a custom query is being used"
+                  expressionType="Notify"
+                  name="UseQuery">true</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Set to true if the local dates should be converted to UTC before being used in a where statement"
+                  expressionType="Notify"
+                  name="ConvertDatesToUTC">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="The type of query to execute (Normal or Bulk Query)"
+                  expressionType="Notify"
+                  name="Query Mode"
+                  typeConverter="PW.TaskFactory.SalesForceSource+QueryMode">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="The format in which the dates will be outputted"
+                  expressionType="Notify"
+                  name="Output Date Timezone"
+                  typeConverter="PW.TaskFactory.SalesForceBulkJob+OutputDateTimezone">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds of to wait between polling checks for job status"
+                  name="Bulk Query Polling Interval">2</property>
+                <property
+                  dataType="System.Int32"
+                  description="The concurrency mode for the bulk query job"
+                  expressionType="Notify"
+                  name="Bulk Query Concurrency Mode"
+                  typeConverter="PW.TaskFactory.SalesForceBulkJob+ConcurrencyModeEnum">1</property>
+                <property
+                  dataType="System.Boolean"
+                  expressionType="Notify"
+                  name="DebugMode">false</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">PW.TaskFactory.SalesForceSource</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Set to true if xml results in columns should be wrapped with a &lt;root&gt; element. This makes it easier to parse in the down flow."
+                  expressionType="Notify"
+                  name="Wrap Xml With Root Element">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Products Keys from SF\TF SalesForce Source.Connections[SALESFORCE]"
+                  connectionManagerID="{3638ED21-ED0C-4917-B39A-7D4C22E40258}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[SalesForce]"
+                  description="Connection to the SalesForce.com account"
+                  name="SALESFORCE" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load Products Keys from SF\TF SalesForce Source.Outputs[SalesForce Data]"
+                  name="SalesForce Data">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Products Keys from SF\TF SalesForce Source.Outputs[SalesForce Data].Columns[Id]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="SalesForce"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Products Keys from SF\TF SalesForce Source.Outputs[SalesForce Data].ExternalColumns[Id]"
+                      length="18"
+                      lineageId="Package\Load Products Keys from SF\TF SalesForce Source.Outputs[SalesForce Data].Columns[Id]"
+                      name="Id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Products Keys from SF\TF SalesForce Source.Outputs[SalesForce Data].Columns[RecordTypeId]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="SalesForce"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Products Keys from SF\TF SalesForce Source.Outputs[SalesForce Data].ExternalColumns[RecordTypeId]"
+                      length="18"
+                      lineageId="Package\Load Products Keys from SF\TF SalesForce Source.Outputs[SalesForce Data].Columns[RecordTypeId]"
+                      name="RecordTypeId"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Products Keys from SF\TF SalesForce Source.Outputs[SalesForce Data].Columns[Product_External_ID__c]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="SalesForce"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Products Keys from SF\TF SalesForce Source.Outputs[SalesForce Data].ExternalColumns[Product_External_ID__c]"
+                      length="50"
+                      lineageId="Package\Load Products Keys from SF\TF SalesForce Source.Outputs[SalesForce Data].Columns[Product_External_ID__c]"
+                      name="Product_External_ID__c"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Products Keys from SF\TF SalesForce Source.Outputs[SalesForce Data].Columns[RecordType.Name]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="SalesForce"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Products Keys from SF\TF SalesForce Source.Outputs[SalesForce Data].ExternalColumns[RecordType.Name]"
+                      length="80"
+                      lineageId="Package\Load Products Keys from SF\TF SalesForce Source.Outputs[SalesForce Data].Columns[RecordType.Name]"
+                      name="RecordType.Name"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Products Keys from SF\TF SalesForce Source.Outputs[SalesForce Data].ExternalColumns[Id]"
+                      dataType="wstr"
+                      length="18"
+                      name="Id" />
+                    <externalMetadataColumn
+                      refId="Package\Load Products Keys from SF\TF SalesForce Source.Outputs[SalesForce Data].ExternalColumns[RecordTypeId]"
+                      dataType="wstr"
+                      length="18"
+                      name="RecordTypeId" />
+                    <externalMetadataColumn
+                      refId="Package\Load Products Keys from SF\TF SalesForce Source.Outputs[SalesForce Data].ExternalColumns[Product_External_ID__c]"
+                      dataType="wstr"
+                      length="50"
+                      name="Product_External_ID__c" />
+                    <externalMetadataColumn
+                      refId="Package\Load Products Keys from SF\TF SalesForce Source.Outputs[SalesForce Data].ExternalColumns[RecordType.Name]"
+                      dataType="wstr"
+                      length="80"
+                      name="RecordType.Name" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load Products Keys from SF\TF SalesForce Source.Outputs[SalesForce Error Output]"
+                  isErrorOut="true"
+                  name="SalesForce Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Products Keys from SF\TF SalesForce Source.Outputs[SalesForce Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Products Keys from SF\TF SalesForce Source.Outputs[SalesForce Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Products Keys from SF\TF SalesForce Source.Outputs[SalesForce Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Products Keys from SF\TF SalesForce Source.Outputs[SalesForce Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                    <outputColumn
+                      refId="Package\Load Products Keys from SF\TF SalesForce Source.Outputs[SalesForce Error Output].Columns[ErrorDescription]"
+                      dataType="wstr"
+                      length="1024"
+                      lineageId="Package\Load Products Keys from SF\TF SalesForce Source.Outputs[SalesForce Error Output].Columns[ErrorDescription]"
+                      name="ErrorDescription" />
+                    <outputColumn
+                      refId="Package\Load Products Keys from SF\TF SalesForce Source.Outputs[SalesForce Error Output].Columns[Id]"
+                      dataType="wstr"
+                      length="18"
+                      lineageId="Package\Load Products Keys from SF\TF SalesForce Source.Outputs[SalesForce Error Output].Columns[Id]"
+                      name="Id" />
+                    <outputColumn
+                      refId="Package\Load Products Keys from SF\TF SalesForce Source.Outputs[SalesForce Error Output].Columns[RecordTypeId]"
+                      dataType="wstr"
+                      length="18"
+                      lineageId="Package\Load Products Keys from SF\TF SalesForce Source.Outputs[SalesForce Error Output].Columns[RecordTypeId]"
+                      name="RecordTypeId" />
+                    <outputColumn
+                      refId="Package\Load Products Keys from SF\TF SalesForce Source.Outputs[SalesForce Error Output].Columns[Product_External_ID__c]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Load Products Keys from SF\TF SalesForce Source.Outputs[SalesForce Error Output].Columns[Product_External_ID__c]"
+                      name="Product_External_ID__c" />
+                    <outputColumn
+                      refId="Package\Load Products Keys from SF\TF SalesForce Source.Outputs[SalesForce Error Output].Columns[RecordType.Name]"
+                      dataType="wstr"
+                      length="80"
+                      lineageId="Package\Load Products Keys from SF\TF SalesForce Source.Outputs[SalesForce Error Output].Columns[RecordType.Name]"
+                      name="RecordType.Name" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load Products Keys from SF.Paths[SalesForce Data]"
+              endId="Package\Load Products Keys from SF\Load Products SF Keys.Inputs[OLE DB Destination Input]"
+              name="SalesForce Data"
+              startId="Package\Load Products Keys from SF\TF SalesForce Source.Outputs[SalesForce Data]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Transform &amp; Load Account from Staging to Target"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{3C019A4B-A47B-4349-8036-584B24CDB2F3}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Transform &amp; Load Account from Staging to Target"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Transform &amp; Load Account from Staging to Target\Derived Column"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Derived Column"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Transform &amp; Load Account from Staging to Target\Derived Column.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\Derived Column.Inputs[Derived Column Input].Columns[ID]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="ID"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[ID]" />
+                    <inputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\Derived Column.Inputs[Derived Column Input].Columns[AR_SRC_PD_CD]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="AR_SRC_PD_CD"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[AR_SRC_PD_CD]" />
+                    <inputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\Derived Column.Inputs[Derived Column Input].Columns[AR_TGT_PD_CD]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="AR_TGT_PD_CD"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[AR_TGT_PD_CD]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[AR_TGT_PD_CD]}) || #{Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[AR_TGT_PD_CD]} == "" ? #{Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[AR_SRC_PD_CD]} : #{Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[AR_TGT_PD_CD]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(AR_TGT_PD_CD) || AR_TGT_PD_CD == "" ? AR_SRC_PD_CD : AR_TGT_PD_CD</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\Derived Column.Inputs[Derived Column Input].Columns[AR_SRC_PD_NAME]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="AR_SRC_PD_NAME"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[AR_SRC_PD_NAME]" />
+                    <inputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\Derived Column.Inputs[Derived Column Input].Columns[AR_TGT_PD_NAME]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="AR_TGT_PD_NAME"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[AR_TGT_PD_NAME]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[AR_TGT_PD_NAME]}) || #{Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[AR_TGT_PD_NAME]} == "" ? #{Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[AR_SRC_PD_NAME]} : #{Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[AR_TGT_PD_NAME]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(AR_TGT_PD_NAME) || AR_TGT_PD_NAME == "" ? AR_SRC_PD_NAME : AR_TGT_PD_NAME</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Transform &amp; Load Account from Staging to Target\Derived Column.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Transform &amp; Load Account from Staging to Target\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\Derived Column.Outputs[Derived Column Output].Columns[ETL_Operation]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="1"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\Derived Column.Outputs[Derived Column Output].Columns[ETL_Operation]"
+                      name="ETL_Operation"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[ID]}) ? "I" : "U"</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(ID) ? "I" : "U"</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\Derived Column.Outputs[Derived Column Output].Columns[ETL_BatchStepName]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\Derived Column.Outputs[Derived Column Output].Columns[ETL_BatchStepName]"
+                      name="ETL_BatchStepName"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">"05-TGT-Transform Products"</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">"05-TGT-Transform Products"</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\Derived Column.Outputs[Derived Column Output].Columns[pRunId]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\Derived Column.Outputs[Derived Column Output].Columns[pRunId]"
+                      name="pRunId"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">@[$Package::pRunId]</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">@[$Package::pRunId]</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\Derived Column.Outputs[Derived Column Output].Columns[ETL_RecordStatus]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\Derived Column.Outputs[Derived Column Output].Columns[ETL_RecordStatus]"
+                      name="ETL_RecordStatus"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">"Record Transformation Error"</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">"Record Transformation Error"</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\Derived Column.Outputs[Derived Column Output].Columns[ETL_ErrorMessage]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\Derived Column.Outputs[Derived Column Output].Columns[ETL_ErrorMessage]"
+                      name="ETL_ErrorMessage"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">"Products Record not found"</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">"Products Record not found"</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\Derived Column.Outputs[Derived Column Output].Columns[SF_Id_Lookup_Errors_Found]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\Derived Column.Outputs[Derived Column Output].Columns[SF_Id_Lookup_Errors_Found]"
+                      name="SF_Id_Lookup_Errors_Found"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[ID]})</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(ID)</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\Derived Column.Outputs[Derived Column Output].Columns[ETL_Datetime]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\Derived Column.Outputs[Derived Column Output].Columns[ETL_Datetime]"
+                      name="ETL_Datetime"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[GETDATE]()</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">GETDATE()</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\Derived Column.Outputs[Derived Column Output].Columns[RecordType]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\Derived Column.Outputs[Derived Column Output].Columns[RecordType]"
+                      name="RecordType"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">"MLC Wealth EDW Product"</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">"MLC Wealth EDW Product"</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Transform &amp; Load Account from Staging to Target\Derived Column.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Transform &amp; Load Account from Staging to Target\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Transform &amp; Load Account from Staging to Target\Derived Column 2"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Derived Column 2"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Transform &amp; Load Account from Staging to Target\Derived Column 2.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\Derived Column 2.Inputs[Derived Column Input].Columns[ErrorCode]"
+                      cachedDataType="i4"
+                      cachedName="ErrorCode"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]" />
+                    <inputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\Derived Column 2.Inputs[Derived Column Input].Columns[ErrorColumn]"
+                      cachedDataType="i4"
+                      cachedName="ErrorColumn"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Transform &amp; Load Account from Staging to Target\Derived Column 2.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Transform &amp; Load Account from Staging to Target\Derived Column 2.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\Derived Column 2.Outputs[Derived Column Output].Columns[ErrorColCode]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\Derived Column 2.Outputs[Derived Column Output].Columns[ErrorColCode]"
+                      name="ErrorColCode"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_WSTR,25)#{Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]} + (DT_WSTR,25)#{Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_WSTR,25)ErrorColumn + (DT_WSTR,25)ErrorCode</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Transform &amp; Load Account from Staging to Target\Derived Column 2.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Transform &amp; Load Account from Staging to Target\Derived Column 2.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\Derived Column 2.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\Derived Column 2.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\Derived Column 2.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\Derived Column 2.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="STG EDW Products"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[STG_Account]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select 
+PD_REF_ID,
+EDW_AR_SRC_STM,
+AR_SRC_PD_CD,
+AR_SRC_PD_NAME,
+AR_TGT_PD_CD,
+AR_TGT_PD_NAME,
+PROD_ISR,
+PROD_FMLY,
+ENTITY,
+PROD_AREA,
+OP_RESP,
+FUND,
+B.ID
+from 
+[dbo].[STG_EDW_PRODUCTS]  A
+left join
+
+[WEALTH_TGT].dbo.TGT_EDW_PRODUCTS_KEY B
+
+on A.PD_REF_ID = B.ETL_RecordKey</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable">User::vSQL</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Connections[OleDbConnection]"
+                  connectionManagerID="{B2B95508-7BC4-4DC8-87F1-D0A643F1B195}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[WEALTH_STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[PD_REF_ID]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].ExternalColumns[PD_REF_ID]"
+                      length="300"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[PD_REF_ID]"
+                      name="PD_REF_ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[EDW_AR_SRC_STM]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].ExternalColumns[EDW_AR_SRC_STM]"
+                      length="300"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[EDW_AR_SRC_STM]"
+                      name="EDW_AR_SRC_STM"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[AR_SRC_PD_CD]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].ExternalColumns[AR_SRC_PD_CD]"
+                      length="300"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[AR_SRC_PD_CD]"
+                      name="AR_SRC_PD_CD"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[AR_SRC_PD_NAME]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].ExternalColumns[AR_SRC_PD_NAME]"
+                      length="300"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[AR_SRC_PD_NAME]"
+                      name="AR_SRC_PD_NAME"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[AR_TGT_PD_CD]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].ExternalColumns[AR_TGT_PD_CD]"
+                      length="300"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[AR_TGT_PD_CD]"
+                      name="AR_TGT_PD_CD"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[AR_TGT_PD_NAME]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].ExternalColumns[AR_TGT_PD_NAME]"
+                      length="300"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[AR_TGT_PD_NAME]"
+                      name="AR_TGT_PD_NAME"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[PROD_ISR]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].ExternalColumns[PROD_ISR]"
+                      length="300"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[PROD_ISR]"
+                      name="PROD_ISR"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[PROD_FMLY]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].ExternalColumns[PROD_FMLY]"
+                      length="300"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[PROD_FMLY]"
+                      name="PROD_FMLY"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[ENTITY]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].ExternalColumns[ENTITY]"
+                      length="300"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[ENTITY]"
+                      name="ENTITY"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[PROD_AREA]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].ExternalColumns[PROD_AREA]"
+                      length="300"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[PROD_AREA]"
+                      name="PROD_AREA"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[OP_RESP]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].ExternalColumns[OP_RESP]"
+                      length="300"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[OP_RESP]"
+                      name="OP_RESP"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[ID]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].ExternalColumns[ID]"
+                      length="300"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[ID]"
+                      name="ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[FUND]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].ExternalColumns[FUND]"
+                      length="300"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[FUND]"
+                      name="FUND"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[FNAME]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].ExternalColumns[FNAME]"
+                      length="300"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[FNAME]"
+                      name="FNAME"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].ExternalColumns[PD_REF_ID]"
+                      dataType="wstr"
+                      length="300"
+                      name="PD_REF_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].ExternalColumns[EDW_AR_SRC_STM]"
+                      dataType="wstr"
+                      length="300"
+                      name="EDW_AR_SRC_STM" />
+                    <externalMetadataColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].ExternalColumns[AR_SRC_PD_CD]"
+                      dataType="wstr"
+                      length="300"
+                      name="AR_SRC_PD_CD" />
+                    <externalMetadataColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].ExternalColumns[AR_SRC_PD_NAME]"
+                      dataType="wstr"
+                      length="300"
+                      name="AR_SRC_PD_NAME" />
+                    <externalMetadataColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].ExternalColumns[AR_TGT_PD_CD]"
+                      dataType="wstr"
+                      length="300"
+                      name="AR_TGT_PD_CD" />
+                    <externalMetadataColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].ExternalColumns[AR_TGT_PD_NAME]"
+                      dataType="wstr"
+                      length="300"
+                      name="AR_TGT_PD_NAME" />
+                    <externalMetadataColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].ExternalColumns[PROD_ISR]"
+                      dataType="wstr"
+                      length="300"
+                      name="PROD_ISR" />
+                    <externalMetadataColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].ExternalColumns[PROD_FMLY]"
+                      dataType="wstr"
+                      length="300"
+                      name="PROD_FMLY" />
+                    <externalMetadataColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].ExternalColumns[ENTITY]"
+                      dataType="wstr"
+                      length="300"
+                      name="ENTITY" />
+                    <externalMetadataColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].ExternalColumns[PROD_AREA]"
+                      dataType="wstr"
+                      length="300"
+                      name="PROD_AREA" />
+                    <externalMetadataColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].ExternalColumns[OP_RESP]"
+                      dataType="wstr"
+                      length="300"
+                      name="OP_RESP" />
+                    <externalMetadataColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].ExternalColumns[ID]"
+                      dataType="wstr"
+                      length="300"
+                      name="ID" />
+                    <externalMetadataColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].ExternalColumns[FUND]"
+                      dataType="wstr"
+                      length="300"
+                      name="FUND" />
+                    <externalMetadataColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].ExternalColumns[FNAME]"
+                      dataType="wstr"
+                      length="300"
+                      name="FNAME" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Error Output].Columns[FNAME]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Error Output].Columns[FNAME]"
+                      name="FNAME" />
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Error Output].Columns[PD_REF_ID]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Error Output].Columns[PD_REF_ID]"
+                      name="PD_REF_ID" />
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Error Output].Columns[EDW_AR_SRC_STM]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Error Output].Columns[EDW_AR_SRC_STM]"
+                      name="EDW_AR_SRC_STM" />
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Error Output].Columns[AR_SRC_PD_CD]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Error Output].Columns[AR_SRC_PD_CD]"
+                      name="AR_SRC_PD_CD" />
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Error Output].Columns[AR_SRC_PD_NAME]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Error Output].Columns[AR_SRC_PD_NAME]"
+                      name="AR_SRC_PD_NAME" />
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Error Output].Columns[AR_TGT_PD_CD]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Error Output].Columns[AR_TGT_PD_CD]"
+                      name="AR_TGT_PD_CD" />
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Error Output].Columns[AR_TGT_PD_NAME]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Error Output].Columns[AR_TGT_PD_NAME]"
+                      name="AR_TGT_PD_NAME" />
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Error Output].Columns[PROD_ISR]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Error Output].Columns[PROD_ISR]"
+                      name="PROD_ISR" />
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Error Output].Columns[PROD_FMLY]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Error Output].Columns[PROD_FMLY]"
+                      name="PROD_FMLY" />
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Error Output].Columns[ENTITY]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Error Output].Columns[ENTITY]"
+                      name="ENTITY" />
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Error Output].Columns[PROD_AREA]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Error Output].Columns[PROD_AREA]"
+                      name="PROD_AREA" />
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Error Output].Columns[OP_RESP]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Error Output].Columns[OP_RESP]"
+                      name="OP_RESP" />
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Error Output].Columns[FUND]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Error Output].Columns[FUND]"
+                      name="FUND" />
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Error Output].Columns[ID]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Error Output].Columns[ID]"
+                      name="ID" />
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products Audit"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="STG EDW Products Audit"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[STG_EDW_PRODUCTS_AUDIT]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products Audit.Connections[OleDbConnection]"
+                  connectionManagerID="{B2B95508-7BC4-4DC8-87F1-D0A643F1B195}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[WEALTH_STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products Audit.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products Audit.Inputs[OLE DB Destination Input].Columns[ETL_BatchStepName]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="ETL_BatchStepName"
+                      externalMetadataColumnId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products Audit.Inputs[OLE DB Destination Input].ExternalColumns[ETL_BatchStepName]"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\Derived Column.Outputs[Derived Column Output].Columns[ETL_BatchStepName]" />
+                    <inputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products Audit.Inputs[OLE DB Destination Input].Columns[ETL_RecordStatus]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="ETL_RecordStatus"
+                      externalMetadataColumnId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products Audit.Inputs[OLE DB Destination Input].ExternalColumns[ETL_RecordStatus]"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\Derived Column.Outputs[Derived Column Output].Columns[ETL_RecordStatus]" />
+                    <inputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products Audit.Inputs[OLE DB Destination Input].Columns[ETL_Datetime]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="ETL_Datetime"
+                      externalMetadataColumnId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products Audit.Inputs[OLE DB Destination Input].ExternalColumns[ETL_Datetime]"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\Derived Column.Outputs[Derived Column Output].Columns[ETL_Datetime]" />
+                    <inputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products Audit.Inputs[OLE DB Destination Input].Columns[ErrorColCode]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="ErrorColCode"
+                      externalMetadataColumnId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products Audit.Inputs[OLE DB Destination Input].ExternalColumns[ETL_Message]"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\Derived Column 2.Outputs[Derived Column Output].Columns[ErrorColCode]" />
+                    <inputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products Audit.Inputs[OLE DB Destination Input].Columns[PD_REF_ID]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="PD_REF_ID"
+                      externalMetadataColumnId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products Audit.Inputs[OLE DB Destination Input].ExternalColumns[ETL_RecordKey]"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[PD_REF_ID]" />
+                    <inputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products Audit.Inputs[OLE DB Destination Input].Columns[pRunId]"
+                      cachedDataType="i4"
+                      cachedName="pRunId"
+                      externalMetadataColumnId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products Audit.Inputs[OLE DB Destination Input].ExternalColumns[ETL_BatchRunId]"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\Derived Column.Outputs[Derived Column Output].Columns[pRunId]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products Audit.Inputs[OLE DB Destination Input].ExternalColumns[ETL_BatchStepName]"
+                      dataType="wstr"
+                      length="255"
+                      name="ETL_BatchStepName" />
+                    <externalMetadataColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products Audit.Inputs[OLE DB Destination Input].ExternalColumns[ETL_RecordStatus]"
+                      dataType="wstr"
+                      length="50"
+                      name="ETL_RecordStatus" />
+                    <externalMetadataColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products Audit.Inputs[OLE DB Destination Input].ExternalColumns[ETL_Datetime]"
+                      dataType="dbTimeStamp"
+                      name="ETL_Datetime" />
+                    <externalMetadataColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products Audit.Inputs[OLE DB Destination Input].ExternalColumns[ETL_Message]"
+                      dataType="wstr"
+                      length="2048"
+                      name="ETL_Message" />
+                    <externalMetadataColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products Audit.Inputs[OLE DB Destination Input].ExternalColumns[ETL_RecordKey]"
+                      dataType="wstr"
+                      length="255"
+                      name="ETL_RecordKey" />
+                    <externalMetadataColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products Audit.Inputs[OLE DB Destination Input].ExternalColumns[ETL_BatchRunId]"
+                      dataType="i4"
+                      name="ETL_BatchRunId" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products Audit.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products Audit.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products Audit.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products Audit.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products Audit.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products Audit.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="TGT EDW Products"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[TGT_EDW_PRODUCTS]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Connections[OleDbConnection]"
+                  connectionManagerID="{A1098A42-BD8A-44E7-ABBF-EE2C3CEC348D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[WEALTH_TGT]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].Columns[PD_REF_ID]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="PD_REF_ID"
+                      externalMetadataColumnId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[PD_REF_ID]"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[PD_REF_ID]" />
+                    <inputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].Columns[EDW_AR_SRC_STM]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="EDW_AR_SRC_STM"
+                      externalMetadataColumnId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[EDW_AR_SRC_STM]"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[EDW_AR_SRC_STM]" />
+                    <inputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].Columns[AR_SRC_PD_CD]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="AR_SRC_PD_CD"
+                      externalMetadataColumnId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[AR_SRC_PD_CD]"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[AR_SRC_PD_CD]" />
+                    <inputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].Columns[AR_SRC_PD_NAME]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="AR_SRC_PD_NAME"
+                      externalMetadataColumnId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[AR_SRC_PD_NAME]"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[AR_SRC_PD_NAME]" />
+                    <inputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].Columns[AR_TGT_PD_CD]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="AR_TGT_PD_CD"
+                      externalMetadataColumnId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[AR_TGT_PD_CD]"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[AR_TGT_PD_CD]" />
+                    <inputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].Columns[AR_TGT_PD_NAME]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="AR_TGT_PD_NAME"
+                      externalMetadataColumnId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[AR_TGT_PD_NAME]"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[AR_TGT_PD_NAME]" />
+                    <inputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].Columns[PROD_ISR]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="PROD_ISR"
+                      externalMetadataColumnId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[PROD_ISR]"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[PROD_ISR]" />
+                    <inputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].Columns[PROD_FMLY]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="PROD_FMLY"
+                      externalMetadataColumnId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[PROD_FMLY]"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[PROD_FMLY]" />
+                    <inputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].Columns[ENTITY]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="ENTITY"
+                      externalMetadataColumnId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[ENTITY]"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[ENTITY]" />
+                    <inputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].Columns[PROD_AREA]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="PROD_AREA"
+                      externalMetadataColumnId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[PROD_AREA]"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[PROD_AREA]" />
+                    <inputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].Columns[OP_RESP]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="OP_RESP"
+                      externalMetadataColumnId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[OP_RESP]"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[OP_RESP]" />
+                    <inputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].Columns[RecordType]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="RecordType"
+                      externalMetadataColumnId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[RecordType]"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\Derived Column.Outputs[Derived Column Output].Columns[RecordType]" />
+                    <inputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].Columns[ETL_Operation]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="ETL_Operation"
+                      externalMetadataColumnId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[ETL_Operation]"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\Derived Column.Outputs[Derived Column Output].Columns[ETL_Operation]" />
+                    <inputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].Columns[ID]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="ID"
+                      externalMetadataColumnId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[ID]"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[ID]" />
+                    <inputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].Columns[FUND]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="FUND"
+                      externalMetadataColumnId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[FUND]"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[FUND]" />
+                    <inputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].Columns[FNAME]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="FNAME"
+                      externalMetadataColumnId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[FNAME]"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output].Columns[FNAME]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[PD_REF_ID]"
+                      dataType="wstr"
+                      length="300"
+                      name="PD_REF_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[EDW_AR_SRC_STM]"
+                      dataType="wstr"
+                      length="300"
+                      name="EDW_AR_SRC_STM" />
+                    <externalMetadataColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[AR_SRC_PD_CD]"
+                      dataType="wstr"
+                      length="300"
+                      name="AR_SRC_PD_CD" />
+                    <externalMetadataColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[AR_SRC_PD_NAME]"
+                      dataType="wstr"
+                      length="300"
+                      name="AR_SRC_PD_NAME" />
+                    <externalMetadataColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[AR_TGT_PD_CD]"
+                      dataType="wstr"
+                      length="300"
+                      name="AR_TGT_PD_CD" />
+                    <externalMetadataColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[AR_TGT_PD_NAME]"
+                      dataType="wstr"
+                      length="300"
+                      name="AR_TGT_PD_NAME" />
+                    <externalMetadataColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[PROD_ISR]"
+                      dataType="wstr"
+                      length="300"
+                      name="PROD_ISR" />
+                    <externalMetadataColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[PROD_FMLY]"
+                      dataType="wstr"
+                      length="300"
+                      name="PROD_FMLY" />
+                    <externalMetadataColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[ENTITY]"
+                      dataType="wstr"
+                      length="300"
+                      name="ENTITY" />
+                    <externalMetadataColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[PROD_AREA]"
+                      dataType="wstr"
+                      length="300"
+                      name="PROD_AREA" />
+                    <externalMetadataColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[OP_RESP]"
+                      dataType="wstr"
+                      length="300"
+                      name="OP_RESP" />
+                    <externalMetadataColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[ID]"
+                      dataType="wstr"
+                      length="300"
+                      name="ID" />
+                    <externalMetadataColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[RecordType]"
+                      dataType="wstr"
+                      length="300"
+                      name="RecordType" />
+                    <externalMetadataColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[ETL_Operation]"
+                      dataType="wstr"
+                      length="1"
+                      name="ETL_Operation" />
+                    <externalMetadataColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[FUND]"
+                      dataType="wstr"
+                      length="300"
+                      name="FUND" />
+                    <externalMetadataColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[FNAME]"
+                      dataType="wstr"
+                      length="300"
+                      name="FNAME" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Transform &amp; Load Account from Staging to Target.Paths[Derived Column Output]"
+              endId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\Transform &amp; Load Account from Staging to Target\Derived Column.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Transform &amp; Load Account from Staging to Target.Paths[Derived Column Output1]"
+              endId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products Audit.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\Transform &amp; Load Account from Staging to Target\Derived Column 2.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Transform &amp; Load Account from Staging to Target.Paths[OLE DB Destination Error Output]"
+              endId="Package\Transform &amp; Load Account from Staging to Target\Derived Column 2.Inputs[Derived Column Input]"
+              name="OLE DB Destination Error Output"
+              startId="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products.Outputs[OLE DB Destination Error Output]" />
+            <path
+              refId="Package\Transform &amp; Load Account from Staging to Target.Paths[OLE DB Source Output]"
+              endId="Package\Transform &amp; Load Account from Staging to Target\Derived Column.Inputs[Derived Column Input]"
+              name="OLE DB Source Output"
+              startId="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{BEDD63C3-187F-4EE5-88CC-FD6937F904BE}"
+      DTS:From="Package\Empty the Target table"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Delete 7 days Audit" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{45A7B355-8316-405C-BA4E-9D841E7ACAC3}"
+      DTS:From="Package\Delete 7 days Audit"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Load Products Keys from SF" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{1DDAF422-C6BA-4802-B589-7B21E192BAB9}"
+      DTS:From="Package\Load Products Keys from SF"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Transform &amp; Load Account from Staging to Target" />
+  </DTS:PrecedenceConstraints>
+  <DTS:EventHandlers>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnError]"
+      DTS:CreationName="OnError"
+      DTS:DTSID="{032F2C37-0BE5-4F3E-962E-BE59F540F6FF}"
+      DTS:EventID="0"
+      DTS:EventName="OnError"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{76BE883E-9DAE-431E-9E99-23AB45C77743}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnError]\OnError"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{AFB98EFA-0BAF-4BFC-AA05-09682F4D62B8}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="OnError"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:PropertyExpression
+            DTS:Name="SqlStatementSource">"insert into etl_batch_package_event values ('" + @[System::PackageID] + "','" + @[System::MachineName] + "','" + @[System::PackageName] + "','" + @[System::TaskName] +  "','" + (DT_WSTR,12)@[System::ErrorCode] + "','" + @[System::ErrorDescription] + "','" + (DT_STR,4,1252) datepart("yyyy", getdate()) + Right ("0" + (DT_STR,2,1252) datepart("mm", getdate()),2) + Right ("0" + (DT_STR,2,1252) datepart("dd", getdate()),2) +" "+ Right("0" + (DT_STR,2,1252) DatePart("hh",getdate()),2) +":" + Right("0" + (DT_STR,2,1252) DatePart("mi",getdate()),2) +":" + Right("0" + (DT_STR,4,1252) DatePart("ss",getdate()),2)  + ".000" + "')"</DTS:PropertyExpression>
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{CAEB46AA-F33A-4C72-8C4E-AC3027F4426E}"
+              SQLTask:SqlStatementSource="insert into etl_batch_package_event values ('{628D469C-8C92-4219-B53C-36F47FAF6C9E}','CL05853','05-TGT Transform Products','OnError','0','','20250602 11:43:07.000')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:EventHandler>
+  </DTS:EventHandlers>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="168,41.6"
+          Id="Package\Delete 7 days Audit"
+          TopLeft="166.083330992609,163.766664256851" />
+        <NodeLayout
+          Size="191.2,43.2"
+          Id="Package\Empty the Target table"
+          TopLeft="165.333335071802,43.1000000697374" />
+        <NodeLayout
+          Size="219.2,41.6"
+          Id="Package\Load Products Keys from SF"
+          TopLeft="147.750001583248,278.96666625599" />
+        <NodeLayout
+          Size="316.8,41.6"
+          Id="Package\Transform &amp; Load Account from Staging to Target"
+          TopLeft="102.750001583248,404.96666625599" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="260.933335071802,86.3000000697374">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-10.850004079193,77.4666641871136"
+              Start="0,0"
+              End="-10.850004079193,69.9666641871136">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34.7333320935568" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,34.7333320935568"
+                    Point2="0,38.7333320935568"
+                    Point3="-4,38.7333320935568" />
+                  <mssgle:LineSegment
+                    End="-6.85000407919298,38.7333320935568" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-6.85000407919298,38.7333320935568"
+                    Point2="-10.850004079193,38.7333320935568"
+                    Point3="-10.850004079193,42.7333320935568" />
+                  <mssgle:LineSegment
+                    End="-10.850004079193,69.9666641871136" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="253.716666287928,205.366664256851">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="0,73.600001999139"
+              Start="0,0"
+              End="0,66.100001999139">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,66.100001999139" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="259.250001583248,320.96666625599">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="0,83.9999999999999"
+              Start="0,0"
+              End="0,76.4999999999999">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,76.4999999999999" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <DtsEventHandler
+    design-time-name="Package.EventHandlers[OnError]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="116,42.4"
+          Id="Package.EventHandlers[OnError]\OnError"
+          TopLeft="60,60" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <TaskHost
+    design-time-name="Package\Load Products Keys from SF">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="189,42"
+          Id="Package\Load Products Keys from SF\TF SalesForce Source"
+          TopLeft="373,90" />
+        <NodeLayout
+          Size="194,42"
+          Id="Package\Load Products Keys from SF\Load Products SF Keys"
+          TopLeft="368,276" />
+        <EdgeLayout
+          Id="Package\Load Products Keys from SF.Paths[SalesForce Data]"
+          TopLeft="466.25,132">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,144"
+              Start="0,0"
+              End="0,136.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,136.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <TaskHost
+    design-time-name="Package\Transform &amp; Load Account from Staging to Target">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="167.2,41.6"
+          Id="Package\Transform &amp; Load Account from Staging to Target\Derived Column 2"
+          TopLeft="367.333333333333,554.333333333333" />
+        <NodeLayout
+          Size="176,41.6"
+          Id="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products"
+          TopLeft="356,389" />
+        <NodeLayout
+          Size="158.4,41.6"
+          Id="Package\Transform &amp; Load Account from Staging to Target\Derived Column"
+          TopLeft="369,208" />
+        <NodeLayout
+          Size="176.8,41.6"
+          Id="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products"
+          TopLeft="352.666666256885,23.6500000464916" />
+        <NodeLayout
+          Size="196.8,41.6"
+          Id="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products Audit"
+          TopLeft="354,658" />
+        <EdgeLayout
+          Id="Package\Transform &amp; Load Account from Staging to Target.Paths[OLE DB Source Output]"
+          TopLeft="444.583333128443,65.6500000464916">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="0,142.349999953508"
+              Start="0,0"
+              End="0,134.849999953508">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,134.849999953508" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Transform &amp; Load Account from Staging to Target.Paths[OLE DB Destination Error Output]"
+          TopLeft="447.416666666667,431">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="0,123.333333333333"
+              Start="0,0"
+              End="0,115.833333333333">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,115.833333333333" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-73.20890625,52.1998697916665,146.4178125,11.43359375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Transform &amp; Load Account from Staging to Target.Paths[Derived Column Output1]"
+          TopLeft="451.666666666666,595.933333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="0,62.0666666666669"
+              Start="0,0"
+              End="0,54.5666666666669">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,54.5666666666669" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Transform &amp; Load Account from Staging to Target.Paths[Derived Column Output]"
+          TopLeft="446,250">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="0,139"
+              Start="0,0"
+              End="0,131.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,131.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Transform &amp; Load Account from Staging to Target\TGT EDW Products">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Transform &amp; Load Account from Staging to Target\STG EDW Products Audit">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

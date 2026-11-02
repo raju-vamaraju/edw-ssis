@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="SalesForce"
+  DTS:DTSID="{3638ED21-ED0C-4917-B39A-7D4C22E40258}"
+  DTS:CreationName="SALESFORCE TF">
+  <DTS:PropertyExpression
+    DTS:Name="ConnectionString">@[$Project::pSF_ConnectionString]</DTS:PropertyExpression>
+  <DTS:PropertyExpression
+    DTS:Name="Password">@[$Project::pSF_Password]+ @[$Project::pSF_SecurityToken]</DTS:PropertyExpression>
+  <DTS:PropertyExpression
+    DTS:Name="ServerURL">@[$Project::pSF_ServiceURL]</DTS:PropertyExpression>
+  <DTS:PropertyExpression
+    DTS:Name="ServiceType">@[$Project::pSF_InstanceType]</DTS:PropertyExpression>
+  <DTS:PropertyExpression
+    DTS:Name="Username">@[$Project::pSF_UserName]</DTS:PropertyExpression>
+  <DTS:ObjectData>
+    <TaskFactorySalesForceConnectionManager
+      ConnectionString="Username=ssis.integrationuser@mlc.com.au;ServerURL=https://login.salesforce.com/services/Soap/u/58.0;ServiceType=0;Timeout=120;UseProxy=False;ProxyHost=;ProxyUserName=;ProxyDomain=;ProxyPort=0;MessageListToHandle=;ReuseConnectionAcrossAllTasks=True;NumberOfRetries=0;ResponseStatusCodes=;RetryDelay=0;RetryMode=0;"
+      ConnectByProxy="False">
+      <Password
+        Sensitive="1" xmlns="www.microsoft.com/SqlServer/Dts">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAbg0YHnU7H0OekDmqb/ddxwAAAAACAAAAAAAQZgAAAAEAACAAAADiv/MUgp/fgUlCNSGt6Wa52lEOOU+I0kSyJK75FCRnpAAAAAAOgAAAAAIAACAAAACyIWS24iHtLmqreSOb+pGiWz/xVBebbC9vS76hB+BdmoAAAACkPYyT71t8dxrRXWhdYqboO+SxtDc5UzpyhWJPlfErwiiaj3UtFH5lsFFVFNYyfe3cD70lskurhWt8hJ3+fI5x6alLmm6FELXo8dbidq3HQ2zMlUo5Kpq/zJBmak7Lx35EE/6KfdU7xr1YXAM4VXNnxRjTYVGRAnAYikuIrMB9nkAAAABwx1YZZh8kHXGJZQiRNwNR/A+waKHGTrtGAc7ypXsTZNNWi6d4+mXFeiKPY8gCBzcD4firK+sPOogDtZMt5A02</Password>
+    </TaskFactorySalesForceConnectionManager>
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

@@ -1,0 +1,1740 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="10/9/2020 9:04:57 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="WCRMWITA0006"
+  DTS:CreatorName="AURTEST\p799871t"
+  DTS:DTSID="{FEF1A552-6C37-46E5-BECC-BD74F88FA0AC}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5467.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="04-STG Load Accounts"
+  DTS:PackageType="5"
+  DTS:VersionBuild="73"
+  DTS:VersionGUID="{9414F499-2FBC-48E2-8378-E4CB22461D63}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Load STG Person &amp; Business Acct"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{9F708615-E5FE-42E3-9426-EE76CB3FA557}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load STG Person &amp; Business Acct"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          defaultBufferSize="50485760"
+          version="1">
+          <components>
+            <component
+              refId="Package\Load STG Person &amp; Business Acct\Conditional Split"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+              name="Conditional Split"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Load STG Person &amp; Business Acct\Conditional Split.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\Conditional Split.Inputs[Conditional Split Input].Columns[PARTY_TYPE]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="PARTY_TYPE"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[PARTY_TYPE]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load STG Person &amp; Business Acct\Conditional Split.Outputs[INDIVIDUAL]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="INDIVIDUAL"
+                  synchronousInputId="Package\Load STG Person &amp; Business Acct\Conditional Split.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">[LTRIM]([RTRIM](#{Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[PARTY_TYPE]})) == "INDIVIDUAL"</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">LTRIM(RTRIM(PARTY_TYPE)) == "INDIVIDUAL"</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load STG Person &amp; Business Acct\Conditional Split.Outputs[ORGINISATION]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="ORGINISATION"
+                  synchronousInputId="Package\Load STG Person &amp; Business Acct\Conditional Split.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load STG Person &amp; Business Acct\Conditional Split.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\Load STG Person &amp; Business Acct\Conditional Split.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load STG Person &amp; Business Acct\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load STG Person &amp; Business Acct\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load STG Person &amp; Business Acct\Derived Column"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Derived Column"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Load STG Person &amp; Business Acct\Derived Column.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\Derived Column.Inputs[Derived Column Input].Columns[PRIMARY_PHONE]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="PRIMARY_PHONE"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[PRIMARY_PHONE]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[LEN](#{Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[PRIMARY_PHONE]}) &gt; 40 ? NULL(DT_WSTR,40) : #{Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[PRIMARY_PHONE]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">LEN(PRIMARY_PHONE) &gt; 40 ? NULL(DT_WSTR,40) : PRIMARY_PHONE</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\Derived Column.Inputs[Derived Column Input].Columns[EMAIL_ADDRESS]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="EMAIL_ADDRESS"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[EMAIL_ADDRESS]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[LEN](#{Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[EMAIL_ADDRESS]}) &gt; 80 ? NULL(DT_WSTR,80) : #{Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[EMAIL_ADDRESS]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">LEN(EMAIL_ADDRESS) &gt; 80 ? NULL(DT_WSTR,80) : EMAIL_ADDRESS</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\Derived Column.Inputs[Derived Column Input].Columns[EDW_IP_SRC_STM]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="EDW_IP_SRC_STM"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[EDW_IP_SRC_STM]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[FINDSTRING](#{Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[EDW_IP_SRC_STM]},".",1) != 0 ? ([SUBSTRING](#{Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[EDW_IP_SRC_STM]},1,[FINDSTRING](#{Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[EDW_IP_SRC_STM]},".",1) - 1)) : #{Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[EDW_IP_SRC_STM]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">FINDSTRING(EDW_IP_SRC_STM,".",1) != 0 ? (SUBSTRING(EDW_IP_SRC_STM,1,FINDSTRING(EDW_IP_SRC_STM,".",1) - 1)) : EDW_IP_SRC_STM</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load STG Person &amp; Business Acct\Derived Column.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Load STG Person &amp; Business Acct\Derived Column.Inputs[Derived Column Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load STG Person &amp; Business Acct\Derived Column.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Load STG Person &amp; Business Acct\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load STG Person &amp; Business Acct\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load STG Person &amp; Business Acct\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load STG Person &amp; Business Acct\LND Accounts"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="LND Accounts"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[LND_EDW_ACCOUNTS]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT LTRIM(RTRIM([EXTRACT_FG])) as [EXTRACT_FG]
+      ,LTRIM(RTRIM([EDW_IP_ID])) as [EDW_IP_ID]
+      ,LTRIM(RTRIM([EDW_IP_SRC_STM])) as [EDW_IP_SRC_STM]
+      ,LTRIM(RTRIM([SRC_IP_ID])) as [SRC_IP_ID]
+      ,LTRIM(RTRIM([PARTY_TYPE])) as [PARTY_TYPE]
+      ,LTRIM(RTRIM([PARTY_NAME])) as [PARTY_NAME]
+      ,LTRIM(RTRIM([SALUTATION])) as [SALUTATION]
+      ,LTRIM(RTRIM([GIVEN_NAME])) as [GIVEN_NAME]
+      ,LTRIM(RTRIM([MIDDLE_NAME])) as [MIDDLE_NAME]
+      ,LTRIM(RTRIM([LAST_NAME])) as [LAST_NAME]
+      ,LTRIM(RTRIM([MAILING_ADDRESS])) as [MAILING_ADDRESS]
+      ,LTRIM(RTRIM([MAILING_COUNTRY])) as [MAILING_COUNTRY]
+      ,LTRIM(RTRIM([PRIMARY_PHONE])) as [PRIMARY_PHONE]
+      ,LTRIM(RTRIM([PRIMARY_PHONE_TYPE])) as [PRIMARY_PHONE_TYPE],
+ltrim(rtrim([EMAIL_ADDRESS])) AS [EMAIL_ADDRESS],
+ltrim(rtrim([GENDER])) AS [GENDER],
+ltrim(rtrim([BIRTHDATE])) AS [BIRTHDATE],
+-- NOTE: REPLACE(CHAR(13)/CHAR(10)) must always be on the LAST column only.
+-- This strips the row terminator (CRLF) that bleeds into the final 
+-- column value when SSIS loads the fixed-width flat file.
+-- If a new column is added after POSTCODE, move this REPLACE to that column.
+     ltrim(rtrim(REPLACE(REPLACE([POSTCODE], CHAR(13), ''), CHAR(10), '') )) AS [POSTCODE]
+,LTRIM(RTRIM([FNAME])) as [FNAME]
+  FROM [dbo].[LND_EDW_ACCOUNTS]</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Connections[OleDbConnection]"
+                  connectionManagerID="{3D75E02A-5A20-4F13-9B9F-D88AF647B6D7}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[WEALTH_LND]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[EXTRACT_FG]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].ExternalColumns[EXTRACT_FG]"
+                      length="300"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[EXTRACT_FG]"
+                      name="EXTRACT_FG"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[EDW_IP_ID]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].ExternalColumns[EDW_IP_ID]"
+                      length="300"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[EDW_IP_ID]"
+                      name="EDW_IP_ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[EDW_IP_SRC_STM]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].ExternalColumns[EDW_IP_SRC_STM]"
+                      length="300"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[EDW_IP_SRC_STM]"
+                      name="EDW_IP_SRC_STM"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[SRC_IP_ID]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].ExternalColumns[SRC_IP_ID]"
+                      length="300"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[SRC_IP_ID]"
+                      name="SRC_IP_ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[PARTY_TYPE]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].ExternalColumns[PARTY_TYPE]"
+                      length="300"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[PARTY_TYPE]"
+                      name="PARTY_TYPE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[PARTY_NAME]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].ExternalColumns[PARTY_NAME]"
+                      length="300"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[PARTY_NAME]"
+                      name="PARTY_NAME"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[SALUTATION]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].ExternalColumns[SALUTATION]"
+                      length="300"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[SALUTATION]"
+                      name="SALUTATION"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[GIVEN_NAME]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].ExternalColumns[GIVEN_NAME]"
+                      length="300"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[GIVEN_NAME]"
+                      name="GIVEN_NAME"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[MIDDLE_NAME]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].ExternalColumns[MIDDLE_NAME]"
+                      length="300"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[MIDDLE_NAME]"
+                      name="MIDDLE_NAME"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[LAST_NAME]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].ExternalColumns[LAST_NAME]"
+                      length="300"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[LAST_NAME]"
+                      name="LAST_NAME"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[MAILING_ADDRESS]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].ExternalColumns[MAILING_ADDRESS]"
+                      length="300"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[MAILING_ADDRESS]"
+                      name="MAILING_ADDRESS"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[MAILING_COUNTRY]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].ExternalColumns[MAILING_COUNTRY]"
+                      length="300"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[MAILING_COUNTRY]"
+                      name="MAILING_COUNTRY"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[PRIMARY_PHONE]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].ExternalColumns[PRIMARY_PHONE]"
+                      length="300"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[PRIMARY_PHONE]"
+                      name="PRIMARY_PHONE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[PRIMARY_PHONE_TYPE]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].ExternalColumns[PRIMARY_PHONE_TYPE]"
+                      length="300"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[PRIMARY_PHONE_TYPE]"
+                      name="PRIMARY_PHONE_TYPE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[EMAIL_ADDRESS]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].ExternalColumns[EMAIL_ADDRESS]"
+                      length="300"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[EMAIL_ADDRESS]"
+                      name="EMAIL_ADDRESS"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[FNAME]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].ExternalColumns[FNAME]"
+                      length="300"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[FNAME]"
+                      name="FNAME"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[GENDER]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].ExternalColumns[GENDER]"
+                      length="20"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[GENDER]"
+                      name="GENDER"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[BIRTHDATE]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].ExternalColumns[BIRTHDATE]"
+                      length="11"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[BIRTHDATE]"
+                      name="BIRTHDATE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[POSTCODE]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].ExternalColumns[POSTCODE]"
+                      length="4000"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[POSTCODE]"
+                      name="POSTCODE"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].ExternalColumns[EXTRACT_FG]"
+                      dataType="wstr"
+                      length="300"
+                      name="EXTRACT_FG" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].ExternalColumns[EDW_IP_ID]"
+                      dataType="wstr"
+                      length="300"
+                      name="EDW_IP_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].ExternalColumns[EDW_IP_SRC_STM]"
+                      dataType="wstr"
+                      length="300"
+                      name="EDW_IP_SRC_STM" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].ExternalColumns[SRC_IP_ID]"
+                      dataType="wstr"
+                      length="300"
+                      name="SRC_IP_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].ExternalColumns[PARTY_TYPE]"
+                      dataType="wstr"
+                      length="300"
+                      name="PARTY_TYPE" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].ExternalColumns[PARTY_NAME]"
+                      dataType="wstr"
+                      length="300"
+                      name="PARTY_NAME" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].ExternalColumns[SALUTATION]"
+                      dataType="wstr"
+                      length="300"
+                      name="SALUTATION" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].ExternalColumns[GIVEN_NAME]"
+                      dataType="wstr"
+                      length="300"
+                      name="GIVEN_NAME" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].ExternalColumns[MIDDLE_NAME]"
+                      dataType="wstr"
+                      length="300"
+                      name="MIDDLE_NAME" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].ExternalColumns[LAST_NAME]"
+                      dataType="wstr"
+                      length="300"
+                      name="LAST_NAME" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].ExternalColumns[MAILING_ADDRESS]"
+                      dataType="wstr"
+                      length="300"
+                      name="MAILING_ADDRESS" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].ExternalColumns[MAILING_COUNTRY]"
+                      dataType="wstr"
+                      length="300"
+                      name="MAILING_COUNTRY" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].ExternalColumns[PRIMARY_PHONE]"
+                      dataType="wstr"
+                      length="300"
+                      name="PRIMARY_PHONE" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].ExternalColumns[PRIMARY_PHONE_TYPE]"
+                      dataType="wstr"
+                      length="300"
+                      name="PRIMARY_PHONE_TYPE" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].ExternalColumns[EMAIL_ADDRESS]"
+                      dataType="wstr"
+                      length="300"
+                      name="EMAIL_ADDRESS" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].ExternalColumns[FNAME]"
+                      dataType="wstr"
+                      length="300"
+                      name="FNAME" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].ExternalColumns[GENDER]"
+                      dataType="wstr"
+                      length="20"
+                      name="GENDER" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].ExternalColumns[BIRTHDATE]"
+                      dataType="wstr"
+                      length="11"
+                      name="BIRTHDATE" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].ExternalColumns[POSTCODE]"
+                      dataType="wstr"
+                      length="4000"
+                      name="POSTCODE" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Error Output].Columns[EXTRACT_FG]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Error Output].Columns[EXTRACT_FG]"
+                      name="EXTRACT_FG" />
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Error Output].Columns[EDW_IP_ID]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Error Output].Columns[EDW_IP_ID]"
+                      name="EDW_IP_ID" />
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Error Output].Columns[EDW_IP_SRC_STM]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Error Output].Columns[EDW_IP_SRC_STM]"
+                      name="EDW_IP_SRC_STM" />
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Error Output].Columns[SRC_IP_ID]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Error Output].Columns[SRC_IP_ID]"
+                      name="SRC_IP_ID" />
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Error Output].Columns[PARTY_TYPE]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Error Output].Columns[PARTY_TYPE]"
+                      name="PARTY_TYPE" />
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Error Output].Columns[PARTY_NAME]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Error Output].Columns[PARTY_NAME]"
+                      name="PARTY_NAME" />
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Error Output].Columns[SALUTATION]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Error Output].Columns[SALUTATION]"
+                      name="SALUTATION" />
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Error Output].Columns[GIVEN_NAME]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Error Output].Columns[GIVEN_NAME]"
+                      name="GIVEN_NAME" />
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Error Output].Columns[MIDDLE_NAME]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Error Output].Columns[MIDDLE_NAME]"
+                      name="MIDDLE_NAME" />
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Error Output].Columns[LAST_NAME]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Error Output].Columns[LAST_NAME]"
+                      name="LAST_NAME" />
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Error Output].Columns[MAILING_ADDRESS]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Error Output].Columns[MAILING_ADDRESS]"
+                      name="MAILING_ADDRESS" />
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Error Output].Columns[MAILING_COUNTRY]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Error Output].Columns[MAILING_COUNTRY]"
+                      name="MAILING_COUNTRY" />
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Error Output].Columns[PRIMARY_PHONE]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Error Output].Columns[PRIMARY_PHONE]"
+                      name="PRIMARY_PHONE" />
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Error Output].Columns[PRIMARY_PHONE_TYPE]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Error Output].Columns[PRIMARY_PHONE_TYPE]"
+                      name="PRIMARY_PHONE_TYPE" />
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Error Output].Columns[EMAIL_ADDRESS]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Error Output].Columns[EMAIL_ADDRESS]"
+                      name="EMAIL_ADDRESS" />
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Error Output].Columns[GENDER]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Error Output].Columns[GENDER]"
+                      name="GENDER" />
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Error Output].Columns[BIRTHDATE]"
+                      dataType="wstr"
+                      length="11"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Error Output].Columns[BIRTHDATE]"
+                      name="BIRTHDATE" />
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Error Output].Columns[POSTCODE]"
+                      dataType="wstr"
+                      length="4000"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Error Output].Columns[POSTCODE]"
+                      name="POSTCODE" />
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Error Output].Columns[FNAME]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Error Output].Columns[FNAME]"
+                      name="FNAME" />
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="STG_EDW_BUSINESS_ACCT"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[STG_EDW_BUSINESS_ACCT]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Connections[OleDbConnection]"
+                  connectionManagerID="{B2B95508-7BC4-4DC8-87F1-D0A643F1B195}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[WEALTH_STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].Columns[EXTRACT_FG]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="EXTRACT_FG"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[EXTRACT_FG]"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[EXTRACT_FG]" />
+                    <inputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].Columns[EDW_IP_ID]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="EDW_IP_ID"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[EDW_IP_ID]"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[EDW_IP_ID]" />
+                    <inputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].Columns[EDW_IP_SRC_STM]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="EDW_IP_SRC_STM"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[EDW_IP_SRC_STM]"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[EDW_IP_SRC_STM]" />
+                    <inputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].Columns[SRC_IP_ID]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="SRC_IP_ID"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[SRC_IP_ID]"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[SRC_IP_ID]" />
+                    <inputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].Columns[PARTY_TYPE]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="PARTY_TYPE"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[PARTY_TYPE]"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[PARTY_TYPE]" />
+                    <inputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].Columns[PARTY_NAME]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="PARTY_NAME"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[PARTY_NAME]"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[PARTY_NAME]" />
+                    <inputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].Columns[SALUTATION]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="SALUTATION"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[SALUTATION]"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[SALUTATION]" />
+                    <inputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].Columns[GIVEN_NAME]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="GIVEN_NAME"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[GIVEN_NAME]"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[GIVEN_NAME]" />
+                    <inputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].Columns[MIDDLE_NAME]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="MIDDLE_NAME"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[MIDDLE_NAME]"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[MIDDLE_NAME]" />
+                    <inputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].Columns[LAST_NAME]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="LAST_NAME"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[LAST_NAME]"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[LAST_NAME]" />
+                    <inputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].Columns[MAILING_ADDRESS]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="MAILING_ADDRESS"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[MAILING_ADDRESS]"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[MAILING_ADDRESS]" />
+                    <inputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].Columns[MAILING_COUNTRY]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="MAILING_COUNTRY"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[MAILING_COUNTRY]"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[MAILING_COUNTRY]" />
+                    <inputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].Columns[PRIMARY_PHONE]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="PRIMARY_PHONE"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[PRIMARY_PHONE]"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[PRIMARY_PHONE]" />
+                    <inputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].Columns[PRIMARY_PHONE_TYPE]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="PRIMARY_PHONE_TYPE"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[PRIMARY_PHONE_TYPE]"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[PRIMARY_PHONE_TYPE]" />
+                    <inputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].Columns[EMAIL_ADDRESS]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="EMAIL_ADDRESS"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[EMAIL_ADDRESS]"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[EMAIL_ADDRESS]" />
+                    <inputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].Columns[FNAME]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="FNAME"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[FNAME]"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[FNAME]" />
+                    <inputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].Columns[POSTCODE]"
+                      cachedDataType="wstr"
+                      cachedLength="4000"
+                      cachedName="POSTCODE"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[PostCode]"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[POSTCODE]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[EXTRACT_FG]"
+                      dataType="wstr"
+                      length="300"
+                      name="EXTRACT_FG" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[EDW_IP_ID]"
+                      dataType="wstr"
+                      length="300"
+                      name="EDW_IP_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[EDW_IP_SRC_STM]"
+                      dataType="wstr"
+                      length="300"
+                      name="EDW_IP_SRC_STM" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[SRC_IP_ID]"
+                      dataType="wstr"
+                      length="300"
+                      name="SRC_IP_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[PARTY_TYPE]"
+                      dataType="wstr"
+                      length="300"
+                      name="PARTY_TYPE" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[PARTY_NAME]"
+                      dataType="wstr"
+                      length="300"
+                      name="PARTY_NAME" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[SALUTATION]"
+                      dataType="wstr"
+                      length="300"
+                      name="SALUTATION" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[GIVEN_NAME]"
+                      dataType="wstr"
+                      length="300"
+                      name="GIVEN_NAME" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[MIDDLE_NAME]"
+                      dataType="wstr"
+                      length="300"
+                      name="MIDDLE_NAME" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[LAST_NAME]"
+                      dataType="wstr"
+                      length="300"
+                      name="LAST_NAME" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[MAILING_ADDRESS]"
+                      dataType="wstr"
+                      length="300"
+                      name="MAILING_ADDRESS" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[MAILING_COUNTRY]"
+                      dataType="wstr"
+                      length="300"
+                      name="MAILING_COUNTRY" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[PRIMARY_PHONE]"
+                      dataType="wstr"
+                      length="300"
+                      name="PRIMARY_PHONE" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[PRIMARY_PHONE_TYPE]"
+                      dataType="wstr"
+                      length="300"
+                      name="PRIMARY_PHONE_TYPE" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[EMAIL_ADDRESS]"
+                      dataType="wstr"
+                      length="300"
+                      name="EMAIL_ADDRESS" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[FNAME]"
+                      dataType="wstr"
+                      length="300"
+                      name="FNAME" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[PostCode]"
+                      dataType="wstr"
+                      length="257"
+                      name="PostCode" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="STG_EDW_PERSON_ACCT"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[STG_EDW_PERSON_ACCT]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Connections[OleDbConnection]"
+                  connectionManagerID="{B2B95508-7BC4-4DC8-87F1-D0A643F1B195}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[WEALTH_STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].Columns[EXTRACT_FG]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="EXTRACT_FG"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[EXTRACT_FG]"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[EXTRACT_FG]" />
+                    <inputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].Columns[EDW_IP_ID]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="EDW_IP_ID"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[EDW_IP_ID]"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[EDW_IP_ID]" />
+                    <inputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].Columns[EDW_IP_SRC_STM]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="EDW_IP_SRC_STM"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[EDW_IP_SRC_STM]"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[EDW_IP_SRC_STM]" />
+                    <inputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].Columns[SRC_IP_ID]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="SRC_IP_ID"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[SRC_IP_ID]"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[SRC_IP_ID]" />
+                    <inputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].Columns[PARTY_TYPE]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="PARTY_TYPE"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[PARTY_TYPE]"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[PARTY_TYPE]" />
+                    <inputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].Columns[PARTY_NAME]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="PARTY_NAME"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[PARTY_NAME]"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[PARTY_NAME]" />
+                    <inputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].Columns[SALUTATION]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="SALUTATION"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[SALUTATION]"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[SALUTATION]" />
+                    <inputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].Columns[GIVEN_NAME]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="GIVEN_NAME"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[GIVEN_NAME]"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[GIVEN_NAME]" />
+                    <inputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].Columns[MIDDLE_NAME]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="MIDDLE_NAME"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[MIDDLE_NAME]"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[MIDDLE_NAME]" />
+                    <inputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].Columns[LAST_NAME]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="LAST_NAME"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[LAST_NAME]"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[LAST_NAME]" />
+                    <inputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].Columns[MAILING_ADDRESS]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="MAILING_ADDRESS"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[MAILING_ADDRESS]"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[MAILING_ADDRESS]" />
+                    <inputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].Columns[MAILING_COUNTRY]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="MAILING_COUNTRY"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[MAILING_COUNTRY]"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[MAILING_COUNTRY]" />
+                    <inputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].Columns[PRIMARY_PHONE]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="PRIMARY_PHONE"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[PRIMARY_PHONE]"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[PRIMARY_PHONE]" />
+                    <inputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].Columns[PRIMARY_PHONE_TYPE]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="PRIMARY_PHONE_TYPE"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[PRIMARY_PHONE_TYPE]"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[PRIMARY_PHONE_TYPE]" />
+                    <inputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].Columns[EMAIL_ADDRESS]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="EMAIL_ADDRESS"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[EMAIL_ADDRESS]"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[EMAIL_ADDRESS]" />
+                    <inputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].Columns[FNAME]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="FNAME"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[FNAME]"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[FNAME]" />
+                    <inputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].Columns[GENDER]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="GENDER"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[Gender]"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[GENDER]" />
+                    <inputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].Columns[BIRTHDATE]"
+                      cachedDataType="wstr"
+                      cachedLength="11"
+                      cachedName="BIRTHDATE"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[Birthdate]"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[BIRTHDATE]" />
+                    <inputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].Columns[POSTCODE]"
+                      cachedDataType="wstr"
+                      cachedLength="4000"
+                      cachedName="POSTCODE"
+                      externalMetadataColumnId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[PostCode]"
+                      lineageId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output].Columns[POSTCODE]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[EXTRACT_FG]"
+                      dataType="wstr"
+                      length="300"
+                      name="EXTRACT_FG" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[EDW_IP_ID]"
+                      dataType="wstr"
+                      length="300"
+                      name="EDW_IP_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[EDW_IP_SRC_STM]"
+                      dataType="wstr"
+                      length="300"
+                      name="EDW_IP_SRC_STM" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[SRC_IP_ID]"
+                      dataType="wstr"
+                      length="300"
+                      name="SRC_IP_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[PARTY_TYPE]"
+                      dataType="wstr"
+                      length="300"
+                      name="PARTY_TYPE" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[PARTY_NAME]"
+                      dataType="wstr"
+                      length="300"
+                      name="PARTY_NAME" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[SALUTATION]"
+                      dataType="wstr"
+                      length="300"
+                      name="SALUTATION" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[GIVEN_NAME]"
+                      dataType="wstr"
+                      length="300"
+                      name="GIVEN_NAME" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[MIDDLE_NAME]"
+                      dataType="wstr"
+                      length="300"
+                      name="MIDDLE_NAME" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[LAST_NAME]"
+                      dataType="wstr"
+                      length="300"
+                      name="LAST_NAME" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[MAILING_ADDRESS]"
+                      dataType="wstr"
+                      length="300"
+                      name="MAILING_ADDRESS" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[MAILING_COUNTRY]"
+                      dataType="wstr"
+                      length="300"
+                      name="MAILING_COUNTRY" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[PRIMARY_PHONE]"
+                      dataType="wstr"
+                      length="300"
+                      name="PRIMARY_PHONE" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[PRIMARY_PHONE_TYPE]"
+                      dataType="wstr"
+                      length="300"
+                      name="PRIMARY_PHONE_TYPE" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[EMAIL_ADDRESS]"
+                      dataType="wstr"
+                      length="300"
+                      name="EMAIL_ADDRESS" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[FNAME]"
+                      dataType="wstr"
+                      length="300"
+                      name="FNAME" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[Gender]"
+                      dataType="wstr"
+                      length="20"
+                      name="Gender" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[Birthdate]"
+                      dataType="wstr"
+                      length="11"
+                      name="Birthdate" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input].ExternalColumns[PostCode]"
+                      dataType="wstr"
+                      length="257"
+                      name="PostCode" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load STG Person &amp; Business Acct.Paths[Derived Column Output]"
+              endId="Package\Load STG Person &amp; Business Acct\Conditional Split.Inputs[Conditional Split Input]"
+              name="Derived Column Output"
+              startId="Package\Load STG Person &amp; Business Acct\Derived Column.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Load STG Person &amp; Business Acct.Paths[INDIVIDUAL]"
+              endId="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT.Inputs[OLE DB Destination Input]"
+              name="INDIVIDUAL"
+              startId="Package\Load STG Person &amp; Business Acct\Conditional Split.Outputs[INDIVIDUAL]" />
+            <path
+              refId="Package\Load STG Person &amp; Business Acct.Paths[OLE DB Source Output]"
+              endId="Package\Load STG Person &amp; Business Acct\Derived Column.Inputs[Derived Column Input]"
+              name="OLE DB Source Output"
+              startId="Package\Load STG Person &amp; Business Acct\LND Accounts.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Load STG Person &amp; Business Acct.Paths[ORGINISATION]"
+              endId="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT.Inputs[OLE DB Destination Input]"
+              name="ORGINISATION"
+              startId="Package\Load STG Person &amp; Business Acct\Conditional Split.Outputs[ORGINISATION]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate STG Person &amp; Business Acct"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{AEB741EE-42C7-49F9-BC00-3BA1AA8EE097}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate STG Person &amp; Business Acct"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{B2B95508-7BC4-4DC8-87F1-D0A643F1B195}"
+          SQLTask:SqlStatementSource="Truncate table [dbo].[STG_EDW_BUSINESS_ACCT]; &#xA;Truncate table [dbo].[STG_EDW_PERSON_ACCT]; " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{F23BE4A5-AF12-4B7C-A2D1-49EC0B959A38}"
+      DTS:From="Package\Truncate STG Person &amp; Business Acct"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Load STG Person &amp; Business Acct" />
+  </DTS:PrecedenceConstraints>
+  <DTS:EventHandlers>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnError]"
+      DTS:CreationName="OnError"
+      DTS:DTSID="{1913C6AD-7AB8-46BF-848A-53A3CEFB3ED1}"
+      DTS:EventID="0"
+      DTS:EventName="OnError"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{82F84BAE-DBDE-4841-A647-0400D6AC0454}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnError]\OnError"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{79acb3f6-7653-472a-a231-2d89b52cc826}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="OnError"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:PropertyExpression
+            DTS:Name="SqlStatementSource">"insert into etl_batch_package_event values ('" + @[System::PackageID] + "','" + @[System::MachineName] + "','" + @[System::PackageName] + "','" + @[System::TaskName] +  "','" + (DT_WSTR,12)@[System::ErrorCode] + "','" + @[System::ErrorDescription] + "','" + (DT_STR,4,1252) datepart("yyyy", getdate()) + Right ("0" + (DT_STR,2,1252) datepart("mm", getdate()),2) + Right ("0" + (DT_STR,2,1252) datepart("dd", getdate()),2) +" "+ Right("0" + (DT_STR,2,1252) DatePart("hh",getdate()),2) +":" + Right("0" + (DT_STR,2,1252) DatePart("mi",getdate()),2) +":" + Right("0" + (DT_STR,4,1252) DatePart("ss",getdate()),2)  + ".000" + "')"</DTS:PropertyExpression>
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{CAEB46AA-F33A-4C72-8C4E-AC3027F4426E}"
+              SQLTask:SqlStatementSource="insert into etl_batch_package_event values ('{FEF1A552-6C37-46E5-BECC-BD74F88FA0AC}','CLT11983','04-STG Load Accounts','OnError','0','','20261030 10:34:50.000')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:EventHandler>
+  </DTS:EventHandlers>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="249,42"
+          Id="Package\Load STG Person &amp; Business Acct"
+          TopLeft="234,201.200000041326" />
+        <NodeLayout
+          Size="268,42"
+          Id="Package\Truncate STG Person &amp; Business Acct"
+          TopLeft="229,61.2000000413259" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="360.7,102.800000041326">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,98.4000000000001"
+              Start="0,0"
+              End="0,90.9000000000001">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,90.9000000000001" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <DtsEventHandler
+    design-time-name="Package.EventHandlers[OnError]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="118.4,41.6"
+          Id="Package.EventHandlers[OnError]\OnError"
+          TopLeft="297,192" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <TaskHost
+    design-time-name="Package\Load STG Person &amp; Business Acct">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="231,42"
+          Id="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT"
+          TopLeft="368.333318697082,301.600002396902" />
+        <NodeLayout
+          Size="153,42"
+          Id="Package\Load STG Person &amp; Business Acct\Derived Column"
+          TopLeft="242.499990363916,95.3333340909745" />
+        <NodeLayout
+          Size="149,42"
+          Id="Package\Load STG Person &amp; Business Acct\LND Accounts"
+          TopLeft="247.333332803514,5" />
+        <NodeLayout
+          Size="214,42"
+          Id="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT"
+          TopLeft="43.3333316114215,291.20000231425" />
+        <NodeLayout
+          Size="154,42"
+          Id="Package\Load STG Person &amp; Business Acct\Conditional Split"
+          TopLeft="234.166657361719,172.466668037309" />
+        <EdgeLayout
+          Id="Package\Load STG Person &amp; Business Acct.Paths[OLE DB Source Output]"
+          TopLeft="320.316661583715,46.6">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,48.7333340909745"
+              Start="0,0"
+              End="0,41.2333340909745">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,41.2333340909745" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load STG Person &amp; Business Acct.Paths[INDIVIDUAL]"
+          TopLeft="286.699990695053,214.066668037309">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-136.166659083631,77.1333342769411"
+              Start="0,0"
+              End="-136.166659083631,69.6333342769411">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27.3304471186751" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,27.3304471186751"
+                    Point2="0,31.3304471186751"
+                    Point3="-4,31.3304471186751" />
+                  <mssgle:LineSegment
+                    End="-132.166659083631,31.3304471186751" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-132.166659083631,31.3304471186751"
+                    Point2="-136.166659083631,31.3304471186751"
+                    Point3="-136.166659083631,35.3304471186751" />
+                  <mssgle:LineSegment
+                    End="-136.166659083631,69.6333342769411" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-96.3068646980655,36.3304471186751,56.4470703125,9.421875"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load STG Person &amp; Business Acct.Paths[Derived Column Output]"
+          TopLeft="314.933323862818,136.933334090974">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,35.5333339463344"
+              Start="0,0"
+              End="0,28.0333339463344">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,28.0333339463344" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load STG Person &amp; Business Acct.Paths[ORGINISATION]"
+          TopLeft="335.233324028386,214.066668037309">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="148.699994668696,87.5333343595926"
+              Start="0,0"
+              End="148.699994668696,80.0333343595926">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,31.5547770491541" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,31.5547770491541"
+                    Point2="0,35.5547770491541"
+                    Point3="4,35.5547770491541" />
+                  <mssgle:LineSegment
+                    End="144.699994668696,35.5547770491541" />
+                  <mssgle:CubicBezierSegment
+                    Point1="144.699994668696,35.5547770491541"
+                    Point2="148.699994668696,35.5547770491541"
+                    Point3="148.699994668696,39.5547770491541" />
+                  <mssgle:LineSegment
+                    End="148.699994668696,80.0333343595926" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="39.387380146848,40.5547770491541,69.925234375,9.5732421875"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <AnnotationLayout
+          Text="j"
+          ParentId="Package\Load STG Person &amp; Business Acct"
+          FontInfo="{assembly:Null}"
+          Size="32,40"
+          Id="8783e4a7-4dd7-4b93-a259-68ba2a22cf51"
+          TopLeft="5.5,5.5" />
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load STG Person &amp; Business Acct\STG_EDW_PERSON_ACCT">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load STG Person &amp; Business Acct\STG_EDW_BUSINESS_ACCT">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load STG Person &amp; Business Acct\LND Accounts">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

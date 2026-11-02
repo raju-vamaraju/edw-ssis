@@ -1,0 +1,1286 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="12/8/2020 9:20:03 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="WCRMWITA0006"
+  DTS:CreatorName="AURTEST\p799871t"
+  DTS:DTSID="{C6FC85B0-8A76-4367-B191-3F474E26C324}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.170"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="02-Get Account_Data"
+  DTS:PackageType="5"
+  DTS:VersionBuild="34"
+  DTS:VersionGUID="{723739FB-C16B-412C-BDF4-49F705E62D7F}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Delete Key tables"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{75C58F97-45C1-42E8-B95F-2BBDC7E1F32F}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Delete Key tables"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{A1098A42-BD8A-44E7-ABBF-EE2C3CEC348D}"
+          SQLTask:SqlStatementSource="Truncate table dbo.SF_BUZ_ACCT_FULL;Truncate table dbo.SF_PERSON_FULL" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Sequence Container"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{FBE03E08-2EF7-42C9-8C8F-A617D65F59B7}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Sequence Container">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Sequence Container\Load Business Acct Keys from SF"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{E31718FF-2ED9-45C4-A8C9-E1AF463B9111}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load Business Acct Keys from SF"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Sequence Container\Load Business Acct Keys from SF\EDW_ACCT_Keys"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="EDW_ACCT_Keys"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[SF_BUZ_ACCT_FULL]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Sequence Container\Load Business Acct Keys from SF\EDW_ACCT_Keys.Connections[OleDbConnection]"
+                      connectionManagerID="{A1098A42-BD8A-44E7-ABBF-EE2C3CEC348D}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[WEALTH_TGT]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Sequence Container\Load Business Acct Keys from SF\EDW_ACCT_Keys.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Sequence Container\Load Business Acct Keys from SF\EDW_ACCT_Keys.Inputs[OLE DB Destination Input].Columns[RecordTypeId]"
+                          cachedDataType="wstr"
+                          cachedLength="18"
+                          cachedName="RecordTypeId"
+                          externalMetadataColumnId="Package\Sequence Container\Load Business Acct Keys from SF\EDW_ACCT_Keys.Inputs[OLE DB Destination Input].ExternalColumns[RecordTypeId]"
+                          lineageId="Package\Sequence Container\Load Business Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].Columns[RecordTypeId]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load Business Acct Keys from SF\EDW_ACCT_Keys.Inputs[OLE DB Destination Input].Columns[Id]"
+                          cachedDataType="wstr"
+                          cachedLength="18"
+                          cachedName="Id"
+                          externalMetadataColumnId="Package\Sequence Container\Load Business Acct Keys from SF\EDW_ACCT_Keys.Inputs[OLE DB Destination Input].ExternalColumns[Id]"
+                          lineageId="Package\Sequence Container\Load Business Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].Columns[Id]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load Business Acct Keys from SF\EDW_ACCT_Keys.Inputs[OLE DB Destination Input].Columns[External_Unique_ID__c]"
+                          cachedDataType="wstr"
+                          cachedLength="12"
+                          cachedName="External_Unique_ID__c"
+                          externalMetadataColumnId="Package\Sequence Container\Load Business Acct Keys from SF\EDW_ACCT_Keys.Inputs[OLE DB Destination Input].ExternalColumns[External_Unique_ID__c]"
+                          lineageId="Package\Sequence Container\Load Business Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].Columns[External_Unique_ID__c]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load Business Acct Keys from SF\EDW_ACCT_Keys.Inputs[OLE DB Destination Input].Columns[BillingPostalCode]"
+                          cachedDataType="wstr"
+                          cachedLength="20"
+                          cachedName="BillingPostalCode"
+                          externalMetadataColumnId="Package\Sequence Container\Load Business Acct Keys from SF\EDW_ACCT_Keys.Inputs[OLE DB Destination Input].ExternalColumns[BillingPostalCode]"
+                          lineageId="Package\Sequence Container\Load Business Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].Columns[BillingPostalCode]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Business Acct Keys from SF\EDW_ACCT_Keys.Inputs[OLE DB Destination Input].ExternalColumns[RecordTypeId]"
+                          dataType="wstr"
+                          length="18"
+                          name="RecordTypeId" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Business Acct Keys from SF\EDW_ACCT_Keys.Inputs[OLE DB Destination Input].ExternalColumns[Id]"
+                          dataType="wstr"
+                          length="18"
+                          name="Id" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Business Acct Keys from SF\EDW_ACCT_Keys.Inputs[OLE DB Destination Input].ExternalColumns[External_Unique_ID__c]"
+                          dataType="wstr"
+                          length="12"
+                          name="External_Unique_ID__c" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Business Acct Keys from SF\EDW_ACCT_Keys.Inputs[OLE DB Destination Input].ExternalColumns[BillingPostalCode]"
+                          dataType="wstr"
+                          length="20"
+                          name="BillingPostalCode" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Sequence Container\Load Business Acct Keys from SF\EDW_ACCT_Keys.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Sequence Container\Load Business Acct Keys from SF\EDW_ACCT_Keys.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Business Acct Keys from SF\EDW_ACCT_Keys.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load Business Acct Keys from SF\EDW_ACCT_Keys.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Business Acct Keys from SF\EDW_ACCT_Keys.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load Business Acct Keys from SF\EDW_ACCT_Keys.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Sequence Container\Load Business Acct Keys from SF\Extract SF Account Keys"
+                  componentClassID="Microsoft.ManagedComponentHost"
+                  contactInfo="SalesForce.com Source;SentryOne; Task Factory © 2019 SQL Sentry, LLC; http://www.sentryone.com;support@sentryone.com"
+                  description="Retrieves data from SalesForce.com objects"
+                  name="Extract SF Account Keys"
+                  usesDispositions="true"
+                  version="11">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of rows returned in each batch from SalesForce.com"
+                      name="BatchSize">500</property>
+                    <property
+                      dataType="System.String"
+                      description="The statement used to query data from SalesForce.com"
+                      expressionType="Notify"
+                      name="QueryStatement">SELECT 
+ 	Id, 
+	RecordTypeId,	
+	External_Unique_ID__c,
+	BillingPostalCode 
+ FROM 
+	Account
+	
+	where RecordType.Name like 'MLC%Wealth%EDW%Business%'
+	
+	</property>
+                    <property
+                      dataType="System.String"
+                      description="The name of the SalesForce.com object"
+                      expressionType="Notify"
+                      name="SalesForceObjectName">Account</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Include deleted records in source data"
+                      expressionType="Notify"
+                      name="IncludeDeleted">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Set to true if a custom query is being used"
+                      expressionType="Notify"
+                      name="UseQuery">true</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Set to true if the local dates should be converted to UTC before being used in a where statement"
+                      expressionType="Notify"
+                      name="ConvertDatesToUTC">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="The type of query to execute (Normal or Bulk Query)"
+                      expressionType="Notify"
+                      name="Query Mode"
+                      typeConverter="PW.TaskFactory.SalesForceSource+QueryMode">1</property>
+                    <property
+                      dataType="System.Int32"
+                      description="The format in which the dates will be outputted"
+                      expressionType="Notify"
+                      name="Output Date Timezone"
+                      typeConverter="PW.TaskFactory.SalesForceBulkJob+OutputDateTimezone">1</property>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds of to wait between polling checks for job status"
+                      name="Bulk Query Polling Interval">2</property>
+                    <property
+                      dataType="System.Int32"
+                      description="The concurrency mode for the bulk query job"
+                      expressionType="Notify"
+                      name="Bulk Query Concurrency Mode"
+                      typeConverter="PW.TaskFactory.SalesForceBulkJob+ConcurrencyModeEnum">1</property>
+                    <property
+                      dataType="System.Boolean"
+                      expressionType="Notify"
+                      name="DebugMode">false</property>
+                    <property
+                      dataType="System.String"
+                      name="UserComponentTypeName">PW.TaskFactory.SalesForceSource</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Set to true if xml results in columns should be wrapped with a &lt;root&gt; element. This makes it easier to parse in the down flow."
+                      expressionType="Notify"
+                      name="Wrap Xml With Root Element">false</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Sequence Container\Load Business Acct Keys from SF\Extract SF Account Keys.Connections[SALESFORCE]"
+                      connectionManagerID="{3638ED21-ED0C-4917-B39A-7D4C22E40258}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[SalesForce]"
+                      description="Connection to the SalesForce.com account"
+                      name="SALESFORCE" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Sequence Container\Load Business Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data]"
+                      name="SalesForce Data">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Business Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].Columns[Id]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="SalesForce"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load Business Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].ExternalColumns[Id]"
+                          length="18"
+                          lineageId="Package\Sequence Container\Load Business Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].Columns[Id]"
+                          name="Id"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Business Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].Columns[RecordTypeId]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="SalesForce"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load Business Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].ExternalColumns[RecordTypeId]"
+                          length="18"
+                          lineageId="Package\Sequence Container\Load Business Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].Columns[RecordTypeId]"
+                          name="RecordTypeId"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Business Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].Columns[External_Unique_ID__c]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="SalesForce"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load Business Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].ExternalColumns[External_Unique_ID__c]"
+                          length="12"
+                          lineageId="Package\Sequence Container\Load Business Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].Columns[External_Unique_ID__c]"
+                          name="External_Unique_ID__c"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Business Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].Columns[BillingPostalCode]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="SalesForce"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load Business Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].ExternalColumns[BillingPostalCode]"
+                          length="20"
+                          lineageId="Package\Sequence Container\Load Business Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].Columns[BillingPostalCode]"
+                          name="BillingPostalCode"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Business Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].ExternalColumns[Id]"
+                          dataType="wstr"
+                          length="18"
+                          name="Id" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Business Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].ExternalColumns[RecordTypeId]"
+                          dataType="wstr"
+                          length="18"
+                          name="RecordTypeId" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Business Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].ExternalColumns[External_Unique_ID__c]"
+                          dataType="wstr"
+                          length="12"
+                          name="External_Unique_ID__c" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Business Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].ExternalColumns[BillingPostalCode]"
+                          dataType="wstr"
+                          length="20"
+                          name="BillingPostalCode" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Sequence Container\Load Business Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Error Output]"
+                      isErrorOut="true"
+                      name="SalesForce Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Business Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load Business Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Business Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load Business Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Business Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Error Output].Columns[ErrorDescription]"
+                          dataType="wstr"
+                          length="1024"
+                          lineageId="Package\Sequence Container\Load Business Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Error Output].Columns[ErrorDescription]"
+                          name="ErrorDescription" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Business Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Error Output].Columns[Id]"
+                          dataType="wstr"
+                          length="18"
+                          lineageId="Package\Sequence Container\Load Business Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Error Output].Columns[Id]"
+                          name="Id" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Business Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Error Output].Columns[RecordTypeId]"
+                          dataType="wstr"
+                          length="18"
+                          lineageId="Package\Sequence Container\Load Business Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Error Output].Columns[RecordTypeId]"
+                          name="RecordTypeId" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Business Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Error Output].Columns[External_Unique_ID__c]"
+                          dataType="wstr"
+                          length="12"
+                          lineageId="Package\Sequence Container\Load Business Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Error Output].Columns[External_Unique_ID__c]"
+                          name="External_Unique_ID__c" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Business Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Error Output].Columns[BillingPostalCode]"
+                          dataType="wstr"
+                          length="20"
+                          lineageId="Package\Sequence Container\Load Business Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Error Output].Columns[BillingPostalCode]"
+                          name="BillingPostalCode" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Sequence Container\Load Business Acct Keys from SF.Paths[SalesForce Data]"
+                  endId="Package\Sequence Container\Load Business Acct Keys from SF\EDW_ACCT_Keys.Inputs[OLE DB Destination Input]"
+                  name="SalesForce Data"
+                  startId="Package\Sequence Container\Load Business Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Sequence Container\Load Person Acct Keys from SF"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{80A167DF-E4BD-4EFA-A725-7DC31297F21B}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load Person Acct Keys from SF"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:EventHandlers>
+            <DTS:EventHandler
+              DTS:refId="Package\Sequence Container\Load Person Acct Keys from SF.EventHandlers[OnError]"
+              DTS:CreationName="OnError"
+              DTS:DTSID="{8D84A70C-F27F-45F2-871E-8D0A25695119}"
+              DTS:EventID="0"
+              DTS:EventName="OnError"
+              DTS:LocaleID="-1">
+              <DTS:Variables>
+                <DTS:Variable
+                  DTS:CreationName=""
+                  DTS:Description="The propagate property of the event"
+                  DTS:DTSID="{B610C9E3-AE21-47FA-A780-980353730857}"
+                  DTS:IncludeInDebugDump="6789"
+                  DTS:Namespace="System"
+                  DTS:ObjectName="Propagate">
+                  <DTS:VariableValue
+                    DTS:DataType="11">-1</DTS:VariableValue>
+                </DTS:Variable>
+              </DTS:Variables>
+              <DTS:Executables />
+            </DTS:EventHandler>
+          </DTS:EventHandlers>
+          <DTS:ObjectData>
+            <pipeline
+              autoAdjustBufferSize="true"
+              defaultBufferMaxRows="100000"
+              defaultBufferSize="50485760"
+              version="1">
+              <components>
+                <component
+                  refId="Package\Sequence Container\Load Person Acct Keys from SF\EDW_ACCT_Keys"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="EDW_ACCT_Keys"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[SF_PERSON_FULL]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Sequence Container\Load Person Acct Keys from SF\EDW_ACCT_Keys.Connections[OleDbConnection]"
+                      connectionManagerID="{A1098A42-BD8A-44E7-ABBF-EE2C3CEC348D}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[WEALTH_TGT]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Sequence Container\Load Person Acct Keys from SF\EDW_ACCT_Keys.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\EDW_ACCT_Keys.Inputs[OLE DB Destination Input].Columns[RecordTypeId]"
+                          cachedDataType="wstr"
+                          cachedLength="18"
+                          cachedName="RecordTypeId"
+                          externalMetadataColumnId="Package\Sequence Container\Load Person Acct Keys from SF\EDW_ACCT_Keys.Inputs[OLE DB Destination Input].ExternalColumns[RecordTypeId]"
+                          lineageId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].Columns[RecordTypeId]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\EDW_ACCT_Keys.Inputs[OLE DB Destination Input].Columns[External_Unique_ID__c]"
+                          cachedDataType="wstr"
+                          cachedLength="12"
+                          cachedName="External_Unique_ID__c"
+                          externalMetadataColumnId="Package\Sequence Container\Load Person Acct Keys from SF\EDW_ACCT_Keys.Inputs[OLE DB Destination Input].ExternalColumns[External_Unique_ID__c]"
+                          lineageId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].Columns[External_Unique_ID__c]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\EDW_ACCT_Keys.Inputs[OLE DB Destination Input].Columns[RecordType.Name]"
+                          cachedDataType="wstr"
+                          cachedLength="80"
+                          cachedName="RecordType.Name"
+                          externalMetadataColumnId="Package\Sequence Container\Load Person Acct Keys from SF\EDW_ACCT_Keys.Inputs[OLE DB Destination Input].ExternalColumns[RecordType.Name]"
+                          lineageId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].Columns[RecordType.Name]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\EDW_ACCT_Keys.Inputs[OLE DB Destination Input].Columns[Id]"
+                          cachedDataType="wstr"
+                          cachedLength="18"
+                          cachedName="Id"
+                          externalMetadataColumnId="Package\Sequence Container\Load Person Acct Keys from SF\EDW_ACCT_Keys.Inputs[OLE DB Destination Input].ExternalColumns[Id]"
+                          lineageId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].Columns[Id]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\EDW_ACCT_Keys.Inputs[OLE DB Destination Input].Columns[Mobile__c]"
+                          cachedDataType="wstr"
+                          cachedLength="40"
+                          cachedName="Mobile__c"
+                          externalMetadataColumnId="Package\Sequence Container\Load Person Acct Keys from SF\EDW_ACCT_Keys.Inputs[OLE DB Destination Input].ExternalColumns[Mobile__c]"
+                          lineageId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].Columns[Mobile__c]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\EDW_ACCT_Keys.Inputs[OLE DB Destination Input].Columns[Email__c]"
+                          cachedDataType="wstr"
+                          cachedLength="80"
+                          cachedName="Email__c"
+                          externalMetadataColumnId="Package\Sequence Container\Load Person Acct Keys from SF\EDW_ACCT_Keys.Inputs[OLE DB Destination Input].ExternalColumns[Email__c]"
+                          lineageId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].Columns[Email__c]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\EDW_ACCT_Keys.Inputs[OLE DB Destination Input].Columns[Birth_Date__c]"
+                          cachedDataType="dbDate"
+                          cachedName="Birth_Date__c"
+                          externalMetadataColumnId="Package\Sequence Container\Load Person Acct Keys from SF\EDW_ACCT_Keys.Inputs[OLE DB Destination Input].ExternalColumns[Birth_Date__c]"
+                          lineageId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].Columns[Birth_Date__c]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\EDW_ACCT_Keys.Inputs[OLE DB Destination Input].Columns[FinServ__Gender__pc]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="FinServ__Gender__pc"
+                          externalMetadataColumnId="Package\Sequence Container\Load Person Acct Keys from SF\EDW_ACCT_Keys.Inputs[OLE DB Destination Input].ExternalColumns[FinServ__Gender__pc]"
+                          lineageId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].Columns[FinServ__Gender__pc]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\EDW_ACCT_Keys.Inputs[OLE DB Destination Input].Columns[PersonMailingPostalCode]"
+                          cachedDataType="wstr"
+                          cachedLength="20"
+                          cachedName="PersonMailingPostalCode"
+                          externalMetadataColumnId="Package\Sequence Container\Load Person Acct Keys from SF\EDW_ACCT_Keys.Inputs[OLE DB Destination Input].ExternalColumns[PersonMailingPostalCode]"
+                          lineageId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].Columns[PersonMailingPostalCode]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\EDW_ACCT_Keys.Inputs[OLE DB Destination Input].ExternalColumns[RecordTypeId]"
+                          dataType="wstr"
+                          length="18"
+                          name="RecordTypeId" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\EDW_ACCT_Keys.Inputs[OLE DB Destination Input].ExternalColumns[Id]"
+                          dataType="wstr"
+                          length="18"
+                          name="Id" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\EDW_ACCT_Keys.Inputs[OLE DB Destination Input].ExternalColumns[External_Unique_ID__c]"
+                          dataType="wstr"
+                          length="12"
+                          name="External_Unique_ID__c" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\EDW_ACCT_Keys.Inputs[OLE DB Destination Input].ExternalColumns[RecordType.Name]"
+                          dataType="wstr"
+                          length="80"
+                          name="RecordType.Name" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\EDW_ACCT_Keys.Inputs[OLE DB Destination Input].ExternalColumns[Mobile__c]"
+                          dataType="wstr"
+                          length="40"
+                          name="Mobile__c" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\EDW_ACCT_Keys.Inputs[OLE DB Destination Input].ExternalColumns[Email__c]"
+                          dataType="wstr"
+                          length="80"
+                          name="Email__c" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\EDW_ACCT_Keys.Inputs[OLE DB Destination Input].ExternalColumns[Birth_Date__c]"
+                          dataType="dbDate"
+                          name="Birth_Date__c" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\EDW_ACCT_Keys.Inputs[OLE DB Destination Input].ExternalColumns[FinServ__Gender__pc]"
+                          dataType="wstr"
+                          length="255"
+                          name="FinServ__Gender__pc" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\EDW_ACCT_Keys.Inputs[OLE DB Destination Input].ExternalColumns[PersonMailingPostalCode]"
+                          dataType="wstr"
+                          length="20"
+                          name="PersonMailingPostalCode" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Sequence Container\Load Person Acct Keys from SF\EDW_ACCT_Keys.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Sequence Container\Load Person Acct Keys from SF\EDW_ACCT_Keys.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\EDW_ACCT_Keys.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load Person Acct Keys from SF\EDW_ACCT_Keys.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\EDW_ACCT_Keys.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load Person Acct Keys from SF\EDW_ACCT_Keys.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys"
+                  componentClassID="Microsoft.ManagedComponentHost"
+                  contactInfo="SalesForce.com Source;SentryOne; Task Factory © 2019 SQL Sentry, LLC; http://www.sentryone.com;support@sentryone.com"
+                  description="Retrieves data from SalesForce.com objects"
+                  name="Extract SF Account Keys"
+                  usesDispositions="true"
+                  version="11">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of rows returned in each batch from SalesForce.com"
+                      name="BatchSize">500</property>
+                    <property
+                      dataType="System.String"
+                      description="The statement used to query data from SalesForce.com"
+                      expressionType="Notify"
+                      name="QueryStatement">SELECT 
+ 	Id, 
+	RecordTypeId, 
+External_Unique_ID__c ,
+RecordType.Name,
+Mobile__c,
+Email__c,
+Birth_Date__c,
+FinServ__Gender__pc,
+PersonMailingPostalCode 
+ FROM 
+	Account
+where
+	RecordType.Name like '%MLC%Wealth%EDW%Customer%'</property>
+                    <property
+                      dataType="System.String"
+                      description="The name of the SalesForce.com object"
+                      expressionType="Notify"
+                      name="SalesForceObjectName">Account</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Include deleted records in source data"
+                      expressionType="Notify"
+                      name="IncludeDeleted">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Set to true if a custom query is being used"
+                      expressionType="Notify"
+                      name="UseQuery">true</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Set to true if the local dates should be converted to UTC before being used in a where statement"
+                      expressionType="Notify"
+                      name="ConvertDatesToUTC">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="The type of query to execute (Normal or Bulk Query)"
+                      expressionType="Notify"
+                      name="Query Mode"
+                      typeConverter="PW.TaskFactory.SalesForceSource+QueryMode">1</property>
+                    <property
+                      dataType="System.Int32"
+                      description="The format in which the dates will be outputted"
+                      expressionType="Notify"
+                      name="Output Date Timezone"
+                      typeConverter="PW.TaskFactory.SalesForceBulkJob+OutputDateTimezone">1</property>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds of to wait between polling checks for job status"
+                      name="Bulk Query Polling Interval">2</property>
+                    <property
+                      dataType="System.Int32"
+                      description="The concurrency mode for the bulk query job"
+                      expressionType="Notify"
+                      name="Bulk Query Concurrency Mode"
+                      typeConverter="PW.TaskFactory.SalesForceBulkJob+ConcurrencyModeEnum">2</property>
+                    <property
+                      dataType="System.Boolean"
+                      expressionType="Notify"
+                      name="DebugMode">false</property>
+                    <property
+                      dataType="System.String"
+                      name="UserComponentTypeName">PW.TaskFactory.SalesForceSource</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Set to true if xml results in columns should be wrapped with a &lt;root&gt; element. This makes it easier to parse in the down flow."
+                      expressionType="Notify"
+                      name="Wrap Xml With Root Element">false</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Connections[SALESFORCE]"
+                      connectionManagerID="{3638ED21-ED0C-4917-B39A-7D4C22E40258}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[SalesForce]"
+                      description="Connection to the SalesForce.com account"
+                      name="SALESFORCE" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data]"
+                      name="SalesForce Data">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].Columns[Id]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="SalesForce"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].ExternalColumns[Id]"
+                          length="18"
+                          lineageId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].Columns[Id]"
+                          name="Id"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].Columns[RecordTypeId]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="SalesForce"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].ExternalColumns[RecordTypeId]"
+                          length="18"
+                          lineageId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].Columns[RecordTypeId]"
+                          name="RecordTypeId"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].Columns[External_Unique_ID__c]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="SalesForce"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].ExternalColumns[External_Unique_ID__c]"
+                          length="12"
+                          lineageId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].Columns[External_Unique_ID__c]"
+                          name="External_Unique_ID__c"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].Columns[RecordType.Name]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="SalesForce"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].ExternalColumns[RecordType.Name]"
+                          length="80"
+                          lineageId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].Columns[RecordType.Name]"
+                          name="RecordType.Name"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].Columns[Mobile__c]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="SalesForce"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].ExternalColumns[Mobile__c]"
+                          length="40"
+                          lineageId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].Columns[Mobile__c]"
+                          name="Mobile__c"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].Columns[Email__c]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="SalesForce"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].ExternalColumns[Email__c]"
+                          length="80"
+                          lineageId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].Columns[Email__c]"
+                          name="Email__c"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].Columns[Birth_Date__c]"
+                          dataType="dbDate"
+                          errorOrTruncationOperation="SalesForce"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].ExternalColumns[Birth_Date__c]"
+                          lineageId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].Columns[Birth_Date__c]"
+                          name="Birth_Date__c"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].Columns[FinServ__Gender__pc]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="SalesForce"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].ExternalColumns[FinServ__Gender__pc]"
+                          length="255"
+                          lineageId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].Columns[FinServ__Gender__pc]"
+                          name="FinServ__Gender__pc"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].Columns[PersonMailingPostalCode]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="SalesForce"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].ExternalColumns[PersonMailingPostalCode]"
+                          length="20"
+                          lineageId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].Columns[PersonMailingPostalCode]"
+                          name="PersonMailingPostalCode"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].ExternalColumns[Id]"
+                          dataType="wstr"
+                          length="18"
+                          name="Id" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].ExternalColumns[RecordTypeId]"
+                          dataType="wstr"
+                          length="18"
+                          name="RecordTypeId" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].ExternalColumns[External_Unique_ID__c]"
+                          dataType="wstr"
+                          length="12"
+                          name="External_Unique_ID__c" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].ExternalColumns[RecordType.Name]"
+                          dataType="wstr"
+                          length="80"
+                          name="RecordType.Name" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].ExternalColumns[Mobile__c]"
+                          dataType="wstr"
+                          length="40"
+                          name="Mobile__c" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].ExternalColumns[Email__c]"
+                          dataType="wstr"
+                          length="80"
+                          name="Email__c" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].ExternalColumns[Birth_Date__c]"
+                          dataType="dbDate"
+                          name="Birth_Date__c" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].ExternalColumns[FinServ__Gender__pc]"
+                          dataType="wstr"
+                          length="255"
+                          name="FinServ__Gender__pc" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data].ExternalColumns[PersonMailingPostalCode]"
+                          dataType="wstr"
+                          length="20"
+                          name="PersonMailingPostalCode" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Error Output]"
+                      isErrorOut="true"
+                      name="SalesForce Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Error Output].Columns[ErrorDescription]"
+                          dataType="wstr"
+                          length="1024"
+                          lineageId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Error Output].Columns[ErrorDescription]"
+                          name="ErrorDescription" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Error Output].Columns[Id]"
+                          dataType="wstr"
+                          length="18"
+                          lineageId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Error Output].Columns[Id]"
+                          name="Id" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Error Output].Columns[RecordTypeId]"
+                          dataType="wstr"
+                          length="18"
+                          lineageId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Error Output].Columns[RecordTypeId]"
+                          name="RecordTypeId" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Error Output].Columns[External_Unique_ID__c]"
+                          dataType="wstr"
+                          length="12"
+                          lineageId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Error Output].Columns[External_Unique_ID__c]"
+                          name="External_Unique_ID__c" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Error Output].Columns[RecordType.Name]"
+                          dataType="wstr"
+                          length="80"
+                          lineageId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Error Output].Columns[RecordType.Name]"
+                          name="RecordType.Name" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Error Output].Columns[Mobile__c]"
+                          dataType="wstr"
+                          length="40"
+                          lineageId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Error Output].Columns[Mobile__c]"
+                          name="Mobile__c" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Error Output].Columns[Email__c]"
+                          dataType="wstr"
+                          length="80"
+                          lineageId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Error Output].Columns[Email__c]"
+                          name="Email__c" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Error Output].Columns[Birth_Date__c]"
+                          dataType="dbDate"
+                          lineageId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Error Output].Columns[Birth_Date__c]"
+                          name="Birth_Date__c" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Error Output].Columns[FinServ__Gender__pc]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Error Output].Columns[FinServ__Gender__pc]"
+                          name="FinServ__Gender__pc" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Error Output].Columns[PersonMailingPostalCode]"
+                          dataType="wstr"
+                          length="20"
+                          lineageId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Error Output].Columns[PersonMailingPostalCode]"
+                          name="PersonMailingPostalCode" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Sequence Container\Load Person Acct Keys from SF.Paths[SalesForce Data]"
+                  endId="Package\Sequence Container\Load Person Acct Keys from SF\EDW_ACCT_Keys.Inputs[OLE DB Destination Input]"
+                  name="SalesForce Data"
+                  startId="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys.Outputs[SalesForce Data]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Sequence Container.PrecedenceConstraints[Constraint 5]"
+          DTS:CreationName=""
+          DTS:DTSID="{46793EC1-652A-4056-88B6-635384817B3A}"
+          DTS:From="Package\Sequence Container\Load Business Acct Keys from SF"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 5"
+          DTS:To="Package\Sequence Container\Load Person Acct Keys from SF" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{AE7491E0-8E4D-419E-BC35-9BC906A429F9}"
+      DTS:From="Package\Delete Key tables"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Sequence Container" />
+  </DTS:PrecedenceConstraints>
+  <DTS:EventHandlers>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnError]"
+      DTS:CreationName="OnError"
+      DTS:DTSID="{6D576AD8-8A66-4BC0-B9F0-F33121815B56}"
+      DTS:EventID="6553705"
+      DTS:EventName="OnError"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{881D8D62-8453-499C-8A80-FC1E4A85F572}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnError]\OnError"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{B0B1FC99-1AFC-4184-A640-91CF30E00D3A}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="OnError"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:PropertyExpression
+            DTS:Name="SqlStatementSource">"insert into etl_batch_package_event values ('" + @[System::PackageID] + "','" + @[System::MachineName] + "','" + @[System::PackageName] + "','" + @[System::TaskName] +  "','" + (DT_WSTR,12)@[System::ErrorCode] + "','" + @[System::ErrorDescription] + "','" + (DT_STR,4,1252) datepart("yyyy", getdate()) + Right ("0" + (DT_STR,2,1252) datepart("mm", getdate()),2) + Right ("0" + (DT_STR,2,1252) datepart("dd", getdate()),2) +" "+ Right("0" + (DT_STR,2,1252) DatePart("hh",getdate()),2) +":" + Right("0" + (DT_STR,2,1252) DatePart("mi",getdate()),2) +":" + Right("0" + (DT_STR,4,1252) DatePart("ss",getdate()),2)  + ".000" + "')"</DTS:PropertyExpression>
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{CAEB46AA-F33A-4C72-8C4E-AC3027F4426E}"
+              SQLTask:SqlStatementSource="insert into etl_batch_package_event values ('{C6FC85B0-8A76-4367-B191-3F474E26C324}','CL05853','02-Get Account_Data','OnError','0','','20260430 13:11:28.000')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:EventHandler>
+  </DTS:EventHandlers>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="147,42"
+          Id="Package\Delete Key tables"
+          TopLeft="392.583333488554,63" />
+        <NodeLayout
+          Size="235,42"
+          Id="Package\Sequence Container\Load Business Acct Keys from SF"
+          TopLeft="272.5,17.5" />
+        <NodeLayout
+          Size="235,42"
+          Id="Package\Sequence Container\Load Person Acct Keys from SF"
+          TopLeft="275.749998416752,92.53333374401" />
+        <EdgeLayout
+          Id="Package\Sequence Container.PrecedenceConstraints[Constraint 5]"
+          TopLeft="391.624999208376,59.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,33.03333374401"
+              Start="0,0"
+              End="0,25.53333374401">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25.53333374401" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="764,190"
+          Size="764,233"
+          Id="Package\Sequence Container"
+          TopLeft="99,278" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="466.183333488554,104.6">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="14.816666511446,173.4"
+              Start="0,0"
+              End="14.816666511446,165.9">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,82.7" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,82.7"
+                    Point2="0,86.7"
+                    Point3="4,86.7" />
+                  <mssgle:LineSegment
+                    End="10.816666511446,86.7" />
+                  <mssgle:CubicBezierSegment
+                    Point1="10.816666511446,86.7"
+                    Point2="14.816666511446,86.7"
+                    Point3="14.816666511446,90.7" />
+                  <mssgle:LineSegment
+                    End="14.816666511446,165.9" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <DtsEventHandler
+    design-time-name="Package.EventHandlers[OnError]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="116,43"
+          Id="Package.EventHandlers[OnError]\OnError"
+          TopLeft="296,121" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <TaskHost
+    design-time-name="Package\Sequence Container\Load Business Acct Keys from SF">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="193,42"
+          Id="Package\Sequence Container\Load Business Acct Keys from SF\Extract SF Account Keys"
+          TopLeft="233.500006854534,66.0666665082508" />
+        <NodeLayout
+          Size="166,42"
+          Id="Package\Sequence Container\Load Business Acct Keys from SF\EDW_ACCT_Keys"
+          TopLeft="238.999990463257,216.800001715024" />
+        <EdgeLayout
+          Id="Package\Sequence Container\Load Business Acct Keys from SF.Paths[SalesForce Data]"
+          TopLeft="326.049998658896,107.666666508251">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,109.133335206773"
+              Start="0,0"
+              End="0,101.633335206773">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,101.633335206773" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Sequence Container\Load Business Acct Keys from SF\EDW_ACCT_Keys">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Sequence Container\Load Person Acct Keys from SF">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="193,42"
+          Id="Package\Sequence Container\Load Person Acct Keys from SF\Extract SF Account Keys"
+          TopLeft="233.500006854534,66.0666665082508" />
+        <NodeLayout
+          Size="166,42"
+          Id="Package\Sequence Container\Load Person Acct Keys from SF\EDW_ACCT_Keys"
+          TopLeft="239.999990463257,215.800001715024" />
+        <EdgeLayout
+          Id="Package\Sequence Container\Load Person Acct Keys from SF.Paths[SalesForce Data]"
+          TopLeft="326.349998658896,107.666666508251">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,108.133335206773"
+              Start="0,0"
+              End="0,100.633335206773">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,100.633335206773" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Sequence Container\Load Person Acct Keys from SF\EDW_ACCT_Keys">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

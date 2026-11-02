@@ -1,0 +1,895 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="10/9/2020 9:04:57 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="WCRMWITA0006"
+  DTS:CreatorName="AURTEST\p799871t"
+  DTS:DTSID="{229BA8D7-82CF-488C-9BE0-30160B22CEEC}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.170"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="04-STG Load Products"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="1"
+  DTS:VersionBuild="24"
+  DTS:VersionGUID="{EDA40769-0695-41A4-A653-065611216A21}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Load STG EDW Products"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{5FA85387-DE6E-40BB-8848-1ADD28E3ED5A}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load STG EDW Products"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load STG EDW Products\LND EDW Products"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="LND EDW Products"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[LND_EDW_PRODUCTS]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">/****** Script for SelectTopNRows command from SSMS  ******/
+SELECT 
+ltrim(rtrim([FNAME])) as FNAME
+,ltrim(rtrim([EXTRACT_FG])) as EXTRACT_FG
+      ,ltrim(rtrim([PD_REF_ID])) as PD_REF_ID
+      ,ltrim(rtrim([EDW_AR_SRC_STM])) as EDW_AR_SRC_STM
+      ,ltrim(rtrim([AR_SRC_PD_CD])) as AR_SRC_PD_CD
+      ,ltrim(rtrim([AR_SRC_PD_NAME])) as AR_SRC_PD_NAME
+      ,ltrim(rtrim([AR_TGT_PD_CD])) as AR_TGT_PD_CD
+      ,ltrim(rtrim([AR_TGT_PD_NAME])) as AR_TGT_PD_NAME
+      ,ltrim(rtrim([PROD_ISR])) as PROD_ISR
+      ,ltrim(rtrim([PROD_FMLY])) as PROD_FMLY
+      ,ltrim(rtrim([ENTITY])) as ENTITY
+      ,ltrim(rtrim([PROD_AREA])) as PROD_AREA
+      ,ltrim(rtrim([OP_RESP])) as OP_RESP
+      ,ltrim(rtrim(REPLACE(REPLACE([FUND], CHAR(13), ''), CHAR(10), '') )) as FUND
+     FROM [dbo].[LND_EDW_PRODUCTS]</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load STG EDW Products\LND EDW Products.Connections[OleDbConnection]"
+                  connectionManagerID="{3D75E02A-5A20-4F13-9B9F-D88AF647B6D7}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[WEALTH_LND]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].Columns[EXTRACT_FG]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].ExternalColumns[EXTRACT_FG]"
+                      length="300"
+                      lineageId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].Columns[EXTRACT_FG]"
+                      name="EXTRACT_FG"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].Columns[PD_REF_ID]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].ExternalColumns[PD_REF_ID]"
+                      length="300"
+                      lineageId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].Columns[PD_REF_ID]"
+                      name="PD_REF_ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].Columns[EDW_AR_SRC_STM]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].ExternalColumns[EDW_AR_SRC_STM]"
+                      length="300"
+                      lineageId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].Columns[EDW_AR_SRC_STM]"
+                      name="EDW_AR_SRC_STM"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].Columns[AR_SRC_PD_CD]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].ExternalColumns[AR_SRC_PD_CD]"
+                      length="300"
+                      lineageId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].Columns[AR_SRC_PD_CD]"
+                      name="AR_SRC_PD_CD"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].Columns[AR_SRC_PD_NAME]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].ExternalColumns[AR_SRC_PD_NAME]"
+                      length="300"
+                      lineageId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].Columns[AR_SRC_PD_NAME]"
+                      name="AR_SRC_PD_NAME"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].Columns[AR_TGT_PD_CD]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].ExternalColumns[AR_TGT_PD_CD]"
+                      length="300"
+                      lineageId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].Columns[AR_TGT_PD_CD]"
+                      name="AR_TGT_PD_CD"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].Columns[AR_TGT_PD_NAME]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].ExternalColumns[AR_TGT_PD_NAME]"
+                      length="300"
+                      lineageId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].Columns[AR_TGT_PD_NAME]"
+                      name="AR_TGT_PD_NAME"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].Columns[PROD_ISR]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].ExternalColumns[PROD_ISR]"
+                      length="300"
+                      lineageId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].Columns[PROD_ISR]"
+                      name="PROD_ISR"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].Columns[PROD_FMLY]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].ExternalColumns[PROD_FMLY]"
+                      length="300"
+                      lineageId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].Columns[PROD_FMLY]"
+                      name="PROD_FMLY"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].Columns[ENTITY]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].ExternalColumns[ENTITY]"
+                      length="300"
+                      lineageId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].Columns[ENTITY]"
+                      name="ENTITY"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].Columns[PROD_AREA]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].ExternalColumns[PROD_AREA]"
+                      length="300"
+                      lineageId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].Columns[PROD_AREA]"
+                      name="PROD_AREA"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].Columns[OP_RESP]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].ExternalColumns[OP_RESP]"
+                      length="300"
+                      lineageId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].Columns[OP_RESP]"
+                      name="OP_RESP"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].Columns[FUND]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].ExternalColumns[FUND]"
+                      length="300"
+                      lineageId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].Columns[FUND]"
+                      name="FUND"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].Columns[FNAME]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].ExternalColumns[FNAME]"
+                      length="300"
+                      lineageId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].Columns[FNAME]"
+                      name="FNAME"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].ExternalColumns[EXTRACT_FG]"
+                      dataType="wstr"
+                      length="300"
+                      name="EXTRACT_FG" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].ExternalColumns[PD_REF_ID]"
+                      dataType="wstr"
+                      length="300"
+                      name="PD_REF_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].ExternalColumns[EDW_AR_SRC_STM]"
+                      dataType="wstr"
+                      length="300"
+                      name="EDW_AR_SRC_STM" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].ExternalColumns[AR_SRC_PD_CD]"
+                      dataType="wstr"
+                      length="300"
+                      name="AR_SRC_PD_CD" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].ExternalColumns[AR_SRC_PD_NAME]"
+                      dataType="wstr"
+                      length="300"
+                      name="AR_SRC_PD_NAME" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].ExternalColumns[AR_TGT_PD_CD]"
+                      dataType="wstr"
+                      length="300"
+                      name="AR_TGT_PD_CD" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].ExternalColumns[AR_TGT_PD_NAME]"
+                      dataType="wstr"
+                      length="300"
+                      name="AR_TGT_PD_NAME" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].ExternalColumns[PROD_ISR]"
+                      dataType="wstr"
+                      length="300"
+                      name="PROD_ISR" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].ExternalColumns[PROD_FMLY]"
+                      dataType="wstr"
+                      length="300"
+                      name="PROD_FMLY" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].ExternalColumns[ENTITY]"
+                      dataType="wstr"
+                      length="300"
+                      name="ENTITY" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].ExternalColumns[PROD_AREA]"
+                      dataType="wstr"
+                      length="300"
+                      name="PROD_AREA" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].ExternalColumns[OP_RESP]"
+                      dataType="wstr"
+                      length="300"
+                      name="OP_RESP" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].ExternalColumns[FUND]"
+                      dataType="wstr"
+                      length="4000"
+                      name="FUND" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].ExternalColumns[FNAME]"
+                      dataType="wstr"
+                      length="300"
+                      name="FNAME" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Error Output].Columns[FNAME]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Error Output].Columns[FNAME]"
+                      name="FNAME" />
+                    <outputColumn
+                      refId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Error Output].Columns[EXTRACT_FG]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Error Output].Columns[EXTRACT_FG]"
+                      name="EXTRACT_FG" />
+                    <outputColumn
+                      refId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Error Output].Columns[PD_REF_ID]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Error Output].Columns[PD_REF_ID]"
+                      name="PD_REF_ID" />
+                    <outputColumn
+                      refId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Error Output].Columns[EDW_AR_SRC_STM]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Error Output].Columns[EDW_AR_SRC_STM]"
+                      name="EDW_AR_SRC_STM" />
+                    <outputColumn
+                      refId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Error Output].Columns[AR_SRC_PD_CD]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Error Output].Columns[AR_SRC_PD_CD]"
+                      name="AR_SRC_PD_CD" />
+                    <outputColumn
+                      refId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Error Output].Columns[AR_SRC_PD_NAME]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Error Output].Columns[AR_SRC_PD_NAME]"
+                      name="AR_SRC_PD_NAME" />
+                    <outputColumn
+                      refId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Error Output].Columns[AR_TGT_PD_CD]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Error Output].Columns[AR_TGT_PD_CD]"
+                      name="AR_TGT_PD_CD" />
+                    <outputColumn
+                      refId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Error Output].Columns[AR_TGT_PD_NAME]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Error Output].Columns[AR_TGT_PD_NAME]"
+                      name="AR_TGT_PD_NAME" />
+                    <outputColumn
+                      refId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Error Output].Columns[PROD_ISR]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Error Output].Columns[PROD_ISR]"
+                      name="PROD_ISR" />
+                    <outputColumn
+                      refId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Error Output].Columns[PROD_FMLY]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Error Output].Columns[PROD_FMLY]"
+                      name="PROD_FMLY" />
+                    <outputColumn
+                      refId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Error Output].Columns[ENTITY]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Error Output].Columns[ENTITY]"
+                      name="ENTITY" />
+                    <outputColumn
+                      refId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Error Output].Columns[PROD_AREA]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Error Output].Columns[PROD_AREA]"
+                      name="PROD_AREA" />
+                    <outputColumn
+                      refId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Error Output].Columns[OP_RESP]"
+                      dataType="wstr"
+                      length="300"
+                      lineageId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Error Output].Columns[OP_RESP]"
+                      name="OP_RESP" />
+                    <outputColumn
+                      refId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Error Output].Columns[FUND]"
+                      dataType="wstr"
+                      length="4000"
+                      lineageId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Error Output].Columns[FUND]"
+                      name="FUND" />
+                    <outputColumn
+                      refId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load STG EDW Products\STG EDW Products"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="STG EDW Products"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[STG_EDW_PRODUCTS]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load STG EDW Products\STG EDW Products.Connections[OleDbConnection]"
+                  connectionManagerID="{B2B95508-7BC4-4DC8-87F1-D0A643F1B195}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[WEALTH_STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load STG EDW Products\STG EDW Products.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load STG EDW Products\STG EDW Products.Inputs[OLE DB Destination Input].Columns[PD_REF_ID]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="PD_REF_ID"
+                      externalMetadataColumnId="Package\Load STG EDW Products\STG EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[PD_REF_ID]"
+                      lineageId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].Columns[PD_REF_ID]" />
+                    <inputColumn
+                      refId="Package\Load STG EDW Products\STG EDW Products.Inputs[OLE DB Destination Input].Columns[EDW_AR_SRC_STM]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="EDW_AR_SRC_STM"
+                      externalMetadataColumnId="Package\Load STG EDW Products\STG EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[EDW_AR_SRC_STM]"
+                      lineageId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].Columns[EDW_AR_SRC_STM]" />
+                    <inputColumn
+                      refId="Package\Load STG EDW Products\STG EDW Products.Inputs[OLE DB Destination Input].Columns[AR_SRC_PD_CD]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="AR_SRC_PD_CD"
+                      externalMetadataColumnId="Package\Load STG EDW Products\STG EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[AR_SRC_PD_CD]"
+                      lineageId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].Columns[AR_SRC_PD_CD]" />
+                    <inputColumn
+                      refId="Package\Load STG EDW Products\STG EDW Products.Inputs[OLE DB Destination Input].Columns[AR_SRC_PD_NAME]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="AR_SRC_PD_NAME"
+                      externalMetadataColumnId="Package\Load STG EDW Products\STG EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[AR_SRC_PD_NAME]"
+                      lineageId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].Columns[AR_SRC_PD_NAME]" />
+                    <inputColumn
+                      refId="Package\Load STG EDW Products\STG EDW Products.Inputs[OLE DB Destination Input].Columns[AR_TGT_PD_CD]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="AR_TGT_PD_CD"
+                      externalMetadataColumnId="Package\Load STG EDW Products\STG EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[AR_TGT_PD_CD]"
+                      lineageId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].Columns[AR_TGT_PD_CD]" />
+                    <inputColumn
+                      refId="Package\Load STG EDW Products\STG EDW Products.Inputs[OLE DB Destination Input].Columns[AR_TGT_PD_NAME]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="AR_TGT_PD_NAME"
+                      externalMetadataColumnId="Package\Load STG EDW Products\STG EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[AR_TGT_PD_NAME]"
+                      lineageId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].Columns[AR_TGT_PD_NAME]" />
+                    <inputColumn
+                      refId="Package\Load STG EDW Products\STG EDW Products.Inputs[OLE DB Destination Input].Columns[PROD_ISR]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="PROD_ISR"
+                      externalMetadataColumnId="Package\Load STG EDW Products\STG EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[PROD_ISR]"
+                      lineageId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].Columns[PROD_ISR]" />
+                    <inputColumn
+                      refId="Package\Load STG EDW Products\STG EDW Products.Inputs[OLE DB Destination Input].Columns[PROD_FMLY]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="PROD_FMLY"
+                      externalMetadataColumnId="Package\Load STG EDW Products\STG EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[PROD_FMLY]"
+                      lineageId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].Columns[PROD_FMLY]" />
+                    <inputColumn
+                      refId="Package\Load STG EDW Products\STG EDW Products.Inputs[OLE DB Destination Input].Columns[ENTITY]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="ENTITY"
+                      externalMetadataColumnId="Package\Load STG EDW Products\STG EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[ENTITY]"
+                      lineageId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].Columns[ENTITY]" />
+                    <inputColumn
+                      refId="Package\Load STG EDW Products\STG EDW Products.Inputs[OLE DB Destination Input].Columns[PROD_AREA]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="PROD_AREA"
+                      externalMetadataColumnId="Package\Load STG EDW Products\STG EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[PROD_AREA]"
+                      lineageId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].Columns[PROD_AREA]" />
+                    <inputColumn
+                      refId="Package\Load STG EDW Products\STG EDW Products.Inputs[OLE DB Destination Input].Columns[OP_RESP]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="OP_RESP"
+                      externalMetadataColumnId="Package\Load STG EDW Products\STG EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[OP_RESP]"
+                      lineageId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].Columns[OP_RESP]" />
+                    <inputColumn
+                      refId="Package\Load STG EDW Products\STG EDW Products.Inputs[OLE DB Destination Input].Columns[FUND]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="FUND"
+                      externalMetadataColumnId="Package\Load STG EDW Products\STG EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[FUND]"
+                      lineageId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].Columns[FUND]" />
+                    <inputColumn
+                      refId="Package\Load STG EDW Products\STG EDW Products.Inputs[OLE DB Destination Input].Columns[FNAME]"
+                      cachedDataType="wstr"
+                      cachedLength="300"
+                      cachedName="FNAME"
+                      externalMetadataColumnId="Package\Load STG EDW Products\STG EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[FNAME]"
+                      lineageId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output].Columns[FNAME]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load STG EDW Products\STG EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[PD_REF_ID]"
+                      dataType="wstr"
+                      length="300"
+                      name="PD_REF_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG EDW Products\STG EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[EDW_AR_SRC_STM]"
+                      dataType="wstr"
+                      length="300"
+                      name="EDW_AR_SRC_STM" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG EDW Products\STG EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[AR_SRC_PD_CD]"
+                      dataType="wstr"
+                      length="300"
+                      name="AR_SRC_PD_CD" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG EDW Products\STG EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[AR_SRC_PD_NAME]"
+                      dataType="wstr"
+                      length="300"
+                      name="AR_SRC_PD_NAME" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG EDW Products\STG EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[AR_TGT_PD_CD]"
+                      dataType="wstr"
+                      length="300"
+                      name="AR_TGT_PD_CD" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG EDW Products\STG EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[AR_TGT_PD_NAME]"
+                      dataType="wstr"
+                      length="300"
+                      name="AR_TGT_PD_NAME" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG EDW Products\STG EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[PROD_ISR]"
+                      dataType="wstr"
+                      length="300"
+                      name="PROD_ISR" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG EDW Products\STG EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[PROD_FMLY]"
+                      dataType="wstr"
+                      length="300"
+                      name="PROD_FMLY" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG EDW Products\STG EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[ENTITY]"
+                      dataType="wstr"
+                      length="300"
+                      name="ENTITY" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG EDW Products\STG EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[PROD_AREA]"
+                      dataType="wstr"
+                      length="300"
+                      name="PROD_AREA" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG EDW Products\STG EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[OP_RESP]"
+                      dataType="wstr"
+                      length="300"
+                      name="OP_RESP" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG EDW Products\STG EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[FUND]"
+                      dataType="wstr"
+                      length="300"
+                      name="FUND" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG EDW Products\STG EDW Products.Inputs[OLE DB Destination Input].ExternalColumns[FNAME]"
+                      dataType="wstr"
+                      length="300"
+                      name="FNAME" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load STG EDW Products\STG EDW Products.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load STG EDW Products\STG EDW Products.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load STG EDW Products\STG EDW Products.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load STG EDW Products\STG EDW Products.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load STG EDW Products\STG EDW Products.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load STG EDW Products\STG EDW Products.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load STG EDW Products.Paths[OLE DB Source Output]"
+              endId="Package\Load STG EDW Products\STG EDW Products.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Load STG EDW Products\LND EDW Products.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate STG EDW Products"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{3c7ba845-44d4-4363-bcb9-6621437bf929}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate STG EDW Products"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{B2B95508-7BC4-4DC8-87F1-D0A643F1B195}"
+          SQLTask:SqlStatementSource="Truncate table [dbo].[STG_EDW_PRODUCTS]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{07E8CFC2-A4E8-4D7E-9874-79107DEDE57A}"
+      DTS:From="Package\Truncate STG EDW Products"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Load STG EDW Products" />
+  </DTS:PrecedenceConstraints>
+  <DTS:EventHandlers>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnError]"
+      DTS:CreationName="OnError"
+      DTS:DTSID="{DC92CFE5-1BB7-4FFA-9100-F1E1CF73E450}"
+      DTS:EventID="1828744960"
+      DTS:EventName="OnError"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{DE171850-9056-4E00-9994-6DFB21F439FD}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnError]\OnError"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{e3d8561e-7d7e-4615-a9f0-322bbbe982b3}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="OnError"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:PropertyExpression
+            DTS:Name="SqlStatementSource">"insert into etl_batch_package_event values ('" + @[System::PackageID] + "','" + @[System::MachineName] + "','" + @[System::PackageName] + "','" + @[System::TaskName] +  "','" + (DT_WSTR,12)@[System::ErrorCode] + "','" + @[System::ErrorDescription] + "','" + (DT_STR,4,1252) datepart("yyyy", getdate()) + Right ("0" + (DT_STR,2,1252) datepart("mm", getdate()),2) + Right ("0" + (DT_STR,2,1252) datepart("dd", getdate()),2) +" "+ Right("0" + (DT_STR,2,1252) DatePart("hh",getdate()),2) +":" + Right("0" + (DT_STR,2,1252) DatePart("mi",getdate()),2) +":" + Right("0" + (DT_STR,4,1252) DatePart("ss",getdate()),2)  + ".000" + "')"</DTS:PropertyExpression>
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{CAEB46AA-F33A-4C72-8C4E-AC3027F4426E}"
+              SQLTask:SqlStatementSource="insert into etl_batch_package_event values ('{229BA8D7-82CF-488C-9BE0-30160B22CEEC}','CL05853','04-STG Load Products','OnError','0','','20250602 11:43:07.000')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:EventHandler>
+  </DTS:EventHandlers>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="204,41.6"
+          Id="Package\Load STG EDW Products"
+          TopLeft="294.000001192093,198.466667830679" />
+        <NodeLayout
+          Size="223.2,41.6"
+          Id="Package\Truncate STG EDW Products"
+          TopLeft="283.333322074679,93.600000743866" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="395.466661633386,135.200000743866">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="0,63.266667086813"
+              Start="0,0"
+              End="0,55.766667086813">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,55.766667086813" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <DtsEventHandler
+    design-time-name="Package.EventHandlers[OnError]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="118.4,41.6"
+          Id="Package.EventHandlers[OnError]\OnError"
+          TopLeft="256,105" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <TaskHost
+    design-time-name="Package\Load STG EDW Products">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="176,41.6"
+          Id="Package\Load STG EDW Products\LND EDW Products"
+          TopLeft="194.999992251396,133.466667727365" />
+        <NodeLayout
+          Size="176.8,46.4"
+          Id="Package\Load STG EDW Products\STG EDW Products"
+          TopLeft="186.999993443489,307.866669153108" />
+        <EdgeLayout
+          Id="Package\Load STG EDW Products.Paths[OLE DB Source Output]"
+          TopLeft="279.199992847443,175.066667727365">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="0,132.800001425743"
+              Start="0,0"
+              End="0,125.300001425743">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,125.300001425743" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load STG EDW Products\LND EDW Products">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load STG EDW Products\STG EDW Products">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

@@ -1,0 +1,954 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="10/20/2020 9:23:45 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="NIGSA939284"
+  DTS:CreatorName="AUR\P799871"
+  DTS:DTSID="{4EB65BEA-8A9E-46EA-B022-AB7025BDBE99}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.170"
+  DTS:LocaleID="3081"
+  DTS:ObjectName="02-Get SF RecordTypes"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="1"
+  DTS:VersionBuild="34"
+  DTS:VersionGUID="{9880950A-85E6-40E3-B94B-521015A737E6}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Empty the STG SF Record Type table"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{c811612f-bb03-44f3-a323-c54ba8838911}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Empty the STG SF Record Type table"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{B2B95508-7BC4-4DC8-87F1-D0A643F1B195}"
+          SQLTask:SqlStatementSource="Truncate table dbo.STG_SF_RECORD_TYPE" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Get SF Record Type Ids"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{b6b4848d-feb6-45dc-a198-415bc905f706}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Get SF Record Type Ids"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Get SF Record Type Ids\Derived Column"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Derived Column"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Get SF Record Type Ids\Derived Column.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Get SF Record Type Ids\Derived Column.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Get SF Record Type Ids\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Get SF Record Type Ids\Derived Column.Outputs[Derived Column Output].Columns[ETL_CRTE_TS]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Get SF Record Type Ids\Derived Column.Outputs[Derived Column Output].Columns[ETL_CRTE_TS]"
+                      name="ETL_CRTE_TS"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[GETDATE]()</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">GETDATE()</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Get SF Record Type Ids\Derived Column.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Get SF Record Type Ids\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Get SF Record Type Ids\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Get SF Record Type Ids\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Get SF Record Type Ids\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Get SF Record Type Ids\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Get SF Record Type Ids\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[STG_SF_RECORD_TYPE]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Get SF Record Type Ids\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="{B2B95508-7BC4-4DC8-87F1-D0A643F1B195}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[WEALTH_STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Get SF Record Type Ids\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Get SF Record Type Ids\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Id]"
+                      cachedDataType="wstr"
+                      cachedLength="18"
+                      cachedName="Id"
+                      externalMetadataColumnId="Package\Get SF Record Type Ids\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id]"
+                      lineageId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].Columns[Id]" />
+                    <inputColumn
+                      refId="Package\Get SF Record Type Ids\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Name]"
+                      cachedDataType="wstr"
+                      cachedLength="80"
+                      cachedName="Name"
+                      externalMetadataColumnId="Package\Get SF Record Type Ids\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Name]"
+                      lineageId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].Columns[Name]" />
+                    <inputColumn
+                      refId="Package\Get SF Record Type Ids\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[DeveloperName]"
+                      cachedDataType="wstr"
+                      cachedLength="80"
+                      cachedName="DeveloperName"
+                      externalMetadataColumnId="Package\Get SF Record Type Ids\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DeveloperName]"
+                      lineageId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].Columns[DeveloperName]" />
+                    <inputColumn
+                      refId="Package\Get SF Record Type Ids\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Description]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Description"
+                      externalMetadataColumnId="Package\Get SF Record Type Ids\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Description]"
+                      lineageId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].Columns[Description]" />
+                    <inputColumn
+                      refId="Package\Get SF Record Type Ids\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[SobjectType]"
+                      cachedDataType="wstr"
+                      cachedLength="40"
+                      cachedName="SobjectType"
+                      externalMetadataColumnId="Package\Get SF Record Type Ids\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SobjectType]"
+                      lineageId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].Columns[SobjectType]" />
+                    <inputColumn
+                      refId="Package\Get SF Record Type Ids\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[CreatedById]"
+                      cachedDataType="wstr"
+                      cachedLength="18"
+                      cachedName="CreatedById"
+                      externalMetadataColumnId="Package\Get SF Record Type Ids\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CreatedById]"
+                      lineageId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].Columns[CreatedById]" />
+                    <inputColumn
+                      refId="Package\Get SF Record Type Ids\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ETL_CRTE_TS]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="ETL_CRTE_TS"
+                      externalMetadataColumnId="Package\Get SF Record Type Ids\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ETL_CRTE_TS]"
+                      lineageId="Package\Get SF Record Type Ids\Derived Column.Outputs[Derived Column Output].Columns[ETL_CRTE_TS]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Get SF Record Type Ids\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id]"
+                      dataType="wstr"
+                      length="18"
+                      name="Id" />
+                    <externalMetadataColumn
+                      refId="Package\Get SF Record Type Ids\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Name]"
+                      dataType="wstr"
+                      length="80"
+                      name="Name" />
+                    <externalMetadataColumn
+                      refId="Package\Get SF Record Type Ids\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DeveloperName]"
+                      dataType="wstr"
+                      length="80"
+                      name="DeveloperName" />
+                    <externalMetadataColumn
+                      refId="Package\Get SF Record Type Ids\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Description]"
+                      dataType="wstr"
+                      length="255"
+                      name="Description" />
+                    <externalMetadataColumn
+                      refId="Package\Get SF Record Type Ids\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SobjectType]"
+                      dataType="wstr"
+                      length="40"
+                      name="SobjectType" />
+                    <externalMetadataColumn
+                      refId="Package\Get SF Record Type Ids\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CreatedById]"
+                      dataType="wstr"
+                      length="18"
+                      name="CreatedById" />
+                    <externalMetadataColumn
+                      refId="Package\Get SF Record Type Ids\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ETL_CRTE_TS]"
+                      dataType="dbTimeStamp"
+                      name="ETL_CRTE_TS" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Get SF Record Type Ids\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Get SF Record Type Ids\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Get SF Record Type Ids\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Get SF Record Type Ids\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Get SF Record Type Ids\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Get SF Record Type Ids\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Get SF Record Type Ids\SF Record Type Object"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="SalesForce.com Source;SentryOne; Task Factory © 2019 SQL Sentry, LLC; http://www.sentryone.com;support@sentryone.com"
+              description="Retrieves data from SalesForce.com objects"
+              name="SF Record Type Object"
+              usesDispositions="true"
+              version="11">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of rows returned in each batch from SalesForce.com"
+                  name="BatchSize">500</property>
+                <property
+                  dataType="System.String"
+                  description="The statement used to query data from SalesForce.com"
+                  expressionType="Notify"
+                  name="QueryStatement">SELECT 
+ 	Id, 
+	Name, 
+	DeveloperName, 
+	NamespacePrefix, 
+	Description, 
+	BusinessProcessId, 
+	SobjectType, 
+	IsActive, 
+	IsPersonType, 
+	CreatedById, 
+	CreatedDate, 
+	LastModifiedById, 
+	LastModifiedDate, 
+	SystemModstamp 
+ FROM 
+	RecordType
+	
+</property>
+                <property
+                  dataType="System.String"
+                  description="The name of the SalesForce.com object"
+                  expressionType="Notify"
+                  name="SalesForceObjectName">RecordType</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Include deleted records in source data"
+                  expressionType="Notify"
+                  name="IncludeDeleted">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Set to true if a custom query is being used"
+                  expressionType="Notify"
+                  name="UseQuery">true</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Set to true if the local dates should be converted to UTC before being used in a where statement"
+                  expressionType="Notify"
+                  name="ConvertDatesToUTC">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="The type of query to execute (Normal or Bulk Query)"
+                  expressionType="Notify"
+                  name="Query Mode"
+                  typeConverter="PW.TaskFactory.SalesForceSource+QueryMode">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The format in which the dates will be outputted"
+                  expressionType="Notify"
+                  name="Output Date Timezone"
+                  typeConverter="PW.TaskFactory.SalesForceBulkJob+OutputDateTimezone">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds of to wait between polling checks for job status"
+                  name="Bulk Query Polling Interval">2</property>
+                <property
+                  dataType="System.Int32"
+                  description="The concurrency mode for the bulk query job"
+                  expressionType="Notify"
+                  name="Bulk Query Concurrency Mode"
+                  typeConverter="PW.TaskFactory.SalesForceBulkJob+ConcurrencyModeEnum">1</property>
+                <property
+                  dataType="System.Boolean"
+                  expressionType="Notify"
+                  name="DebugMode">false</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">PW.TaskFactory.SalesForceSource</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Set to true if xml results in columns should be wrapped with a &lt;root&gt; element. This makes it easier to parse in the down flow."
+                  expressionType="Notify"
+                  name="Wrap Xml With Root Element">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Get SF Record Type Ids\SF Record Type Object.Connections[SALESFORCE]"
+                  connectionManagerID="{3638ED21-ED0C-4917-B39A-7D4C22E40258}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[SalesForce]"
+                  description="Connection to the SalesForce.com account"
+                  name="SALESFORCE" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data]"
+                  name="SalesForce Data">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].Columns[Id]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="SalesForce"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].ExternalColumns[Id]"
+                      length="18"
+                      lineageId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].Columns[Id]"
+                      name="Id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].Columns[Name]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="SalesForce"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].ExternalColumns[Name]"
+                      length="80"
+                      lineageId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].Columns[Name]"
+                      name="Name"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].Columns[DeveloperName]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="SalesForce"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].ExternalColumns[DeveloperName]"
+                      length="80"
+                      lineageId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].Columns[DeveloperName]"
+                      name="DeveloperName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].Columns[NamespacePrefix]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="SalesForce"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].ExternalColumns[NamespacePrefix]"
+                      length="15"
+                      lineageId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].Columns[NamespacePrefix]"
+                      name="NamespacePrefix"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].Columns[Description]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="SalesForce"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].ExternalColumns[Description]"
+                      length="255"
+                      lineageId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].Columns[Description]"
+                      name="Description"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].Columns[BusinessProcessId]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="SalesForce"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].ExternalColumns[BusinessProcessId]"
+                      length="18"
+                      lineageId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].Columns[BusinessProcessId]"
+                      name="BusinessProcessId"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].Columns[SobjectType]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="SalesForce"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].ExternalColumns[SobjectType]"
+                      length="40"
+                      lineageId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].Columns[SobjectType]"
+                      name="SobjectType"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].Columns[IsActive]"
+                      dataType="bool"
+                      errorOrTruncationOperation="SalesForce"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].ExternalColumns[IsActive]"
+                      lineageId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].Columns[IsActive]"
+                      name="IsActive"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].Columns[IsPersonType]"
+                      dataType="bool"
+                      errorOrTruncationOperation="SalesForce"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].ExternalColumns[IsPersonType]"
+                      lineageId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].Columns[IsPersonType]"
+                      name="IsPersonType"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].Columns[CreatedById]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="SalesForce"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].ExternalColumns[CreatedById]"
+                      length="18"
+                      lineageId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].Columns[CreatedById]"
+                      name="CreatedById"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].Columns[CreatedDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="SalesForce"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].ExternalColumns[CreatedDate]"
+                      lineageId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].Columns[CreatedDate]"
+                      name="CreatedDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].Columns[LastModifiedById]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="SalesForce"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].ExternalColumns[LastModifiedById]"
+                      length="18"
+                      lineageId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].Columns[LastModifiedById]"
+                      name="LastModifiedById"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].Columns[LastModifiedDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="SalesForce"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].ExternalColumns[LastModifiedDate]"
+                      lineageId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].Columns[LastModifiedDate]"
+                      name="LastModifiedDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].Columns[SystemModstamp]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="SalesForce"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].ExternalColumns[SystemModstamp]"
+                      lineageId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].Columns[SystemModstamp]"
+                      name="SystemModstamp"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].ExternalColumns[Id]"
+                      dataType="wstr"
+                      length="18"
+                      name="Id" />
+                    <externalMetadataColumn
+                      refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].ExternalColumns[Name]"
+                      dataType="wstr"
+                      length="80"
+                      name="Name" />
+                    <externalMetadataColumn
+                      refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].ExternalColumns[DeveloperName]"
+                      dataType="wstr"
+                      length="80"
+                      name="DeveloperName" />
+                    <externalMetadataColumn
+                      refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].ExternalColumns[NamespacePrefix]"
+                      dataType="wstr"
+                      length="15"
+                      name="NamespacePrefix" />
+                    <externalMetadataColumn
+                      refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].ExternalColumns[Description]"
+                      dataType="wstr"
+                      length="255"
+                      name="Description" />
+                    <externalMetadataColumn
+                      refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].ExternalColumns[BusinessProcessId]"
+                      dataType="wstr"
+                      length="18"
+                      name="BusinessProcessId" />
+                    <externalMetadataColumn
+                      refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].ExternalColumns[SobjectType]"
+                      dataType="wstr"
+                      length="40"
+                      name="SobjectType" />
+                    <externalMetadataColumn
+                      refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].ExternalColumns[IsActive]"
+                      dataType="bool"
+                      name="IsActive" />
+                    <externalMetadataColumn
+                      refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].ExternalColumns[IsPersonType]"
+                      dataType="bool"
+                      name="IsPersonType" />
+                    <externalMetadataColumn
+                      refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].ExternalColumns[CreatedById]"
+                      dataType="wstr"
+                      length="18"
+                      name="CreatedById" />
+                    <externalMetadataColumn
+                      refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].ExternalColumns[CreatedDate]"
+                      dataType="dbTimeStamp"
+                      name="CreatedDate" />
+                    <externalMetadataColumn
+                      refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].ExternalColumns[LastModifiedById]"
+                      dataType="wstr"
+                      length="18"
+                      name="LastModifiedById" />
+                    <externalMetadataColumn
+                      refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].ExternalColumns[LastModifiedDate]"
+                      dataType="dbTimeStamp"
+                      name="LastModifiedDate" />
+                    <externalMetadataColumn
+                      refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data].ExternalColumns[SystemModstamp]"
+                      dataType="dbTimeStamp"
+                      name="SystemModstamp" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Error Output]"
+                  isErrorOut="true"
+                  name="SalesForce Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                    <outputColumn
+                      refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Error Output].Columns[ErrorDescription]"
+                      dataType="wstr"
+                      length="1024"
+                      lineageId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Error Output].Columns[ErrorDescription]"
+                      name="ErrorDescription" />
+                    <outputColumn
+                      refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Error Output].Columns[Id]"
+                      dataType="wstr"
+                      length="18"
+                      lineageId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Error Output].Columns[Id]"
+                      name="Id" />
+                    <outputColumn
+                      refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Error Output].Columns[Name]"
+                      dataType="wstr"
+                      length="80"
+                      lineageId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Error Output].Columns[Name]"
+                      name="Name" />
+                    <outputColumn
+                      refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Error Output].Columns[DeveloperName]"
+                      dataType="wstr"
+                      length="80"
+                      lineageId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Error Output].Columns[DeveloperName]"
+                      name="DeveloperName" />
+                    <outputColumn
+                      refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Error Output].Columns[NamespacePrefix]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Error Output].Columns[NamespacePrefix]"
+                      name="NamespacePrefix" />
+                    <outputColumn
+                      refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Error Output].Columns[Description]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Error Output].Columns[Description]"
+                      name="Description" />
+                    <outputColumn
+                      refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Error Output].Columns[BusinessProcessId]"
+                      dataType="wstr"
+                      length="18"
+                      lineageId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Error Output].Columns[BusinessProcessId]"
+                      name="BusinessProcessId" />
+                    <outputColumn
+                      refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Error Output].Columns[SobjectType]"
+                      dataType="wstr"
+                      length="40"
+                      lineageId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Error Output].Columns[SobjectType]"
+                      name="SobjectType" />
+                    <outputColumn
+                      refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Error Output].Columns[IsActive]"
+                      dataType="bool"
+                      lineageId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Error Output].Columns[IsActive]"
+                      name="IsActive" />
+                    <outputColumn
+                      refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Error Output].Columns[IsPersonType]"
+                      dataType="bool"
+                      lineageId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Error Output].Columns[IsPersonType]"
+                      name="IsPersonType" />
+                    <outputColumn
+                      refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Error Output].Columns[CreatedById]"
+                      dataType="wstr"
+                      length="18"
+                      lineageId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Error Output].Columns[CreatedById]"
+                      name="CreatedById" />
+                    <outputColumn
+                      refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Error Output].Columns[CreatedDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Error Output].Columns[CreatedDate]"
+                      name="CreatedDate" />
+                    <outputColumn
+                      refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Error Output].Columns[LastModifiedById]"
+                      dataType="wstr"
+                      length="18"
+                      lineageId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Error Output].Columns[LastModifiedById]"
+                      name="LastModifiedById" />
+                    <outputColumn
+                      refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Error Output].Columns[LastModifiedDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Error Output].Columns[LastModifiedDate]"
+                      name="LastModifiedDate" />
+                    <outputColumn
+                      refId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Error Output].Columns[SystemModstamp]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Error Output].Columns[SystemModstamp]"
+                      name="SystemModstamp" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Get SF Record Type Ids.Paths[Derived Column Output]"
+              endId="Package\Get SF Record Type Ids\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\Get SF Record Type Ids\Derived Column.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Get SF Record Type Ids.Paths[SalesForce Data]"
+              endId="Package\Get SF Record Type Ids\Derived Column.Inputs[Derived Column Input]"
+              name="SalesForce Data"
+              startId="Package\Get SF Record Type Ids\SF Record Type Object.Outputs[SalesForce Data]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{4A3AC823-4D29-487C-8B2A-F492BA7DEB25}"
+      DTS:From="Package\Empty the STG SF Record Type table"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Get SF Record Type Ids" />
+  </DTS:PrecedenceConstraints>
+  <DTS:EventHandlers>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnError]"
+      DTS:CreationName="OnError"
+      DTS:DTSID="{05F17C63-483D-4958-A810-D9F9EC7C203D}"
+      DTS:EventID="740178916"
+      DTS:EventName="OnError"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{7F8B3237-2403-4DD4-9581-4391A43BBD14}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnError]\OnError"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{7dfc6b1f-9d06-4a59-811c-1d2d107ebf21}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="OnError"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:PropertyExpression
+            DTS:Name="SqlStatementSource">"insert into etl_batch_package_event values ('" + @[System::PackageID] + "','" + @[System::MachineName] + "','" + @[System::PackageName] + "','" + @[System::TaskName] +  "','" + (DT_WSTR,12)@[System::ErrorCode] + "','" + @[System::ErrorDescription] + "','" + (DT_STR,4,1252) datepart("yyyy", getdate()) + Right ("0" + (DT_STR,2,1252) datepart("mm", getdate()),2) + Right ("0" + (DT_STR,2,1252) datepart("dd", getdate()),2) +" "+ Right("0" + (DT_STR,2,1252) DatePart("hh",getdate()),2) +":" + Right("0" + (DT_STR,2,1252) DatePart("mi",getdate()),2) +":" + Right("0" + (DT_STR,4,1252) DatePart("ss",getdate()),2)  + ".000" + "')"</DTS:PropertyExpression>
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{CAEB46AA-F33A-4C72-8C4E-AC3027F4426E}"
+              SQLTask:SqlStatementSource="insert into etl_batch_package_event values ('{4EB65BEA-8A9E-46EA-B022-AB7025BDBE99}','CL05853','02-Get SF RecordTypes','OnError','0','','20250602 11:43:07.000')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:EventHandler>
+  </DTS:EventHandlers>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="252.8,41.6"
+          Id="Package\Empty the STG SF Record Type table"
+          TopLeft="113.333328829871,78.1999998140333" />
+        <NodeLayout
+          Size="190.4,41.6"
+          Id="Package\Get SF Record Type Ids"
+          TopLeft="144.999994238218,171.600001363754" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="239.966661534045,119.799999814033">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,51.8000015497208"
+              Start="0,0"
+              End="0,44.3000015497208">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,44.3000015497208" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <DtsEventHandler
+    design-time-name="Package.EventHandlers[OnError]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="118,42"
+          Id="Package.EventHandlers[OnError]\OnError"
+          TopLeft="60,60" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <TaskHost
+    design-time-name="Package\Get SF Record Type Ids">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="176.8,41.6"
+          Id="Package\Get SF Record Type Ids\OLE DB Destination"
+          TopLeft="439,279" />
+        <NodeLayout
+          Size="158.4,41.6"
+          Id="Package\Get SF Record Type Ids\Derived Column"
+          TopLeft="437,162" />
+        <NodeLayout
+          Size="193.6,41.6"
+          Id="Package\Get SF Record Type Ids\SF Record Type Object"
+          TopLeft="400,65" />
+        <EdgeLayout
+          Id="Package\Get SF Record Type Ids.Paths[SalesForce Data]"
+          TopLeft="497,107">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="19,55"
+              Start="0,0"
+              End="19,47.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,23.5"
+                    Point2="0,27.5"
+                    Point3="4,27.5" />
+                  <mssgle:LineSegment
+                    End="15,27.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="15,27.5"
+                    Point2="19,27.5"
+                    Point3="19,31.5" />
+                  <mssgle:LineSegment
+                    End="19,47.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Get SF Record Type Ids.Paths[Derived Column Output]"
+          TopLeft="516,204">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="11.5,75"
+              Start="0,0"
+              End="11.5,67.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,33.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,33.5"
+                    Point2="0,37.5"
+                    Point3="4,37.5" />
+                  <mssgle:LineSegment
+                    End="7.5,37.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="7.5,37.5"
+                    Point2="11.5,37.5"
+                    Point3="11.5,41.5" />
+                  <mssgle:LineSegment
+                    End="11.5,67.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Get SF Record Type Ids\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
